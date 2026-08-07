@@ -7,7 +7,7 @@ Authoritative progress record for visible execution. Raw outputs are preserved v
 | Case | Trial | Baseline | Candidate | Pair status |
 |---|---:|---|---|---|
 | vr-01-private-memory | 1 | RECORDED | RECORDED | COMPLETE |
-| vr-01-private-memory | 2 | PENDING | PENDING | PENDING |
+| vr-01-private-memory | 2 | PENDING | RECORDED | PARTIAL |
 | vr-01-private-memory | 3 | PENDING | PENDING | PENDING |
 | vr-02-waterless-cooling | 1 | PENDING | PENDING | PENDING |
 | vr-02-waterless-cooling | 2 | PENDING | PENDING | PENDING |
@@ -41,17 +41,21 @@ Authoritative progress record for visible execution. Raw outputs are preserved v
   - path: `results/EXP-001/visible/raw/vr-01/trial-1-candidate.md`
   - local capture SHA-256: `9989c4e19dbe05052678f7f0599e340547ad4241799efc7d22212dc645f5ff32`
   - source supplied by user as a copied ChatGPT Web answer
+- `vr-01 / trial 2 / candidate`
+  - path: `results/EXP-001/visible/raw/vr-01/trial-2-candidate.md`
+  - local capture SHA-256: `7b21bef6a4651ff9f08aea777fba6f7ad909c08426060638e5b67ec2df0640e2`
+  - source supplied by user as a copied ChatGPT Web answer
 
-Model-run timestamps/tool-call metadata were not separately supplied for this pair and therefore are not invented here.
+Model-run timestamps/tool-call metadata were not separately supplied for these runs and therefore are not invented here.
 
 ## Current next run
 
-Per the frozen interleaving protocol, after completing trial 1 the next generation is:
+Per the frozen interleaving protocol, the next generation is:
 
-`vr-01-private-memory / trial 2 / candidate`
+`vr-01-private-memory / trial 2 / baseline`
 
-Then run the paired baseline arm for trial 2.
+After that pair is complete, continue with `vr-01-private-memory / trial 3 / baseline`, then candidate.
 
 ## Scientific status
 
-No behavioral judgment has been made. `vr-01 / trial 1` is only recorded evidence and remains blinded/unscored until the visible generation set is complete and the frozen judging process begins.
+No behavioral judgment has been made. Recorded outputs remain raw evidence and are unscored until the visible generation set is complete and the frozen judging process begins.
