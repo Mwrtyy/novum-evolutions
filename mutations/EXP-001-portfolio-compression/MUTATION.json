@@ -1,0 +1,96 @@
+{
+  "candidate": {
+    "overlay_target": "SKILL.md",
+    "path": "mutations/EXP-001-portfolio-compression/candidate-SKILL.md",
+    "sha256": "ad61ff084f482d9e06b3398970be565bdd5d7d29c132b1a3dfd0c45bd88a4688",
+    "unchanged_support_files": "accepted NOVUM 2.0.0 package"
+  },
+  "conceptual_variable": "Standard-mode portfolio breadth/depth allocation",
+  "conceptual_variable_count": 1,
+  "diff_metrics": {
+    "added_lines": 3,
+    "added_nonblank_lines": 2,
+    "baseline_bytes": 14804,
+    "baseline_estimated_tokens_len_div_4": 3676,
+    "baseline_lines": 339,
+    "baseline_words": 2048,
+    "candidate_bytes": 15212,
+    "candidate_estimated_tokens_len_div_4": 3778,
+    "candidate_lines": 341,
+    "candidate_words": 2099,
+    "diff_hunks": 1,
+    "net_bytes": 408,
+    "net_estimated_tokens": 102,
+    "net_words": 51,
+    "package_files_semantically_changed": 1,
+    "removed_lines": 1
+  },
+  "execution_artifacts": {
+    "ISOLATION_REVIEW.md": {
+      "bytes": 2630,
+      "sha256": "8b6c569914e5e7401151028c8f8c13552670e3413134dc03fad713b2e19a4ce5"
+    },
+    "MUTATION_PLAN.md": {
+      "bytes": 2787,
+      "sha256": "3c8f4d46381cf96893edd3dcd02babfbef9ecd51f1cad99c0337e725f988b615"
+    },
+    "SKILL.patch": {
+      "bytes": 1295,
+      "sha256": "6aaf69144c858317037f76676bc39327f8513d3cdf1de90bfefd70cfc3cb7a78"
+    },
+    "baseline-SKILL.md": {
+      "bytes": 14804,
+      "sha256": "1d6dea7cdb5343aad114ad48fa9f010ea88bd8bf1ccb6c45059f88e1bfa4c4a6"
+    },
+    "candidate-SKILL.md": {
+      "bytes": 15212,
+      "sha256": "ad61ff084f482d9e06b3398970be565bdd5d7d29c132b1a3dfd0c45bd88a4688"
+    },
+    "evaluation/BLIND_JUDGING_PACKET.md": {
+      "bytes": 1757,
+      "sha256": "babae4b92adfa8a7181ebf4f5b9885de85adc25f4631b42c75de6d0e391d8cf0"
+    },
+    "execution/BASELINE_PACKET.md": {
+      "bytes": 1187,
+      "sha256": "b96d227b8e9ce43c1d69638d4f715cb36cd7c6b5c0a64fd82ff1580e4307acae"
+    },
+    "execution/CANDIDATE_PACKET.md": {
+      "bytes": 1188,
+      "sha256": "8f591fc35cb0eb39df912e91e35d1e6b0a75bf25bcc5bb048d508ed53a9bfb76"
+    },
+    "execution/GENERATION_PROTOCOL.md": {
+      "bytes": 3537,
+      "sha256": "b1da2dd8c13c33f193383e9dd4eb3b3c730c9cf8f83fad60a9e61930489ee987"
+    }
+  },
+  "experiment_id": "EXP-001",
+  "frozen_inputs": {
+    "base_judging_protocol_git_blob_sha": "fdb702095cd3f4f5c8a4e621da2fa602c5bc4cc5",
+    "base_judging_protocol_sha256": "3e837d541822210800b5e2c9e72de09e1dc863312de943aa6974d13fbe3549ee",
+    "visible_cases_git_blob_sha": "6cc553ae6143a40129f77171607df94aeb1543ab",
+    "visible_cases_sha256": "ce1386b05fcba13962d9213b42230ee10e3fb3e7e0401122d003f9d27afe580e"
+  },
+  "parent": {
+    "archive_git_blob_sha": "66c87b983d126d0c1a21bae17e83b6a30a17a770",
+    "archive_sha256": "e38cd4e62439c5759bf99bf2fc72e165abf2876f75396c170f445d6a3c529dda",
+    "archive_size_bytes": 44090,
+    "skill_sha256": "1d6dea7cdb5343aad114ad48fa9f010ea88bd8bf1ccb6c45059f88e1bfa4c4a6",
+    "source_commit": "e591937931d2a04f2b308e23f2edca488bea9fcd",
+    "source_path": "NOVUM/accepted/novum-innovation-v2.0.0.zip",
+    "source_repository": "Mwrtyy/novum-innovation-lab",
+    "version": "2.0.0"
+  },
+  "schema_version": 1,
+  "status": "PREPARED_FOR_FREEZE_COMMIT",
+  "verification": {
+    "baseline_archive_identity": "PASS",
+    "baseline_native_self_tests": "PASS",
+    "baseline_native_validator": "PASS",
+    "behavioral_evidence": "NOT_RUN",
+    "candidate_overlay_native_self_tests_with_temporary_manifest_refresh": "PASS",
+    "candidate_overlay_native_validator_with_temporary_manifest_refresh": "PASS",
+    "evolution_harness_repository_test": "PASS",
+    "evolution_harness_self_test": "PASS",
+    "visible_case_schema_validation": "PASS_8_CASES"
+  }
+}
