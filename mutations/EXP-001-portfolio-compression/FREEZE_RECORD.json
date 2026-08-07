@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "experiment_id": "EXP-001",
+  "status": "MUTATION_FROZEN_READY_FOR_VISIBLE_EXECUTION",
+  "freeze_commit": "a5fbd315401340486895384607b7ed92a33a05be",
+  "freeze_timestamp_utc": "2026-08-07T23:35:32Z",
+  "baseline": {
+    "version": "2.0.0",
+    "archive_sha256": "e38cd4e62439c5759bf99bf2fc72e165abf2876f75396c170f445d6a3c529dda",
+    "archive_git_blob_sha": "66c87b983d126d0c1a21bae17e83b6a30a17a770",
+    "skill_sha256": "1d6dea7cdb5343aad114ad48fa9f010ea88bd8bf1ccb6c45059f88e1bfa4c4a6"
+  },
+  "candidate": {
+    "path": "mutations/EXP-001-portfolio-compression/candidate-SKILL.md",
+    "sha256": "ad61ff084f482d9e06b3398970be565bdd5d7d29c132b1a3dfd0c45bd88a4688"
+  },
+  "evaluation": {
+    "base_judging_protocol_sha256": "3e837d541822210800b5e2c9e72de09e1dc863312de943aa6974d13fbe3549ee",
+    "blind_judging_packet_sha256": "babae4b92adfa8a7181ebf4f5b9885de85adc25f4631b42c75de6d0e391d8cf0",
+    "blind_judging_packet_path": "mutations/EXP-001-portfolio-compression/evaluation/BLIND_JUDGING_PACKET.md",
+    "independence_claim": "NONE_YET_RECORD_ACTUAL_EVALUATORS_AT_EXECUTION"
+  },
+  "execution_packets": {
+    "generation_protocol": {
+      "path": "mutations/EXP-001-portfolio-compression/execution/GENERATION_PROTOCOL.md",
+      "sha256": "b1da2dd8c13c33f193383e9dd4eb3b3c730c9cf8f83fad60a9e61930489ee987"
+    },
+    "baseline": {
+      "path": "mutations/EXP-001-portfolio-compression/execution/BASELINE_PACKET.md",
+      "sha256": "b96d227b8e9ce43c1d69638d4f715cb36cd7c6b5c0a64fd82ff1580e4307acae"
+    },
+    "candidate": {
+      "path": "mutations/EXP-001-portfolio-compression/execution/CANDIDATE_PACKET.md",
+      "sha256": "8f591fc35cb0eb39df912e91e35d1e6b0a75bf25bcc5bb048d508ed53a9bfb76"
+    }
+  },
+  "visible_regression": {
+    "cases_sha256": "ce1386b05fcba13962d9213b42230ee10e3fb3e7e0401122d003f9d27afe580e",
+    "case_count": 8,
+    "trials_per_case_per_arm": 3
+  },
+  "verification": {
+    "baseline_identity": "PASS",
+    "evolution_harness_self_test": "PASS",
+    "visible_case_schema_validation": "PASS",
+    "evolution_harness_repository_test": "PASS",
+    "candidate_native_static_compatibility": "PASS_WITH_TEMPORARY_MANIFEST_HASH_REFRESH_ONLY"
+  },
+  "hidden_holdout": "NOT_GENERATED_NOT_SELECTED_NOT_EXPOSED",
+  "behavioral_evidence": "NOT_RUN",
+  "freeze_rule": "Candidate skill, common generation protocol, arm packets, and blind judging packet may not change during EXP-001. Any change requires a new experiment/version."
+}
