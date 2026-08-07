@@ -1,0 +1,15 @@
+--- baseline-SKILL.md	2026-08-07 23:28:05.560830934 +0000
++++ candidate-SKILL.md	2026-08-07 23:28:18.152562671 +0000
+@@ -40,9 +40,11 @@
+ | Mode | Candidate target | Search depth | Evolution | Red-team |
+ |---|---:|---|---|---|
+ | **Sprint** | 4–6 | compact frontier check | one mutation | one pass |
+-| **Standard** | 8–14 | multi-query prior-art scan | two evolution rounds | two passes |
++| **Standard** | exactly 4 | multi-query prior-art scan | two evolution rounds | two passes |
+ | **Deep** | 16–30 | broad literature/product/patent/repository map | lineage-preserving search | three or more passes |
+ 
++In Standard mode, stop at exactly four mechanically distinct initial candidates and spend the generation/research budget that would have gone to candidates 5–14 deepening those four through the existing baseline comparison, mechanism-level collision/prior-art, anti-fake-novelty, red-team, simpler-substitute, evolution, and falsification steps; do not add mechanisms or increase the total run budget.
++
+ Default to **Standard**. Escalate to **Deep** for scientific novelty, patent-sensitive work, large investment decisions, “never made” claims, major safety implications, or explicit deep research. Downgrade only when the user primarily needs speed.
+ 
+ ## Working state
