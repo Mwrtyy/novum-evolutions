@@ -2,7 +2,7 @@
 
 NOVUM Evolution Lab is a behavioral capability research repository for discovering—not designing—what should eventually become NOVUM 3.
 
-The accepted behavioral baseline is **NOVUM Innovation 2.0.0**, preserved byte-for-byte under `baseline/novum-2.0.0/`. Historical candidates are evidence only. No NOVUM 3 candidate is accepted or implied by this repository.
+The accepted behavioral baseline is **NOVUM Innovation 2.0.0**, anchored by an immutable commit-pinned source reference under `baseline/novum-2.0.0/`. Historical candidates are evidence only. No NOVUM 3 candidate is accepted or implied by this repository.
 
 ## Mission
 
@@ -20,6 +20,7 @@ Adding process is not progress. Structural compliance is not capability. Visible
 
 - Accepted baseline: `2.0.0`
 - Accepted archive SHA-256: `e38cd4e62439c5759bf99bf2fc72e165abf2876f75396c170f445d6a3c529dda`
+- Accepted source Git blob: `66c87b983d126d0c1a21bae17e83b6a30a17a770`
 - Candidate.1: rejected at structural gate.
 - Candidate.2: not promoted; +0.91% weighted point estimate, 95% relative interval −0.67% to +2.34%, novelty regression −0.246 points.
 - Candidate.3: three targeted causal-collision differentials passed; full frozen behavioral campaign was not run; independent replication not demonstrated.
@@ -49,7 +50,7 @@ The harness is intentionally model-agnostic. Model execution can happen in ChatG
 
 ## Read order
 
-1. `FOUNDING_DIRECTIVE.md`
+1. `FOUNDING_DIRECTIVE.md` — operational index plus cryptographic identity of the full supplied directive
 2. `CONTEXT.md`
 3. `HISTORICAL_AUDIT.md`
 4. `AGENTS.md`

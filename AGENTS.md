@@ -6,7 +6,7 @@ Before substantial work, write down the exact uncertainty being reduced. Read `F
 
 ## Hard constraints
 
-1. `baseline/novum-2.0.0/novum-innovation-v2.0.0.zip` is immutable scientific evidence. Never rebuild it under the same identity.
+1. NOVUM Innovation 2.0.0 is immutable scientific evidence. Its authoritative identity is pinned in `baseline/novum-2.0.0/SOURCE_REFERENCE.json`; materialized bytes must match SHA-256 `e38cd4e62439c5759bf99bf2fc72e165abf2876f75396c170f445d6a3c529dda`.
 2. Do not draft NOVUM 3 or a broad replacement `SKILL.md` from intuition.
 3. Do not create a mutation without a reproducible behavioral failure and a falsifiable hypothesis.
 4. Change one important variable at a time when practical. Preserve exact parent/diff lineage.
@@ -42,8 +42,6 @@ The first active experiment is H1: portfolio compression. It deliberately does *
 python harness/evolution_harness.py self-test
 python harness/evolution_harness.py validate-cases benchmarks/visible-regression/cases.jsonl
 python harness/test_evolution_harness.py
-sha256sum baseline/novum-2.0.0/novum-innovation-v2.0.0.zip
 ```
 
-Expected baseline SHA-256:
-`e38cd4e62439c5759bf99bf2fc72e165abf2876f75396c170f445d6a3c529dda`
+Before a run materializes the baseline archive, verify it against `baseline/novum-2.0.0/SOURCE_REFERENCE.json`.

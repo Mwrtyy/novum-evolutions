@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "status": "immutable_commit_pinned_reference",
+  "repository": "Mwrtyy/novum-innovation-lab",
+  "commit": "e591937931d2a04f2b308e23f2edca488bea9fcd",
+  "path": "NOVUM/accepted/novum-innovation-v2.0.0.zip",
+  "git_blob_sha": "66c87b983d126d0c1a21bae17e83b6a30a17a770",
+  "sha256": "e38cd4e62439c5759bf99bf2fc72e165abf2876f75396c170f445d6a3c529dda",
+  "size_bytes": 44090,
+  "version": "2.0.0",
+  "role": "accepted_behavioral_baseline",
+  "note": "The baseline is referenced at an immutable source commit rather than copied through the connector. Verify the Git blob SHA and SHA-256 before any experiment that materializes the archive."
+}
