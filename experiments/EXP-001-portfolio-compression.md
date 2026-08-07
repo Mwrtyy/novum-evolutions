@@ -1,6 +1,6 @@
 # EXP-001 — Portfolio compression
 
-Status: `PLANNED`
+Status: `MUTATION_FROZEN_READY_FOR_VISIBLE_EXECUTION`
 
 ## Exact uncertainty
 
@@ -33,7 +33,15 @@ Do **not** add new causal schemas, validators, scores, roles, or metadata.
 
 - parent: immutable NOVUM Innovation `2.0.0`
 - parent SHA-256: `e38cd4e62439c5759bf99bf2fc72e165abf2876f75396c170f445d6a3c529dda`
-- mutation artifact: not yet created
+- mutation artifact: `mutations/EXP-001-portfolio-compression/candidate-SKILL.md`
+- baseline skill SHA-256: `1d6dea7cdb5343aad114ad48fa9f010ea88bd8bf1ccb6c45059f88e1bfa4c4a6`
+- candidate skill SHA-256: `ad61ff084f482d9e06b3398970be565bdd5d7d29c132b1a3dfd0c45bd88a4688`
+- freeze commit: `a5fbd315401340486895384607b7ed92a33a05be`
+- freeze timestamp UTC: `2026-08-07T23:35:32Z`
+- exact diff: `mutations/EXP-001-portfolio-compression/SKILL.patch`
+- freeze record: `mutations/EXP-001-portfolio-compression/FREEZE_RECORD.json`
+
+The frozen runtime change is one conceptual variable: Standard initial portfolio breadth/depth allocation. The candidate produces exactly four initial candidates and reallocates the saved candidate-generation/research effort across NOVUM 2.0 mechanisms that already existed. No other runtime mechanism was intentionally changed.
 
 ## Pre-result prediction
 
@@ -69,5 +77,18 @@ Secondary:
 - evidence calibration;
 - output words/tokens;
 - evaluator disagreement.
+
+## Frozen execution preparation
+
+- generation protocol: `mutations/EXP-001-portfolio-compression/execution/GENERATION_PROTOCOL.md`
+- baseline packet: `mutations/EXP-001-portfolio-compression/execution/BASELINE_PACKET.md`
+- candidate packet: `mutations/EXP-001-portfolio-compression/execution/CANDIDATE_PACKET.md`
+- blind evaluator packet: `mutations/EXP-001-portfolio-compression/evaluation/BLIND_JUDGING_PACKET.md`
+- visible cases: 8 validated cases, 3 trials per case per arm
+- harness self-test: `PASS`
+- visible-case schema validation: `PASS`
+- repository-native harness test: `PASS`
+- hidden holdout: `NOT_GENERATED_NOT_SELECTED_NOT_EXPOSED`
+- behavioral evidence: `NOT_RUN`
 
 No result exists yet. Do not treat this file as evidence for H1a.
