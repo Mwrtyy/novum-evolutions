@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "purpose": "Generate or select post-freeze holdout problems without storing exact holdout prompts before candidate freeze.",
+  "dimensions": {
+    "domain": ["software", "physical_system", "operations", "scientific_method", "economic_system", "product_strategy", "public_service"],
+    "baseline_maturity": ["weak", "moderate", "strong"],
+    "evidence_availability": ["sparse", "mixed", "rich"],
+    "regulatory_burden": ["low", "medium", "high"],
+    "resource_constraint": ["tight", "moderate", "loose"],
+    "deception_mode": ["none", "fake_ai_opportunity", "hidden_prior_art", "obvious_simpler_substitute", "impossible_premise", "buzzword_bundling"],
+    "primary_reasoning_need": ["measurement", "control", "mechanism", "adoption", "causal_ablation", "prior_art", "problem_reframe"],
+    "novelty_feasibility_tension": ["low", "medium", "high"]
+  },
+  "rule": "Instantiate only after candidate freeze; store exact generated tasks and seed outside candidate-development context until execution."
+}
