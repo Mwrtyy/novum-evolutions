@@ -1,0 +1,31 @@
+name: Build EXP-001 blind judging packets
+
+on:
+  push:
+    paths:
+      - 'scripts/build_blind_judging_packets.py'
+      - 'results/EXP-001/visible/raw/**'
+      - 'benchmarks/visible-regression/cases.jsonl'
+      - '.github/workflows/build-blind-judging.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build blind judging packets
+        run: python scripts/build_blind_judging_packets.py
+      - name: Commit packets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/EXP-001/visible/blind
+          if ! git diff --cached --quiet; then
+            git commit -m "Build EXP-001 blind judging packets"
+            git push
+          fi
