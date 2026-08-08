@@ -1,6 +1,6 @@
 # EXP-001 Visible Run Ledger
 
-Authoritative progress record for visible execution. Raw outputs are preserved verbatim under `raw/` and must not be judged before blinding.
+Authoritative progress record for visible execution. Raw outputs are preserved under `raw/` and must not be judged before blinding.
 
 ## Progress
 
@@ -9,9 +9,9 @@ Authoritative progress record for visible execution. Raw outputs are preserved v
 | vr-01-private-memory | 1 | RECORDED | RECORDED | COMPLETE |
 | vr-01-private-memory | 2 | RECORDED | RECORDED | COMPLETE |
 | vr-01-private-memory | 3 | PENDING | PENDING | PENDING |
-| vr-02-waterless-cooling | 1 | PENDING | PENDING | PENDING |
-| vr-02-waterless-cooling | 2 | PENDING | PENDING | PENDING |
-| vr-02-waterless-cooling | 3 | PENDING | PENDING | PENDING |
+| vr-02-waterless-cooling | 1 | RECORDED | RECORDED | COMPLETE |
+| vr-02-waterless-cooling | 2 | RECORDED | RECORDED | COMPLETE |
+| vr-02-waterless-cooling | 3 | RECORDED | RECORDED | COMPLETE |
 | vr-03-false-novelty | 1 | PENDING | PENDING | PENDING |
 | vr-03-false-novelty | 2 | PENDING | PENDING | PENDING |
 | vr-03-false-novelty | 3 | PENDING | PENDING | PENDING |
@@ -50,15 +50,42 @@ Authoritative progress record for visible execution. Raw outputs are preserved v
   - local capture SHA-256: `461512f9fdcf895f2c3bc5bc81795e6566e82e86803f29cde03243d3a2703f9a`
   - source supplied by user as a copied ChatGPT Web answer
 
+### vr-02 batch
+
+- `vr-02 / trial 1 / baseline`
+  - path: `results/EXP-001/visible/raw/vr-02/trial-1-baseline.md`
+  - source upload: `vr02-t1-baseline.md`
+- `vr-02 / trial 1 / candidate`
+  - path: `results/EXP-001/visible/raw/vr-02/trial-1-candidate.md`
+  - source upload: `vr02-t1-candidate.md`
+- `vr-02 / trial 2 / baseline`
+  - path: `results/EXP-001/visible/raw/vr-02/trial-2-baseline.md`
+  - source upload: `vr02-t2-baseline.md`
+- `vr-02 / trial 2 / candidate`
+  - path: `results/EXP-001/visible/raw/vr-02/trial-2-candidate.md`
+  - source upload: `vr02-t2-candidate.md`
+- `vr-02 / trial 3 / baseline`
+  - path: `results/EXP-001/visible/raw/vr-02/trial-3-baseline.md`
+  - source upload: `vr02-t3-baseline.md`
+- `vr-02 / trial 3 / candidate`
+  - path: `results/EXP-001/visible/raw/vr-02/trial-3-candidate.md`
+  - source upload: `vr02-t3-candidate.md`
+
 Model-run timestamps/tool-call metadata were not separately supplied for these runs and therefore are not invented here.
+
+## Execution note for vr-02
+
+The six vr-02 outputs were supplied as one parallel batch: three baseline and three candidate runs. The intended isolation was separate ChatGPT runs, but exact launch timestamps and temporal odd/even interleaving order were not supplied. This is recorded as an execution-order deviation rather than silently treating the batch as sequential. No result-based adaptation occurred in this ledger update.
 
 ## Current next run
 
-Per the frozen interleaving protocol, the next generation is:
+The earliest incomplete frozen-protocol slot is:
 
 `vr-01-private-memory / trial 3 / baseline`
 
-Then run the paired candidate arm for trial 3.
+Then run `vr-01-private-memory / trial 3 / candidate`.
+
+After vr-01 is complete, continue with the three baseline/candidate pairs for `vr-03-false-novelty`.
 
 ## Scientific status
 
