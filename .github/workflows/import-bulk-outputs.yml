@@ -1,0 +1,29 @@
+name: Import EXP-001 bulk outputs
+
+on:
+  push:
+    paths:
+      - 'scripts/import_bulk_outputs.py'
+      - 'bulk md all answer'
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Import bulk outputs
+        run: python scripts/import_bulk_outputs.py
+      - name: Commit imported evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/EXP-001/visible
+          if ! git diff --cached --quiet; then
+            git commit -m "Import EXP-001 bulk outputs [bulk-import]"
+            git push
+          fi
