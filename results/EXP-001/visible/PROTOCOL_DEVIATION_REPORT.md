@@ -1,4 +1,7 @@
-# EXP-001 Bulk Import Report
+# EXP-001 Protocol Deviation Report
+
+The second bulk batch used near-equivalent reformulations rather than the exact frozen prompts for vr-05 through vr-08.
+These outputs are preserved for auxiliary analysis but are excluded from the canonical 48-run visible set.
 
 Source SHA-256: `4046c780a5685e48783cdb67417664026302e2450eaac089edc77f6e6e66f0bf`
 
@@ -29,29 +32,6 @@ Source SHA-256: `4046c780a5685e48783cdb67417664026302e2450eaac089edc77f6e6e66f0b
 | 23 | vr-08-offline-clinic | candidate | 2 | deviation_imported | `9a2c961564c4bd7c4f5a1666217c0179cb44001b5155e4d220837d23a5288c6a` |
 | 24 | vr-08-offline-clinic | candidate | 3 | deviation_imported | `c2e0dfb260e19ba2e89615c699f8f5349d4b27dcd8415ce5d583e9634bf1c126` |
 
-## Missing canonical slots
+## Canonical prompt rule
 
-- `vr-05-simplify-not-invent / trial 1 / baseline`
-- `vr-05-simplify-not-invent / trial 1 / candidate`
-- `vr-05-simplify-not-invent / trial 2 / baseline`
-- `vr-05-simplify-not-invent / trial 2 / candidate`
-- `vr-05-simplify-not-invent / trial 3 / baseline`
-- `vr-05-simplify-not-invent / trial 3 / candidate`
-- `vr-06-impossible-premise / trial 1 / baseline`
-- `vr-06-impossible-premise / trial 1 / candidate`
-- `vr-06-impossible-premise / trial 2 / baseline`
-- `vr-06-impossible-premise / trial 2 / candidate`
-- `vr-06-impossible-premise / trial 3 / baseline`
-- `vr-06-impossible-premise / trial 3 / candidate`
-- `vr-07-ai-wrapper-trap / trial 1 / baseline`
-- `vr-07-ai-wrapper-trap / trial 1 / candidate`
-- `vr-07-ai-wrapper-trap / trial 2 / baseline`
-- `vr-07-ai-wrapper-trap / trial 2 / candidate`
-- `vr-07-ai-wrapper-trap / trial 3 / baseline`
-- `vr-07-ai-wrapper-trap / trial 3 / candidate`
-- `vr-08-offline-clinic / trial 1 / baseline`
-- `vr-08-offline-clinic / trial 1 / candidate`
-- `vr-08-offline-clinic / trial 2 / baseline`
-- `vr-08-offline-clinic / trial 2 / candidate`
-- `vr-08-offline-clinic / trial 3 / baseline`
-- `vr-08-offline-clinic / trial 3 / candidate`
+Only exact prompt strings from `benchmarks/visible-regression/cases.jsonl` count toward canonical completion.

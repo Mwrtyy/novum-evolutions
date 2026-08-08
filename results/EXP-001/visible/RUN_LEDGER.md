@@ -1,6 +1,6 @@
 # EXP-001 Visible Run Ledger
 
-Authoritative progress record for visible execution. Raw outputs are preserved under `raw/` and remain unjudged until blinding.
+Authoritative progress record for visible execution. Only exact frozen prompts satisfy canonical slots. Raw outputs remain unjudged until blinding.
 
 ## Progress
 
@@ -33,12 +33,14 @@ Authoritative progress record for visible execution. Raw outputs are preserved u
 
 ## Latest bulk import
 
-- source SHA-256: `0b58e4678c3d62a3205cc9d3fe4375dfa7bc71174eee799f478ffc3925980fd1`
-- parsed runs: 14
-- newly imported: 13
-- matched existing: 1
+- source SHA-256: `4046c780a5685e48783cdb67417664026302e2450eaac089edc77f6e6e66f0bf`
+- parsed runs: 24
+- canonical newly imported: 0
+- canonical matched existing: 0
+- near-equivalent prompt deviations preserved separately: 24
 - extra/unassigned: 0
-- parallel-run ordering is recorded as unavailable; trial assignment for unmatched outputs follows source appearance within each arm.
+- near-equivalent prompt deviations do not satisfy frozen canonical slots.
+- parallel-run ordering is unavailable; trial assignment within each arm follows source appearance.
 - no scoring or behavioral judgment was performed.
 
 ## Current next run
@@ -47,4 +49,4 @@ Authoritative progress record for visible execution. Raw outputs are preserved u
 
 ## Scientific status
 
-Generation evidence only. Judging remains deferred until the visible set is complete and blinded.
+Generation evidence only. Judging remains deferred until the canonical visible set is complete and blinded.
