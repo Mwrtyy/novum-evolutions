@@ -1,0 +1,86 @@
+name: EXP-001 Copilot judge smoke test
+
+on:
+  push:
+    paths:
+      - '.github/workflows/copilot-judge-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  copilot-requests: write
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+
+      - name: Install current Copilot CLI
+        run: npm install -g @github/copilot
+
+      - name: Judge one blinded pair with GPT-5.4
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          PROMPT_FILE='results/EXP-001/visible/blind/judge-prompts/vr-01-t1-hostile_regression.md'
+          mkdir -p results/EXP-001/visible/copilot-smoke
+          copilot \
+            -p "$(cat "$PROMPT_FILE")" \
+            -s \
+            --model=gpt-5.4 \
+            --no-ask-user \
+            --no-custom-instructions \
+            --no-remote \
+            --no-remote-export \
+            --stream=off \
+            > results/EXP-001/visible/copilot-smoke/raw.txt
+
+      - name: Validate returned judgment JSON
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, re
+          p = Path('results/EXP-001/visible/copilot-smoke/raw.txt')
+          text = p.read_text(encoding='utf-8').strip()
+          text = re.sub(r'^```(?:json)?\s*', '', text)
+          text = re.sub(r'\s*```$', '', text)
+          if not text.startswith('{'):
+              a, b = text.find('{'), text.rfind('}')
+              if a < 0 or b <= a:
+                  raise SystemExit('No JSON object returned by Copilot CLI')
+              text = text[a:b+1]
+          obj = json.loads(text)
+          dims = ['mechanism_novelty','mechanistic_depth','constraint_fit','usefulness','evidence_calibration','falsifiability','prior_art_awareness','simpler_substitute_discipline','clarity']
+          assert obj['pair_id'] == 'vr-01-t1'
+          assert obj['evaluator_id'] == 'vr-01-t1-hostile_regression'
+          assert obj['evaluator_role'] == 'hostile_regression'
+          assert obj['preference'] in ('A','B','tie')
+          for arm in ('A','B'):
+              for dim in dims:
+                  v = float(obj['scores'][arm][dim])
+                  assert 0 <= v <= 10
+          obj['judge_provider'] = 'github_copilot_cli'
+          obj['judge_model'] = 'gpt-5.4'
+          obj['smoke_test_only'] = True
+          Path('results/EXP-001/visible/copilot-smoke/validated.json').write_text(json.dumps(obj, indent=2, ensure_ascii=False)+'\n', encoding='utf-8')
+          print('COPILOT_SMOKE_PASS')
+          PY
+
+      - name: Commit smoke-test evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/EXP-001/visible/copilot-smoke
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record EXP-001 Copilot judge smoke test'
+            git push
+          fi
