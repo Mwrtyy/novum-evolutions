@@ -4,7 +4,9 @@ on:
   push:
     paths:
       - 'scripts/import_bulk_outputs.py'
+      - 'scripts/adopt_exp001_deviations.py'
       - 'bulk md all answer'
+      - '.github/workflows/import-bulk-outputs.yml'
 
 permissions:
   contents: write
@@ -18,6 +20,8 @@ jobs:
           fetch-depth: 0
       - name: Import bulk outputs
         run: python scripts/import_bulk_outputs.py
+      - name: Apply adopted protocol deviation
+        run: python scripts/adopt_exp001_deviations.py
       - name: Commit imported evidence
         run: |
           git config user.name "github-actions[bot]"
