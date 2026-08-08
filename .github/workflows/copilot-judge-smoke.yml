@@ -57,7 +57,7 @@ jobs:
               if a < 0 or b <= a:
                   raise SystemExit('No JSON object returned by Copilot CLI')
               text = text[a:b+1]
-          obj = json.loads(text)
+          obj = json.loads(text, strict=False)
           dims = ['mechanism_novelty','mechanistic_depth','constraint_fit','usefulness','evidence_calibration','falsifiability','prior_art_awareness','simpler_substitute_discipline','clarity']
           assert obj['pair_id'] == 'vr-01-t1'
           assert obj['evaluator_id'] == 'vr-01-t1-hostile_regression'
@@ -68,7 +68,7 @@ jobs:
                   v = float(obj['scores'][arm][dim])
                   assert 0 <= v <= 10
           obj['judge_provider'] = 'github_copilot_cli'
-          obj['judge_model'] = 'auto'
+          obj['judge_model_request'] = 'auto'
           obj['smoke_test_only'] = True
           Path('results/EXP-001/visible/copilot-smoke/validated.json').write_text(json.dumps(obj, indent=2, ensure_ascii=False)+'\n', encoding='utf-8')
           print('COPILOT_SMOKE_PASS')
