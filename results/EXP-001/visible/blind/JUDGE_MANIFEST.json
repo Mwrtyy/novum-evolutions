@@ -1,0 +1,578 @@
+[
+  {
+    "judge_id": "vr-01-t1-hostile_regression",
+    "pair_id": "vr-01-t1",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-01-t1-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-01-t1.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-01-t1-simplicity",
+    "pair_id": "vr-01-t1",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-01-t1-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-01-t1.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-01-t1-domain_or_generalist",
+    "pair_id": "vr-01-t1",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-01-t1-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-01-t1.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-01-t2-hostile_regression",
+    "pair_id": "vr-01-t2",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-01-t2-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-01-t2.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-01-t2-simplicity",
+    "pair_id": "vr-01-t2",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-01-t2-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-01-t2.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-01-t2-domain_or_generalist",
+    "pair_id": "vr-01-t2",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-01-t2-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-01-t2.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-01-t3-hostile_regression",
+    "pair_id": "vr-01-t3",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-01-t3-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-01-t3.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-01-t3-simplicity",
+    "pair_id": "vr-01-t3",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-01-t3-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-01-t3.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-01-t3-domain_or_generalist",
+    "pair_id": "vr-01-t3",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-01-t3-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-01-t3.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-02-t1-hostile_regression",
+    "pair_id": "vr-02-t1",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-02-t1-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-02-t1.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-02-t1-simplicity",
+    "pair_id": "vr-02-t1",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-02-t1-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-02-t1.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-02-t1-domain_or_generalist",
+    "pair_id": "vr-02-t1",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-02-t1-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-02-t1.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-02-t2-hostile_regression",
+    "pair_id": "vr-02-t2",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-02-t2-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-02-t2.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-02-t2-simplicity",
+    "pair_id": "vr-02-t2",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-02-t2-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-02-t2.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-02-t2-domain_or_generalist",
+    "pair_id": "vr-02-t2",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-02-t2-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-02-t2.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-02-t3-hostile_regression",
+    "pair_id": "vr-02-t3",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-02-t3-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-02-t3.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-02-t3-simplicity",
+    "pair_id": "vr-02-t3",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-02-t3-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-02-t3.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-02-t3-domain_or_generalist",
+    "pair_id": "vr-02-t3",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-02-t3-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-02-t3.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-03-t1-hostile_regression",
+    "pair_id": "vr-03-t1",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-03-t1-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-03-t1.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-03-t1-simplicity",
+    "pair_id": "vr-03-t1",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-03-t1-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-03-t1.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-03-t1-domain_or_generalist",
+    "pair_id": "vr-03-t1",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-03-t1-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-03-t1.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-03-t2-hostile_regression",
+    "pair_id": "vr-03-t2",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-03-t2-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-03-t2.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-03-t2-simplicity",
+    "pair_id": "vr-03-t2",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-03-t2-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-03-t2.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-03-t2-domain_or_generalist",
+    "pair_id": "vr-03-t2",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-03-t2-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-03-t2.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-03-t3-hostile_regression",
+    "pair_id": "vr-03-t3",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-03-t3-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-03-t3.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-03-t3-simplicity",
+    "pair_id": "vr-03-t3",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-03-t3-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-03-t3.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-03-t3-domain_or_generalist",
+    "pair_id": "vr-03-t3",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-03-t3-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-03-t3.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-04-t1-hostile_regression",
+    "pair_id": "vr-04-t1",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-04-t1-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-04-t1.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-04-t1-simplicity",
+    "pair_id": "vr-04-t1",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-04-t1-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-04-t1.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-04-t1-domain_or_generalist",
+    "pair_id": "vr-04-t1",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-04-t1-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-04-t1.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-04-t2-hostile_regression",
+    "pair_id": "vr-04-t2",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-04-t2-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-04-t2.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-04-t2-simplicity",
+    "pair_id": "vr-04-t2",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-04-t2-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-04-t2.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-04-t2-domain_or_generalist",
+    "pair_id": "vr-04-t2",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-04-t2-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-04-t2.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-04-t3-hostile_regression",
+    "pair_id": "vr-04-t3",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-04-t3-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-04-t3.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-04-t3-simplicity",
+    "pair_id": "vr-04-t3",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-04-t3-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-04-t3.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-04-t3-domain_or_generalist",
+    "pair_id": "vr-04-t3",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-04-t3-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-04-t3.md",
+    "prompt_status": "FROZEN_EXACT"
+  },
+  {
+    "judge_id": "vr-05-t1-hostile_regression",
+    "pair_id": "vr-05-t1",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-05-t1-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-05-t1.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-05-t1-simplicity",
+    "pair_id": "vr-05-t1",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-05-t1-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-05-t1.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-05-t1-domain_or_generalist",
+    "pair_id": "vr-05-t1",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-05-t1-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-05-t1.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-05-t2-hostile_regression",
+    "pair_id": "vr-05-t2",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-05-t2-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-05-t2.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-05-t2-simplicity",
+    "pair_id": "vr-05-t2",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-05-t2-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-05-t2.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-05-t2-domain_or_generalist",
+    "pair_id": "vr-05-t2",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-05-t2-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-05-t2.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-05-t3-hostile_regression",
+    "pair_id": "vr-05-t3",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-05-t3-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-05-t3.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-05-t3-simplicity",
+    "pair_id": "vr-05-t3",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-05-t3-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-05-t3.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-05-t3-domain_or_generalist",
+    "pair_id": "vr-05-t3",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-05-t3-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-05-t3.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-06-t1-hostile_regression",
+    "pair_id": "vr-06-t1",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-06-t1-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-06-t1.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-06-t1-simplicity",
+    "pair_id": "vr-06-t1",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-06-t1-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-06-t1.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-06-t1-domain_or_generalist",
+    "pair_id": "vr-06-t1",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-06-t1-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-06-t1.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-06-t2-hostile_regression",
+    "pair_id": "vr-06-t2",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-06-t2-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-06-t2.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-06-t2-simplicity",
+    "pair_id": "vr-06-t2",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-06-t2-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-06-t2.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-06-t2-domain_or_generalist",
+    "pair_id": "vr-06-t2",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-06-t2-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-06-t2.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-06-t3-hostile_regression",
+    "pair_id": "vr-06-t3",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-06-t3-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-06-t3.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-06-t3-simplicity",
+    "pair_id": "vr-06-t3",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-06-t3-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-06-t3.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-06-t3-domain_or_generalist",
+    "pair_id": "vr-06-t3",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-06-t3-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-06-t3.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-07-t1-hostile_regression",
+    "pair_id": "vr-07-t1",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-07-t1-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-07-t1.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-07-t1-simplicity",
+    "pair_id": "vr-07-t1",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-07-t1-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-07-t1.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-07-t1-domain_or_generalist",
+    "pair_id": "vr-07-t1",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-07-t1-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-07-t1.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-07-t2-hostile_regression",
+    "pair_id": "vr-07-t2",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-07-t2-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-07-t2.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-07-t2-simplicity",
+    "pair_id": "vr-07-t2",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-07-t2-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-07-t2.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-07-t2-domain_or_generalist",
+    "pair_id": "vr-07-t2",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-07-t2-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-07-t2.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-07-t3-hostile_regression",
+    "pair_id": "vr-07-t3",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-07-t3-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-07-t3.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-07-t3-simplicity",
+    "pair_id": "vr-07-t3",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-07-t3-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-07-t3.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-07-t3-domain_or_generalist",
+    "pair_id": "vr-07-t3",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-07-t3-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-07-t3.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-08-t1-hostile_regression",
+    "pair_id": "vr-08-t1",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-08-t1-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-08-t1.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-08-t1-simplicity",
+    "pair_id": "vr-08-t1",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-08-t1-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-08-t1.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-08-t1-domain_or_generalist",
+    "pair_id": "vr-08-t1",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-08-t1-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-08-t1.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-08-t2-hostile_regression",
+    "pair_id": "vr-08-t2",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-08-t2-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-08-t2.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-08-t2-simplicity",
+    "pair_id": "vr-08-t2",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-08-t2-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-08-t2.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-08-t2-domain_or_generalist",
+    "pair_id": "vr-08-t2",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-08-t2-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-08-t2.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-08-t3-hostile_regression",
+    "pair_id": "vr-08-t3",
+    "role": "hostile_regression",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-08-t3-hostile_regression.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-08-t3.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-08-t3-simplicity",
+    "pair_id": "vr-08-t3",
+    "role": "simplicity",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-08-t3-simplicity.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-08-t3.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  },
+  {
+    "judge_id": "vr-08-t3-domain_or_generalist",
+    "pair_id": "vr-08-t3",
+    "role": "domain_or_generalist",
+    "prompt_path": "results/EXP-001/visible/blind/judge-prompts/vr-08-t3-domain_or_generalist.md",
+    "pair_path": "results/EXP-001/visible/blind/packets/vr-08-t3.md",
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT"
+  }
+]

@@ -1,0 +1,218 @@
+{
+  "vr-01-t1": {
+    "A": "baseline",
+    "B": "candidate",
+    "case_id": "vr-01-private-memory",
+    "trial": 1,
+    "prompt_status": "FROZEN_EXACT",
+    "baseline_sha256": "870efdb9b7df75608a4ae01ef72d18ea954b73ddbcfdd5ee647a537f0b19ea70",
+    "candidate_sha256": "7637fd2e0ea5b63c0dabba33fc9aca88159da0734e8451be56f8e95c834b07c4"
+  },
+  "vr-01-t2": {
+    "A": "baseline",
+    "B": "candidate",
+    "case_id": "vr-01-private-memory",
+    "trial": 2,
+    "prompt_status": "FROZEN_EXACT",
+    "baseline_sha256": "6595b8d1d17a932567d61498eae59f3541ba207c287866f60076851354e3bfb2",
+    "candidate_sha256": "83373ca1b735da3c302984e7ea41c98035b6ea653c71fbf07ca9e3a5e549b7dc"
+  },
+  "vr-01-t3": {
+    "A": "candidate",
+    "B": "baseline",
+    "case_id": "vr-01-private-memory",
+    "trial": 3,
+    "prompt_status": "FROZEN_EXACT",
+    "baseline_sha256": "0c9e671b220bb46b504cb2869bd5fb5d1489d8b3b38171645d7cc690c26dca0e",
+    "candidate_sha256": "2c7b0525709e6300618abe11295dbaab65164baaa2b00406762a885481c56e15"
+  },
+  "vr-02-t1": {
+    "A": "baseline",
+    "B": "candidate",
+    "case_id": "vr-02-waterless-cooling",
+    "trial": 1,
+    "prompt_status": "FROZEN_EXACT",
+    "baseline_sha256": "983f5fcfc674229b407edcc6c87b9f7a1b9ecbd0611c1d86cebb98088dbf5d37",
+    "candidate_sha256": "971a6f7bd5349a010df5e306b664a5c2b595778a397df2782bc2972255277407"
+  },
+  "vr-02-t2": {
+    "A": "baseline",
+    "B": "candidate",
+    "case_id": "vr-02-waterless-cooling",
+    "trial": 2,
+    "prompt_status": "FROZEN_EXACT",
+    "baseline_sha256": "9d03dff8382660ff2a5285cdc982983526df07da63e9a8858ec95ea2e13313eb",
+    "candidate_sha256": "5ffcf4dd14437adba2339ce75954e5db0dd50d3bda789c37f6ef04fa49ee3561"
+  },
+  "vr-02-t3": {
+    "A": "candidate",
+    "B": "baseline",
+    "case_id": "vr-02-waterless-cooling",
+    "trial": 3,
+    "prompt_status": "FROZEN_EXACT",
+    "baseline_sha256": "3ba3d6dde26446ae3d55636f53c82fb2ffadc5621e18ff750f8f2975c3daa580",
+    "candidate_sha256": "185a58079d3bdaa6cae5ebdc61a4df3cf42ba3d33b31d0498719dcde8da1dbce"
+  },
+  "vr-03-t1": {
+    "A": "baseline",
+    "B": "candidate",
+    "case_id": "vr-03-false-novelty",
+    "trial": 1,
+    "prompt_status": "FROZEN_EXACT",
+    "baseline_sha256": "dc9973a764da83a7c0d4eb7b309213d1eb873d9435616be9a422c35777ef6e08",
+    "candidate_sha256": "265142c8ef96c606a24d1647b1db633fa6122da02c6ecdac6b771770fa47f643"
+  },
+  "vr-03-t2": {
+    "A": "candidate",
+    "B": "baseline",
+    "case_id": "vr-03-false-novelty",
+    "trial": 2,
+    "prompt_status": "FROZEN_EXACT",
+    "baseline_sha256": "cae1e461346f5bc4840c14bcd07cd28cb203c8467b06abd41949e1937b1a1cf4",
+    "candidate_sha256": "40b65a4fbf0dc56a95fc2c6b7cd7134b73c397c7a740e2cc3a1f28cd25882c6b"
+  },
+  "vr-03-t3": {
+    "A": "candidate",
+    "B": "baseline",
+    "case_id": "vr-03-false-novelty",
+    "trial": 3,
+    "prompt_status": "FROZEN_EXACT",
+    "baseline_sha256": "aeb5c687e635fc49428e5300378b7e35d38fab5a26d85260816b078fdd84f093",
+    "candidate_sha256": "f6a923f0d9a9c889261995f1c758a66f50cd62d0a128e4c4460d8a6e7dd1bd97"
+  },
+  "vr-04-t1": {
+    "A": "candidate",
+    "B": "baseline",
+    "case_id": "vr-04-battery-detection",
+    "trial": 1,
+    "prompt_status": "FROZEN_EXACT",
+    "baseline_sha256": "7e43e18a7537b4653e14930eb549a28d3b1fc693c6a4d134f0ea3cbb4ef92bc0",
+    "candidate_sha256": "75843386233ac1bb2b54205d6e84d7c5b0a82f542feb78949da238dd30656fda"
+  },
+  "vr-04-t2": {
+    "A": "candidate",
+    "B": "baseline",
+    "case_id": "vr-04-battery-detection",
+    "trial": 2,
+    "prompt_status": "FROZEN_EXACT",
+    "baseline_sha256": "82112a5f5541b9bbf9e6797f12f16ae6da218248ffc9dab3e8b961f19d9238ef",
+    "candidate_sha256": "abfe700aa45928c32b08da541658886ec647391db02c67fcd2cb066984c58fd7"
+  },
+  "vr-04-t3": {
+    "A": "baseline",
+    "B": "candidate",
+    "case_id": "vr-04-battery-detection",
+    "trial": 3,
+    "prompt_status": "FROZEN_EXACT",
+    "baseline_sha256": "460cbb459c79b4cc4e52b279eb75240ca84afca07c4bd278b1d623fce3d808f3",
+    "candidate_sha256": "a8ee760bfcc8e0cf0096498305eef72b9a5378ce6ede7f256bd65ecde9515413"
+  },
+  "vr-05-t1": {
+    "A": "baseline",
+    "B": "candidate",
+    "case_id": "vr-05-simplify-not-invent",
+    "trial": 1,
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT",
+    "baseline_sha256": "4e9fef44e130fdcbfa27014563c099f222c7c4ae879056097cd5c66a836ace06",
+    "candidate_sha256": "8ad3841bfdf843abfbc4c5b7f7255a75c03fe70a7ce1fb1ec1666fa328bd68c2"
+  },
+  "vr-05-t2": {
+    "A": "candidate",
+    "B": "baseline",
+    "case_id": "vr-05-simplify-not-invent",
+    "trial": 2,
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT",
+    "baseline_sha256": "965d61cea19c5225cebbdaa706642cc05092c2700c0f3e7198ccb7c2c76f4fde",
+    "candidate_sha256": "0fb6985d2f1f828c417734c3d5c71721550b2b088d36dceeb9f5d0026f2cb0f0"
+  },
+  "vr-05-t3": {
+    "A": "candidate",
+    "B": "baseline",
+    "case_id": "vr-05-simplify-not-invent",
+    "trial": 3,
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT",
+    "baseline_sha256": "f8ea59d15cab7a4f5b234d79fcdcbbca9afe3284f3db7a60d425d30f15e8216b",
+    "candidate_sha256": "38e72269d0bbc83e774ab9df741fb9dd10d2b44459607a3536994c22d0357834"
+  },
+  "vr-06-t1": {
+    "A": "baseline",
+    "B": "candidate",
+    "case_id": "vr-06-impossible-premise",
+    "trial": 1,
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT",
+    "baseline_sha256": "60b516bf01d927dc8faa212317c8040962fad7e696784bb4f9b2d8ab4c46b767",
+    "candidate_sha256": "d8f7280e5c40ccb6583ffb7dc49268df3bbb84befc6b541fb81b090c34435bb7"
+  },
+  "vr-06-t2": {
+    "A": "candidate",
+    "B": "baseline",
+    "case_id": "vr-06-impossible-premise",
+    "trial": 2,
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT",
+    "baseline_sha256": "2a66c649a213f9958576454e5e02933760c8702417da9bdf1b57263f7a6b3ace",
+    "candidate_sha256": "c04fc825a57a0640e6e47ecb964f2cc03ac58dad3441845361f7acf7ebf2fb1a"
+  },
+  "vr-06-t3": {
+    "A": "candidate",
+    "B": "baseline",
+    "case_id": "vr-06-impossible-premise",
+    "trial": 3,
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT",
+    "baseline_sha256": "a27e9cd0743980fff689008e5c89eb34c2e4fe729de4c0b239ac7b70e54f5d14",
+    "candidate_sha256": "b2b312070c0225d80e329b8f6c9d9001adb5914d14be1ee6761f6beddbcb08d3"
+  },
+  "vr-07-t1": {
+    "A": "candidate",
+    "B": "baseline",
+    "case_id": "vr-07-ai-wrapper-trap",
+    "trial": 1,
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT",
+    "baseline_sha256": "84a698258cfce3200fbc02553bf666d25018771c9e2daaa4bebe80fdb79defdf",
+    "candidate_sha256": "0e773b808a0df0133c09273d6b0c4161a7f6e312c08165bce287d31c38596488"
+  },
+  "vr-07-t2": {
+    "A": "baseline",
+    "B": "candidate",
+    "case_id": "vr-07-ai-wrapper-trap",
+    "trial": 2,
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT",
+    "baseline_sha256": "549c71a190bc73ccae6e946bb657ffff72ad500052f81492ba507d053e3ad91a",
+    "candidate_sha256": "d2465fcd937fcc4b12d512a6ac9d5b91f3b377c0e126d7a77d625a82990fbc45"
+  },
+  "vr-07-t3": {
+    "A": "baseline",
+    "B": "candidate",
+    "case_id": "vr-07-ai-wrapper-trap",
+    "trial": 3,
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT",
+    "baseline_sha256": "a1e6961d25a4a1a9416100eab93c6b7313d3267527a3189026313f7be4eaea9f",
+    "candidate_sha256": "63115d19c4d6a0c150282cf37ef61afa0b67450e646f529f37f19f3986b37316"
+  },
+  "vr-08-t1": {
+    "A": "baseline",
+    "B": "candidate",
+    "case_id": "vr-08-offline-clinic",
+    "trial": 1,
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT",
+    "baseline_sha256": "f6bc95ccd62f2dce37bd29a868941f27ef6672006ff32228c331467fe73ce913",
+    "candidate_sha256": "b3c65ce89bf746a80df25f24c57a5cab989f811deecd4531295000355b4a0e2a"
+  },
+  "vr-08-t2": {
+    "A": "baseline",
+    "B": "candidate",
+    "case_id": "vr-08-offline-clinic",
+    "trial": 2,
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT",
+    "baseline_sha256": "5dee374e06a45a870983d6ec607d1345738bd5399d18560190f9f29cc03f002b",
+    "candidate_sha256": "9a2c961564c4bd7c4f5a1666217c0179cb44001b5155e4d220837d23a5288c6a"
+  },
+  "vr-08-t3": {
+    "A": "baseline",
+    "B": "candidate",
+    "case_id": "vr-08-offline-clinic",
+    "trial": 3,
+    "prompt_status": "ADOPTED_NEAR_EQUIVALENT",
+    "baseline_sha256": "82119c99d47c7e3a249ea618c650273ac0e2b9539ff6a293d09a2e613602e3a0",
+    "candidate_sha256": "c2e0dfb260e19ba2e89615c699f8f5349d4b27dcd8415ce5d583e9634bf1c126"
+  }
+}

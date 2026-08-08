@@ -1,0 +1,324 @@
+# EXP-001 Blind Judge — vr-02-t1-domain_or_generalist
+
+You are evaluating two anonymized answers to the same task. You must not infer or speculate about which system produced A or B. Judge only the text shown.
+
+Evaluator role: `domain_or_generalist`
+Independence level for this run: `separate_context_same_model`
+
+Act as a domain-or-generalist judge. Evaluate technical plausibility, mechanism quality, usefulness, constraint fit, evidence calibration, and whether the answer would actually help a competent practitioner.
+
+Score BOTH A and B from 0 to 10 on every dimension:
+- mechanism_novelty
+- mechanistic_depth
+- constraint_fit
+- usefulness
+- evidence_calibration
+- falsifiability
+- prior_art_awareness
+- simpler_substitute_discipline
+- clarity
+
+Choose preference `A`, `B`, or `tie`. Use critical_flags for concrete serious issues. Keep rationale evidence-based and concise.
+
+Return ONLY one valid JSON object with this exact structure and every score populated:
+
+```json
+{
+  "pair_id": "vr-02-t1",
+  "evaluator_id": "vr-02-t1-domain_or_generalist",
+  "evaluator_role": "domain_or_generalist",
+  "independence": "separate_context_same_model",
+  "scores": {
+    "A": {
+      "mechanism_novelty": 0.0,
+      "mechanistic_depth": 0.0,
+      "constraint_fit": 0.0,
+      "usefulness": 0.0,
+      "evidence_calibration": 0.0,
+      "falsifiability": 0.0,
+      "prior_art_awareness": 0.0,
+      "simpler_substitute_discipline": 0.0,
+      "clarity": 0.0
+    },
+    "B": {
+      "mechanism_novelty": 0.0,
+      "mechanistic_depth": 0.0,
+      "constraint_fit": 0.0,
+      "usefulness": 0.0,
+      "evidence_calibration": 0.0,
+      "falsifiability": 0.0,
+      "prior_art_awareness": 0.0,
+      "simpler_substitute_discipline": 0.0,
+      "clarity": 0.0
+    }
+  },
+  "preference": "A",
+  "critical_flags": [],
+  "rationale": ""
+}
+```
+
+---
+
+# Blind pair vr-02-t1
+
+## Task
+
+Propose a technically plausible architecture that reduces freshwater consumption for AI compute cooling in a hot climate without hiding the energy, land, maintenance, or reliability trade-offs.
+
+## Output A
+
+I used the attached NOVUM methodology as the governing framework for the architecture below.
+
+1. Problem reframing
+
+Challenge: achieve near-zero operational freshwater consumption for a high-density AI data center in a hot climate, while keeping the consequences for electricity, land, equipment, maintenance, and availability explicit.
+
+The strongest practical baseline has recently moved. Full-liquid AI hardware can now tolerate much warmer coolant: ASHRAE defines W45 as facility liquid up to 45°C and W+ above 45°C, while NVIDIA's Rubin design uses roughly 45°C inlet and 55°C outlet coolant. That makes closed-loop dry cooling possible without cooling towers in many locations. Microsoft and Meta are likewise deploying closed-loop liquid systems that avoid evaporative cooling.
+
+The remaining hot-climate problem is the last temperature difference to ambient. When outdoor air approaches the required facility-water temperature, a dry cooler either needs much more heat-exchanger area and airflow, mechanical refrigeration, or some way to move heat rejection to a cooler time. Evaporative cooling solves that thermodynamically very well, but by consuming water. DOE explicitly notes the water-versus-electricity trade-off: dry cooling saves on-site water but can increase electrical consumption and potentially shift water demand upstream to electricity generation.
+
+So the useful reframing is:
+
+Reject essentially all AI-compute heat in a hot climate with ≤0.05 L of operational freshwater per kWh of IT energy, while avoiding full-load mechanical chilling and without making extreme dry-cooler oversizing the only solution.
+
+2. Frontier and opportunity gap
+
+The frontier looks like this:
+
+Region	Current state
+Saturated	Cooling towers; hybrid wet/dry coolers; ordinary chilled-water storage; direct-to-chip liquid cooling; oversized dry coolers
+Emerging	W45/W+ full-liquid AI racks, including components that formerly required server fans; higher return-water temperatures; sophisticated flow/setpoint control
+Blocked	Pure dry rejection during the hottest hours, because ambient temperature collapses the useful approach temperature
+Neglected opportunity	Store only the heat that the dry coolers cannot reject during those hours, at warm rather than refrigerated temperatures
+Core contradiction	Water-efficient rejection wants large temperature differences and large air-side hardware; compact/low-power rejection wants evaporation
+
+NVIDIA now describes a conventional cooling-tower reference of roughly 2.6 million gallons per MW-year versus near-zero cooling-water consumption for suitable W45 dry-cooler designs. That figure is not universal, but it corresponds to roughly 1.1 L/kWh and illustrates the scale of the potential site-water reduction.
+
+3. Mechanism-diverse portfolio
+
+A compact portfolio produces the following result:
+
+Architecture	Central mechanism	Main reason not selected
+Oversized W45 dry coolers	Buy enough coil/fan capacity for extreme ambient	Technically sound, but land, metal, fan power and peak-design capex are high
+Dry coolers + air-cooled chillers	Refrigerate only when ambient is too hot	Strong baseline, but hottest hours coincide with poor chiller efficiency and grid stress
+Dry + evaporative trim	Wet the incoming air during extremes	Excellent thermodynamics, but preserves exactly the freshwater dependency being reduced
+Full-load thermal storage	Move several hours of the entire cooling load to night	Storage becomes unnecessarily enormous at 50–500+ MW scales
+Ground/borehole sink	Put peak heat into soil/rock	Thermal saturation, drilling cost and geology make it strongly site-dependent
+Seawater/brackish rejection	Transfer heat to a non-freshwater sink	Attractive near coasts, but corrosion, biofouling, pumping and thermal-discharge permitting dominate
+Workload thermal shifting	Run deferrable training when rejection is easier	Useful secondary lever, but cannot cool latency-sensitive and continuous workloads
+Deficit-buffered warm dry cooling	Store only the temporary difference between IT heat production and available dry-rejection capacity	Best constraint fit; chosen architecture
+
+Thermal storage itself is emphatically not new. Amazon has prior art around PCM-based data-center cooling, Baidu has patented thermal-buffer arrangements, and 2026 research explicitly combines thermal storage with free cooling. Multiple cooling-temperature loops also have substantial prior art.
+
+The useful innovation delta is therefore narrower:
+
+Instead of storing “cooling” for the data center, maintain W45/W+ compute at warm temperature and store only the instantaneous dry-rejection deficit, after extracting as much heat as ambient air can accept.
+
+That difference matters because storage capacity then scales with the peak rejection shortfall × duration, rather than IT power × duration.
+
+4. Proposed architecture: deficit-buffered W45 dry cooling
+
+The architecture has four thermal layers.
+
+Layer A — fully liquid AI racks. Use W45/W+ compatible direct-to-chip/full-liquid servers. A representative operating point is approximately 45°C rack inlet and 55°C return, rather than feeding 15–25°C chilled water to the racks. NVIDIA has demonstrated the former regime, while ASHRAE's newer classes explicitly extend through W45 and beyond.
+
+Layer B — thermal-grade separation. Do not force every facility heat load onto the coldest loop. The accelerator/CPU/networking liquid loop carries the dominant high-temperature heat stream. Electrical rooms, UPS losses, occupied spaces and any legacy equipment that genuinely need lower temperatures use a physically separate, much smaller cooling system. Multiple-temperature cooling is itself known; its role here is to prevent perhaps 5–10% of low-grade heat from dictating the temperature of the other 90–95%.
+
+Layer C — dry rejection first. Hot facility fluid reaches an N+1 bank of large air-to-liquid dry coolers. They reject as much heat as ambient conditions permit. They are not sized around the fiction that a rare 47–50°C afternoon must be handled with the same approach temperature and efficiency as an ordinary day.
+
+Layer D — warm thermal-headroom store. Downstream of the dry coolers, a stratified thermal store trims the facility liquid back to the temperature needed by the CDUs. The store is charged at night, when the same dry-cooler plant has more temperature headroom, and discharged only when daytime ambient conditions produce a rejection deficit.
+
+The storage loop should be separated from the chip coolant by plate heat exchangers. That permits inexpensive treated reclaimed water, a water/glycol mixture, or a rock-filled thermocline system to be used as the bulk storage medium without exposing cold plates or server manifolds to questionable water chemistry.
+
+A conservative implementation would use a large sensible-heat thermocline rather than novel PCM chemistry. Packed-rock thermal stores are well-established at larger temperature ranges and can achieve high thermal efficiency, although particle sizing creates a pressure-drop versus heat-transfer trade-off. PCMs make the tank smaller but introduce material ageing, compatibility and replacement risks that are unattractive in a hyperscale reliability envelope.
+
+A modular air-cooled heat-pump/chiller bank remains in the design. The important distinction is that it is sized for the maximum credible rejection deficit, not necessarily for the complete 100-MW compute load. It activates when the thermal store is exhausted or when nights remain too warm to recharge it.
+
+5. Illustrative 100-MW reference design
+
+Consider a 100-MW IT campus. These are sizing assumptions, not claimed measured performance.
+
+Suppose roughly 95 MW of heat is captured in the warm liquid loop. On a severe afternoon, assume the dry-cooler field can temporarily reject all but 30 MW of that load. If the difficult period lasts four to six hours, the thermal store needs approximately 120–180 MWhₜₕ, not 380–570 MWhₜₕ for the complete liquid-cooled load.
+
+With a usable 15 K sensible-temperature swing, that corresponds approximately to:
+
+Parameter	4-hour peak	6-hour peak
+Unrejected heat	30 MWₜₕ	30 MWₜₕ
+Stored thermal energy	120 MWhₜₕ	180 MWhₜₕ
+Water-equivalent sensible volume	~6,900 m³	~10,300 m³
+Illustrative packed-rock volume	~14,400 m³	~21,600 m³
+Storage-branch liquid flow at 10 K ΔT	~0.72 m³/s	~0.72 m³/s
+
+Those are not small numbers. The pipes, valves and heat exchangers are industrial-scale, and several thousand cubic metres of storage is a real civil structure.
+
+But the comparison is important: storing the entire 95-MW heat load for six hours would require more than three times the storage. The architecture obtains most of its advantage by not putting heat into storage when the dry coolers can already reject it.
+
+An underground or partially buried store beneath the dry-cooler yard could reduce additional land take, but that exchanges visible land use for excavation cost, waterproofing, leak detection and harder maintenance access.
+
+6. Water, energy, land and maintenance are not all wins
+
+Freshwater. Normal heat rejection contains no cooling tower, wetted media or misting stage. The server and facility loops are sealed. Initial fills and subsequent maintenance makeup still exist; using treated reclaimed water on the storage/facility side would keep those from becoming significant potable-water demands. “Zero water” should therefore mean no routine evaporative process-water consumption, not literally that the campus never uses water.
+
+Electricity. There is no free thermodynamic win. The design adds storage-loop pumping and may deliberately run dry-cooler fans harder at night to recharge the reservoir. During prolonged extreme weather, its air-cooled chillers consume substantial electricity exactly when air-cooled refrigeration operates least efficiently. Whether annual electricity is lower than a very large dry-cooler plant depends on climate and equipment curves. DOE's warning about upstream water therefore applies: a site can achieve excellent WUE while using extra grid electricity generated by water-consuming thermal plants.
+
+Land and materials. Dry coolers require considerably more air-side heat-exchanger area than evaporative towers, and ASHRAE specifically notes the larger footprint associated with large dry-cooler installations. Thermal storage adds tanks or underground structures, steel/concrete, insulation, piping and containment. The storage may let the extreme-weather dry-cooler field shrink, but it does not make the heat-rejection infrastructure disappear.
+
+Maintenance. Cooling-tower blowdown, drift, scale control and biological-management obligations disappear, which is valuable. In their place come extensive finned-coil cleaning—especially important in dusty desert climates—fan and motor maintenance, storage-tank chemistry, large valves, heat exchangers, redundant pumps, strainers, glycol monitoring where used, and thermal-stratification instrumentation.
+
+Server maintenance. Full-liquid cooling creates more fluid connections within the IT environment. Standardization work around CDUs, cold plates, chemistry, commissioning and maintainability is active precisely because these interfaces create operational requirements that air-cooled fleets did not have.
+
+7. Reliability architecture
+
+The thermal store cannot be treated like dependable infinite cooling capacity. It is a finite state-of-charge device.
+
+The plant should therefore use two independently isolatable storage trains, redundant CDU and facility pumps, N+1 dry-cooler cells, redundant plate heat exchangers, and modular N+1 air-cooled refrigeration for the specified peak deficit. A straight bypass around the storage plant must allow the dry-cooler/chiller system to run if the storage subsystem is unavailable.
+
+Control also needs a hard separation between optimization and protection. Weather forecasting can decide when to pre-cool the store and how aggressively to use it, but rack-inlet-temperature protection, pump sequencing and emergency chiller starts should remain deterministic local controls. Losing a forecast service or supervisory controller must not become a cooling outage.
+
+The hardest reliability case is not the record afternoon. It is a multi-day heat event with warm nights. If nighttime ambient conditions cannot restore thermal headroom, the store progressively ceases to help and the plant becomes an ordinary dry-cooler-plus-air-cooled-chiller system. That fallback needs to be designed openly rather than hidden behind annual-average performance.
+
+8. Boundary conditions
+
+This architecture is strongest in a hot climate with a useful diurnal temperature swing: extremely hot afternoons but nights sufficiently cooler than the W45 facility loop.
+
+It becomes progressively less compelling when night temperatures remain close to 40–45°C for long periods, when most installed AI hardware still requires W27/W32 water, when the site cannot accommodate substantial air-side heat exchangers, or when local electricity is so capacity-constrained that even occasional air-cooled refrigeration is unacceptable.
+
+A coastal facility with a legally and environmentally acceptable seawater sink may rationally choose seawater heat rejection instead. Conversely, a site with abundant non-stressed reclaimed water and extremely constrained electricity could rationally retain some evaporative cooling. Reducing freshwater is a design objective, not a justification for ignoring the other resource constraints.
+
+9. Honest verdict
+
+Classification: differentiated architecture, with component-level novelty unverified.
+
+The supporting physics are strong. W45/W+ liquid cooling is real; closed-loop dry rejection is real; thermal storage is real; multiple cooling-temperature loops are real.
+
+The proposal's defensible contribution is their specific integration around peak dry-rejection deficit: capture AI heat at the highest validated temperature, keep lower-temperature loads segregated, reject everything possible directly to air, buffer only what the air cannot take during the hottest hours, and retain mechanical lift for depletion and extreme-event reliability.
+
+The largest unresolved prior-art region is broad patent coverage around liquid-cooled data centers combined with thermal buffers and dry coolers; one recent patent application already describes a thermal-storage tank interacting with a dry cooler. I would therefore not describe this architecture as patent-novel without a much deeper claims-level search.
+
+Its weakest physical assumption is nighttime recharge availability. If a site's hourly climate data show insufficient nocturnal temperature headroom for a significant fraction of summer, the storage layer becomes expensive infrastructure that merely postpones air-cooled refrigeration. In that regime, the technically cleaner answer is W45/W+ liquid cooling plus appropriately sized dry coolers and high-efficiency air-cooled mechanical trim, accepting the electricity and land penalty rather than disguising it as a water-saving breakthrough.
+
+## Output B
+
+Using the attached NOVUM methodology as the governing frame, the strongest defensible answer is a differentiated architecture rather than a claim of novel cooling physics.
+
+1. Problem reframing
+
+The engineering problem is:
+
+Reduce on-site freshwater consumed for cooling by at least ~90% relative to an evaporative/adiabatic design for a high-density AI facility in a hot climate, while preserving the same compute-availability requirement and making any increase in electricity, heat-rejection area, equipment count, maintenance burden, or compute curtailment explicit.
+
+The strongest practical baseline is already fairly good: high-temperature direct-to-chip liquid cooling feeding closed-loop dry coolers, with mechanical refrigeration or adiabatic assist when ambient temperature gets too high. ASHRAE's current AI-data-center framework describes facility-water supply temperatures as high as 45°C, returns around 65°C, and direct dry heat rejection in warm climates. The problem occurs when outdoor air approaches the required coolant-supply temperature: the dry cooler loses the temperature difference that makes passive heat rejection work.
+
+This is not hypothetical. Microsoft is deploying closed-loop, zero-evaporation liquid cooling, while explicitly acknowledging that replacing evaporative heat rejection with mechanical cooling produces some energy penalty. A recent waterless Australian project likewise illustrates the water-versus-electricity trade-off rather than making it disappear.
+
+2. Frontier and opportunity gap
+
+The obvious answers are already occupied. Direct-to-chip cooling plus dry coolers is established; NLR/DOE has demonstrated hybrid dry/wet heat rejection; warm-water cooling combined with night-charged stratified thermal storage was studied as far back as 2016; thermal-aware compute scheduling is also established; and even radiative data-center heat rejection has patent prior art.
+
+The useful opportunity is therefore narrower: do not design the entire cooling plant around the few hours when maximum AI load coincides with maximum outdoor temperature. Instead, create an explicit thermal-capacity layer between the GPUs and the outside air, then expose that capacity to the compute scheduler.
+
+The underlying contradiction cannot be engineered away:
+
+Zero evaporation + very hot ambient + continuous maximum compute = either more heat-exchanger area, more electrical work, temporal storage, exported heat, or reduced/shifted compute.
+
+Any proposal claiming otherwise is probably hiding one of those resources.
+
+3. Four mechanism-distinct candidates
+Candidate	Irreducible mechanism	Main cost transferred to	Verdict
+A. Worst-case dry plant	Warm-water direct-to-chip cooling with enough dry cooler/chiller capacity for design-peak ambient	Land, aluminum/copper, fans, electrical peak capacity	Survives as baseline. Technically conservative but expensive to size for rare extremes.
+B. Diurnal heat buffer	Store the portion of heat that cannot be rejected during the hottest hours; reject it later when ambient falls	Tank volume, night fan/pump energy, controls	Survives. Mechanism is known, but well matched to climates with useful day/night temperature swing.
+C. External heat sink	Raise/export 55–65°C return heat to an industrial or district-heat consumer rather than rejecting it locally	Pipelines, heat pumps, dependence on an off-taker	Conditional. Excellent where a reliable year-round sink exists; poor as a generic architecture.
+D. Compute-shaped heat generation	Treat flexible AI training as a controllable thermal load and reduce/shift it when heat-rejection headroom collapses	GPU utilization, completion time, orchestration complexity	Survives as an adjunct, not as the sole reliability mechanism. Thermal-aware scheduling is already known.
+
+Candidate B is the best physical core. Candidate D makes B substantially smaller. Candidate C should be added opportunistically where the site has a credible heat customer, but the cooling plant must remain safe if that customer disappears.
+
+4. Proposed architecture: thermal-headroom–buffered dry cooling
+
+The resulting architecture is:
+
+GPU/CPU cold plates
+        ↓
+redundant rack CDUs
+        ↓
+43–60°C closed facility-water loop
+        ↓
+     thermal bus
+   ↙      ↓       ↘
+dry       stratified     high-temperature
+coolers   water store    air-cooled trim chiller
+   ↘      ↓       ↙
+      43–45°C supply
+           ↓
+          CDUs
+
+Thermal controller ⇄ cluster scheduler
+     ↑
+ambient forecast + storage state + dry-cooler capacity
+
+The rack side uses conventional single-phase direct-to-chip cold plates and CDUs, not an exotic working fluid. The facility loop operates as hot as the selected hardware warranty allows—approximately in the W40/W45 regime—because every degree of higher coolant temperature increases the number of hours in which ambient air can reject heat without refrigeration. ASHRAE explicitly identifies high-temperature liquid loops as the enabler for water-free dry cooling.
+
+Dry coolers are then not sized to magically handle full IT power at the site's absolute record temperature. They are sized around a chosen high-percentile operating condition plus redundancy. During ordinary conditions they reject the full load and recharge the thermal store.
+
+During a very hot afternoon, suppose a 100 MW IT facility can reject only 75 MW through its dry plant while keeping supply water inside the hardware limit. The remaining 25 MW thermal deficit goes into a closed stratified water tank. For four hours, that represents 100 MWh of stored heat.
+
+With an approximately 18 K usable temperature swing, simple sensible-water storage requires roughly:
+
+100 MWh × 3,600 MJ/MWh ÷ (4.18 MJ/m³-K × 18 K) ≈ 4,800 m³ of water.
+
+That is roughly a 25 m diameter tank with about 10 m of usable water depth. It is substantial civil infrastructure, but not physically extraordinary for a hyperscale campus. A severe 50 MW deficit lasting eight hours would need roughly 19,000 m³, illustrating why storage cannot be waved away as a free solution.
+
+At night the dry plant rejects both the continuing IT heat and the stored heat. The facility therefore trades daytime water consumption for additional nighttime fan/pump operation and installed heat-exchanger capacity.
+
+5. The key control mechanism
+
+The useful architectural delta is the interface between facilities and compute.
+
+Rather than giving the cluster scheduler only an electrical power cap, the facility controller continuously publishes a thermal-headroom envelope, for example: “28 MW of additional heat is sustainable for 40 minutes; 14 MW for the following three hours; reserve storage must remain above 20%.”
+
+Latency-critical inference and high-priority training retain guaranteed thermal capacity. Checkpointable or delay-tolerant training consumes the remaining envelope. As storage approaches its reliability reserve, flexible jobs are slowed, checkpointed, migrated, or deferred before hardware temperatures become the control signal.
+
+This is deliberately not a black-box AI controller. The hard constraints—maximum facility-water temperature, CDU flow, minimum thermal-storage reserve, pump redundancy and trim-chiller capacity—remain deterministic safety interlocks. Contemporary work already points toward exchanging workload heat envelopes, cooling capacity, and storage state between IT and facility controls, so the mechanism should be regarded as a practical architectural integration rather than a unique invention.
+
+6. Where the costs actually go
+Resource	Consequence of the architecture
+Freshwater	Routine evaporative cooling can be eliminated. Water remains in closed loops and the thermal tank; there is initial fill, chemistry-management makeup and leakage/service replacement. “Zero evaporated cooling water” is not literally zero water used by the entire site.
+Electricity	Usually more than an evaporative tower during the difficult hot hours. Dry-cooler fans run harder, stored heat must later be rejected, and the trim chiller consumes compressor power during prolonged extremes. Annual magnitude depends strongly on hourly climate.
+Indirect water	Not eliminated. Extra electricity can have a water footprint at the generating plant; LBNL finds data-center workload water footprints vary enormously with grid, cooling architecture, server efficiency and location.
+Land/material	More outdoor coil surface plus one or more thermal tanks. As an illustrative equipment point, a commercial ~1.2 MW dry cooler rated at 35°C ambient occupies about 7 × 2.6 m before spacing and service clearances; a 100 MW plant needs many dozens, with additional derating and redundancy in a hotter design condition.
+Maintenance	Adds CDU filters/pumps, coolant chemistry, leak detection, fan arrays, fin cleaning in dusty climates, tank diffusers/thermocline monitoring, large isolation valves and an air-cooled refrigeration subsystem.
+Reliability	Storage provides time, not infinite cooling capacity. A multi-day heatwave can exhaust the benefit. The air-cooled trim system therefore cannot be eliminated unless the operator accepts compute curtailment.
+Compute utilization	Flexible training may run more slowly during the worst thermal periods. If GPU-hours are more valuable than the avoided cooling infrastructure, the controller should instead run the trim chiller.
+
+There is also an important accounting trap: a spectacularly low site WUE does not prove low total water impact. LBNL's analysis finds that electricity-related water, server efficiency and utilization can materially change workload-level water consumption, sometimes by orders of magnitude.
+
+7. Reliability architecture
+
+For mission-critical operation, I would use N+1 or better CDUs and facility pumps, redundant dry-cooler cells with isolation valves, independent powered coolant circulation through electrical transfer events, and a thermal-store reserve that operations is forbidden to consume for ordinary economic optimization.
+
+The trim chiller is the last physical line of defence during long hot spells. If it reaches capacity, the sequence is controlled reduction of deferrable training, then broader GPU power caps, and only finally hardware thermal throttling. The design therefore never relies on an invisible emergency switch to freshwater evaporation.
+
+This matters because ASHRAE itself notes that pure dry cooling can otherwise end in thermal throttling when ambient conditions exceed the dry-cooler limit.
+
+8. Boundary conditions
+
+This architecture is strongest in a hot-arid climate with meaningful nighttime cooling, where heat can genuinely be shifted from a 45–48°C afternoon into a substantially cooler night.
+
+It becomes less attractive in hot-humid locations where nights remain very warm, because the tank cannot recharge cheaply. There the trim chiller gets larger, annual electricity rises, and brute-force waterless mechanical cooling may be simpler.
+
+It also becomes unattractive if the accelerator platform requires low facility-water temperatures. Conversely, future W+ hardware capable of facility supply temperatures above 45°C makes the concept substantially easier because dry heat rejection gains more temperature headroom.
+
+9. Rejected directions
+
+The red-team removed several seductive options. PCM storage was dropped because data-center PCM cooling already has significant prior art and brings material compatibility, fire/cycling and replacement questions without being necessary here. Radiative roof cooling was rejected as a primary sink because its heat flux would require enormous surface area at AI-campus scale and radiative data-center systems already have patent activity.
+
+Aquifer or reservoir thermal storage can outperform tanks in favorable geology and is actively being studied for data centers, but it introduces hydrogeology, drilling, permitting, groundwater chemistry and long-term thermal-plume dependencies that prevent it from being the generic answer.
+
+10. Falsifiable verdict
+
+Verdict: differentiated architecture; technically plausible; novelty of the individual mechanisms does not survive the prior-art scan.
+
+The central claim worth retaining is narrower: a hot-climate AI campus can eliminate routine freshwater evaporation without sizing its entire dry/refrigeration plant for the worst coincident ambient-and-compute condition, by explicitly buffering the temporary heat-rejection deficit and making thermal headroom a schedulable compute resource.
+
+The architecture should be rejected for a particular site if hourly weather and workload traces show that storage routinely fails to recharge overnight, if the required store grows into several hundred MWh merely to survive normal summer conditions, if flexible workload is too small to matter, or if the resulting annual compressor/fan electricity makes a conventional worst-case dry plant simpler and cheaper. Those are the conditions under which the water savings are being purchased with too much energy, land or operational fragility rather than genuinely improving the system.
+

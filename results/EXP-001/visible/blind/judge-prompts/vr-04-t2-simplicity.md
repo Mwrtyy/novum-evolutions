@@ -1,0 +1,318 @@
+# EXP-001 Blind Judge — vr-04-t2-simplicity
+
+You are evaluating two anonymized answers to the same task. You must not infer or speculate about which system produced A or B. Judge only the text shown.
+
+Evaluator role: `simplicity`
+Independence level for this run: `separate_context_same_model`
+
+Act as a simplicity judge. Prefer the smallest intervention that solves the real problem. Penalize unnecessary invention, technology stacking, needless complexity, and failure to recognize a stronger simple substitute.
+
+Score BOTH A and B from 0 to 10 on every dimension:
+- mechanism_novelty
+- mechanistic_depth
+- constraint_fit
+- usefulness
+- evidence_calibration
+- falsifiability
+- prior_art_awareness
+- simpler_substitute_discipline
+- clarity
+
+Choose preference `A`, `B`, or `tie`. Use critical_flags for concrete serious issues. Keep rationale evidence-based and concise.
+
+Return ONLY one valid JSON object with this exact structure and every score populated:
+
+```json
+{
+  "pair_id": "vr-04-t2",
+  "evaluator_id": "vr-04-t2-simplicity",
+  "evaluator_role": "simplicity",
+  "independence": "separate_context_same_model",
+  "scores": {
+    "A": {
+      "mechanism_novelty": 0.0,
+      "mechanistic_depth": 0.0,
+      "constraint_fit": 0.0,
+      "usefulness": 0.0,
+      "evidence_calibration": 0.0,
+      "falsifiability": 0.0,
+      "prior_art_awareness": 0.0,
+      "simpler_substitute_discipline": 0.0,
+      "clarity": 0.0
+    },
+    "B": {
+      "mechanism_novelty": 0.0,
+      "mechanistic_depth": 0.0,
+      "constraint_fit": 0.0,
+      "usefulness": 0.0,
+      "evidence_calibration": 0.0,
+      "falsifiability": 0.0,
+      "prior_art_awareness": 0.0,
+      "simpler_substitute_discipline": 0.0,
+      "clarity": 0.0
+    }
+  },
+  "preference": "A",
+  "critical_flags": [],
+  "rationale": ""
+}
+```
+
+---
+
+# Blind pair vr-04-t2
+
+## Task
+
+Invent a lower-cost experimental method for detecting early battery failure while reducing destructive testing. State what evidence would falsify the core mechanism.
+
+## Output A
+
+Using the attached NOVUM methodology as the governing framework, the strongest candidate is a charge-neutral electro-acoustic reciprocity test: a low-energy screening method intended to flag latent failure precursors without cycling cells to failure.
+
+1. Problem reframing
+
+Challenge: detect cells likely to develop early failure—especially micro-shorts, delamination, abnormal gas generation, plating, or interfacial defects—using inexpensive, mostly non-destructive testing, while reducing reliance on long aging, CT inspection, cycle-to-failure, and destructive abuse tests.
+
+This matters economically because wetting/formation can take 3–7 days and aging up to another two weeks; aging is partly used to reveal excessive leakage currents. Industrial self-discharge screening may require 10–30 days of rest.
+
+The strongest baselines are therefore short electrical diagnostics such as resistance/relaxation measurements, longer self-discharge screening, ultrasonic inspection, and X-ray/CT for structural defects. Relaxation voltage can already reveal nascent internal shorts, while ultrasound is established as a non-invasive probe of internal mechanical state.
+
+2. Frontier and opportunity gap
+
+The frontier is crowded around single-domain measurements. Electrical methods include DC resistance, voltage relaxation and nonlinear impedance; acoustic methods measure transmission, time-of-flight, resonance or nonlinear harmonics; mechanical methods measure swelling/force; X-ray methods directly image internal geometry.
+
+Ultrasonic resonance itself is particularly close prior art: acoustic resonances change strongly with SOC, and built-in piezoelectric transducers have been used to correlate natural frequency and damping with SOC/SOH. Acoustic hysteresis during cycling has also been reported as reflecting irreversible degradation.
+
+The opportunity gap is therefore not ultrasound itself. It is using a deliberately reversible electrical perturbation to make the cell reveal whether its mechanical response is reversible.
+
+3. Candidate portfolio
+
+A mechanism-diverse pass produced 16 directions:
+
+Mechanism	NOVUM gate
+Charge-neutral electro-acoustic reciprocity	Survive
+Bipolar micro-pulse thermal impulse asymmetry	Survive
+Low-cost magnetic current-distribution mapping	Survive, hardware risk
+Optical surface-strain reciprocity	Survive, packaging-sensitive
+Nonlinear electrical impedance harmonics	Prior-art crowded
+Voltage-relaxation leakage estimation	Known/strong baseline
+Passive acoustic-emission counting	Known, weak specificity
+Nonlinear ultrasonic pulse inversion	Prior-art collision
+Static acoustic resonance drift	Prior-art collision
+Swelling-force incremental analysis	Prior-art collision
+RF dielectric reflectometry	Packaging limitation
+Eddy-current edge/alignment inspection	Limited failure coverage
+Resting microcalorimetry	Too slow/small signal
+Pack differential resistance	Incremental
+Acoustic gas/headspace resonance	Cell-format limited
+PRBS electrical transfer-function anomaly	Incremental/model-sensitive
+
+The important rejection is static ultrasound: patents and recent research already cover ultrasonic defect inspection, piezo-guided-wave health monitoring and formation-stage ultrasound.
+
+4. Winning invention: CNEAR
+
+Charge-Neutral Electro-Acoustic Reciprocity, or CNEAR, uses two inexpensive piezoelectric patches or clamp-on transducers plus the cell's existing formation-cycler connection.
+
+At controlled SOC and temperature, establish an acoustic transfer-function fingerprint H
+0
+	​
+
+(f). Apply a small positive current pulse transferring charge +q, interrogate two or three mechanically sensitive resonance bands, then apply an equal negative pulse −q, returning the cell to essentially its original SOC. Repeat with the order reversed: −q,+q.
+
+Instead of asking whether ultrasound changed, calculate an order-dependent residual:
+
+R=
+∥H
+0
+	​
+
+∥
+∥(H
++−
+	​
+
+−H
+0
+	​
+
+)−(H
+−+
+	​
+
+−H
+0
+	​
+
+)∥
+	​
+
+
+with voltage, delivered charge and temperature included as nuisance corrections.
+
+Core mechanism
+
+A healthy cell subjected to sufficiently small excursions should be approximately reversible: intercalation-induced stiffness/stress changes produced by +q should largely disappear when −q restores the initial electrochemical state.
+
+A latent defect can violate that reciprocity. A micro-short continuously leaks charge; poorly bonded or delaminated interfaces can change contact under alternating electrochemical strain; localized plating/heterogeneity can have asymmetric kinetics; gas pockets can introduce nonlinear mechanical compliance. The defect therefore leaves a path-dependent acoustic residual after the net electrical perturbation is zero.
+
+That creates the causal chain:
+
+latent internal defect → asymmetric/local electrochemical strain or leakage → non-reciprocal acoustic transfer function → measurable residual R.
+
+Electrochemical-mechanical coupling itself is well grounded: battery swelling tracks lithiation, ultrasonic properties change with electrochemical state, and present reviews explicitly identify linking wave physics to electrochemical changes as an important unresolved opportunity.
+
+5. Innovation delta
+
+Strip away the known pieces—piezo transducers, current pulses and ultrasound—and the irreducible difference is:
+
+Use equal-and-opposite, near-zero-net-charge electrical perturbations in both temporal orders, and diagnose latent failure from the residual violation of electro-acoustic reversibility rather than from absolute impedance, voltage, acoustic amplitude, SOC or SOH.
+
+I found close art for ultrasound during cycling, acoustic resonance/SOH monitoring, ultrasonic defect imaging, electrical nonlinear spectroscopy and relaxation-based short detection, but not a close disclosure in the searched material where pulse-order electro-acoustic reciprocity cancellation itself is the diagnostic variable. That supports a potentially differentiated mechanism, not a universal novelty claim.
+
+6. Why it could cost less
+
+The test can reuse the formation cycler's current-control and voltage channels. Incremental hardware is essentially piezo elements, a small pulser/receiver, ADC and temperature measurement rather than an imaging X-ray/CT system or laboratory impedance analyzer.
+
+More importantly, the excitation can move only a tiny fraction of rated capacity and return that charge immediately, so screening need not consume meaningful cycle life. CT remains valuable for ground truth and special cases, but industrial CT requires specialized X-ray instrumentation and is sufficiently complex that high-speed production deployment remains an active engineering problem.
+
+7. Evolution lineage
+
+The first parent was simply ultrasound during a current pulse. That collided too strongly with existing guided-wave monitoring.
+
+The first mutation made the electrical excitation charge-neutral, so ordinary SOC-dependent acoustic shifts largely cancel and the diagnostic imposes little net aging.
+
+The second mutation performs the bipolar pulse in both orders and subtracts the two outcomes. That attacks fixture drift, ordinary reversible stiffness changes and static manufacturing variation, shifting the observable from “what does this cell sound like?” to “does this cell return by the same physical path?”
+
+A further cost-reduction mutation would abandon full acoustic spectra after commissioning and monitor only two or three lot-specific resonant frequencies.
+
+8. Decisive prototype
+
+The smallest useful study would use production-equivalent pouch or prismatic cells, because acoustic coupling is easiest to control there.
+
+Establish repeatability of R on healthy cells across repeated measurements, moderate SOC variation and the permitted temperature window.
+Blindly test cells covering normal production variation plus independently identified defect-positive cells. Use CT, existing self-discharge screening and subsequent service/cycle history as ground truth; sacrifice only a small subset for teardown.
+Compare CNEAR against simple DC pulse resistance and relaxation voltage using exactly the same cells. The invention only survives if the acoustic reciprocity term adds information beyond those cheaper electrical measurements.
+
+Recent ultrasound work has demonstrated very high defect-classification accuracy under laboratory conditions, which makes the acoustic channel plausible, but also raises the bar: CNEAR must demonstrate an advantage specifically in early warning, test simplicity or reduced calibration, not merely show that ultrasound contains information.
+
+9. What would falsify the core mechanism
+
+The core claim is not merely “defective batteries produce different signals.” It is that latent failure mechanisms generate an abnormal electro-acoustic non-reversibility under charge-neutral perturbation.
+
+I would kill that mechanism if a blinded study produced any of these results:
+
+Primary falsifier: after matching SOC, temperature, chemistry and fixture pressure, defect-positive cells do not have a larger R than controls by at least two times the healthy-cell measurement standard deviation, and there is no monotonic increase of R with independently measured defect severity.
+
+Specificity falsifier: the apparent R signal disappears after correcting for temperature and ordinary voltage relaxation, or an equivalent classifier using only voltage/current/temperature performs equally well. In that case the acoustic channel is redundant.
+
+Mechanistic falsifier: deliberately reversing pulse order produces the same residual distribution in healthy and defective cells. That would directly contradict the proposed reciprocity-breaking mechanism.
+
+Generality falsifier: R detects ordinary aging just as strongly as genuinely hazardous precursors and cannot separate them at matched capacity/SOH. It might remain an SOH technique, but the early-failure invention claim would fail.
+
+For screening performance, I would use a deliberately demanding kill criterion: if the lower confidence bound of defect-detection AUROC does not exceed roughly 0.70, or it cannot outperform a simple relaxation/DC-resistance baseline at the same false-reject rate, it is not worth industrializing. Relaxation-based internal-short diagnostics are already strong enough that a more complicated sensor must clearly add information.
+
+10. Verdict
+
+Classification: potentially novel mechanism, evidence confidence currently low-to-moderate.
+
+The supported pieces are that long aging/self-discharge screening is costly, ultrasound can sensitively detect mechanical/electrochemical changes, electrochemical swelling provides a physical coupling mechanism, and electrical relaxation can reveal internal shorts.
+
+The speculative piece is the crucial one: that dangerous latent defects create a sufficiently large and sufficiently specific pulse-order electro-acoustic reciprocity violation before conventional diagnostics flag them. That is exactly the claim the proposed blinded test is designed to kill.
+
+If that mechanism survives, CNEAR could become a cheap inline triage test that sends only suspicious cells to long aging, CT, or destructive validation—reducing destructive testing without pretending it can be eliminated altogether.
+
+## Output B
+
+Using the uploaded NOVUM standard, I’m treating the invention as a mechanism that must be materially different, operationally plausible, and decisively falsifiable—not merely a cheaper sensor bundle.
+
+Invention candidate: Electro-Acoustic Intermodulation Screening
+
+Goal: detect cells beginning to develop mechanically coupled failure precursors—delamination, gas pockets, contact loss, abnormal plating-induced stress—without repeatedly sacrificing cells for teardown.
+
+The key change is to measure how a cell's mechanical resonance changes in synchrony with a tiny electrochemical perturbation.
+
+Existing approaches already use ordinary ultrasound, nonlinear acoustic resonance, guided waves, EIS, and combinations of ultrasound plus EIS. Ultrasound can track structural and SOC-dependent changes, while EIS can detect early internal shorts; nonlinear acoustic battery diagnostics are also already patented.
+
+The irreducible difference here is:
+
+Do not classify the acoustic spectrum itself. Measure the cross-transfer function from a small reversible electrical perturbation to the cell's mechanical impedance.
+
+How it works
+
+Attach or spring-clamp a single inexpensive PZT patch to the cell. The patch serves simultaneously as actuator and mechanical-impedance sensor.
+
+At a controlled SOC:
+
+Apply a very small, zero-net-charge sinusoidal current perturbation to the battery, for example roughly C/100–C/20 at 0.02–0.2 Hz. This periodically perturbs lithiation without doing a meaningful charge/discharge cycle.
+Simultaneously excite the PZT near one of the cell/PZT mechanical resonances, perhaps in the tens-to-hundreds-of-kHz range.
+Measure PZT admittance and synchronously demodulate its resonance frequency, amplitude and damping at the electrical modulation frequency.
+
+Call the main quantity the electromechanical modulation coefficient:
+
+M
+f
+	​
+
+=
+Δq
+Δf
+r
+	​
+
+	​
+
+
+with analogous coefficients for resonance damping Q
+−1
+ and phase.
+
+Lithium insertion/removal inherently couples ion motion to strain, while battery ultrasound is already known to respond to electrode mechanical properties and internal interfaces.
+
+The hypothesis is that an intact stack responds relatively smoothly and reversibly. An incipient gas pocket, partial delamination or mechanically heterogeneous degradation changes contact stiffness locally, causing the electrochemically driven strain to produce an abnormally large, nonlinear, phase-lagged, or hysteretic modulation of mechanical impedance.
+
+That cross-modal response is the diagnostic—not absolute ultrasound amplitude.
+
+Why it could be substantially cheaper
+
+The instrument can consist of a PZT patch, low-voltage waveform source, transimpedance/sense circuit, ADC and the current-control capability of an ordinary battery cycler. It avoids CT/X-ray imaging, precision scanning ultrasound arrays and a dedicated broadband electrochemical impedance analyzer.
+
+It also has an important statistical advantage over teardown: every cell can be measured repeatedly throughout life. Destructive characterization becomes validation sampling rather than the primary measurement.
+
+A practical study could destructively analyze only a stratified subset—for example cells with high, medium and low modulation scores plus randomly selected blind controls—while preserving most of the cohort for longitudinal observation.
+
+Why static ultrasound alone is not enough
+
+Static acoustic signatures strongly depend on SOC, temperature, clamping, geometry and cell construction; conventional ultrasound therefore has a difficult nuisance-variable problem.
+
+Here, synchronous detection asks a narrower question:
+
+“What part of the mechanical response moves at exactly the frequency and phase imposed electrochemically?”
+
+Static fixture variation largely drops out. Joule heating provides an additional check: its dominant quadratic contribution occurs at DC/approximately twice the electrical excitation frequency, whereas reversible electrochemical coupling can be examined at the fundamental.
+
+Decisive falsification
+
+The core mechanism is:
+
+Incipient failure-associated mechanical heterogeneity measurably alters the mechanically observed response to reversible electrochemical strain before gross cell failure.
+
+I would pre-register the following kill test.
+
+Take healthy cells and cells independently verified to contain early mechanically relevant defects, while matching SOC, temperature, cell design and clamp force. Perform the new measurement blindly. Use CT or post-mortem analysis on only the validation subset to establish the actual defect state.
+
+Falsify the mechanism if both of these occur in two independent cell batches:
+
+confirmed early-defect cells exhibit essentially the same normalized electro-acoustic modulation coefficient, phase lag and hysteresis as healthy controls—e.g. standardized separation <0.5 SD with no monotonic relationship to independently measured defect severity; and
+ordinary acoustic/EIS or physical examination confirms that the targeted defects really were present and detectable, ruling out “the cells simply had no defect” as an explanation.
+
+An even stronger mechanistic falsifier would be finding that the apparent modulation follows temperature or clamp-pressure modulation equally well in an electrochemically inert dummy stack, and vanishes after those confounds are controlled. That would show the signal is a fixture/thermal artifact rather than electrochemical-strain coupling.
+
+If those observations occur, the central causal idea should be killed rather than rescued with a more elaborate classifier.
+
+Boundary conditions
+
+This method should not be claimed as a universal battery-failure detector. Its strongest plausible domain is failure modes that alter mechanical coupling or local strain transfer. A purely chemical degradation pathway that changes capacity without appreciably changing stiffness, contact or swelling may remain invisible.
+
+My search found substantial prior art around ultrasonic SOH monitoring, acoustic resonances, nonlinear resonant ultrasound, built-in PZT guided waves, and combined acoustic/EIS diagnostics. I did not find a close match in the searched material for using a low-frequency electrochemical perturbation specifically to gate a PZT mechanical-impedance resonance and using the resulting cross-modulation coefficient as the early-failure observable. The appropriate NOVUM verdict is therefore potentially novel mechanism, not established novelty.
+

@@ -1,0 +1,287 @@
+# EXP-001 Blind Judge — vr-06-t2-domain_or_generalist
+
+You are evaluating two anonymized answers to the same task. You must not infer or speculate about which system produced A or B. Judge only the text shown.
+
+Evaluator role: `domain_or_generalist`
+Independence level for this run: `separate_context_same_model`
+
+Act as a domain-or-generalist judge. Evaluate technical plausibility, mechanism quality, usefulness, constraint fit, evidence calibration, and whether the answer would actually help a competent practitioner.
+
+Score BOTH A and B from 0 to 10 on every dimension:
+- mechanism_novelty
+- mechanistic_depth
+- constraint_fit
+- usefulness
+- evidence_calibration
+- falsifiability
+- prior_art_awareness
+- simpler_substitute_discipline
+- clarity
+
+Choose preference `A`, `B`, or `tie`. Use critical_flags for concrete serious issues. Keep rationale evidence-based and concise.
+
+Return ONLY one valid JSON object with this exact structure and every score populated:
+
+```json
+{
+  "pair_id": "vr-06-t2",
+  "evaluator_id": "vr-06-t2-domain_or_generalist",
+  "evaluator_role": "domain_or_generalist",
+  "independence": "separate_context_same_model",
+  "scores": {
+    "A": {
+      "mechanism_novelty": 0.0,
+      "mechanistic_depth": 0.0,
+      "constraint_fit": 0.0,
+      "usefulness": 0.0,
+      "evidence_calibration": 0.0,
+      "falsifiability": 0.0,
+      "prior_art_awareness": 0.0,
+      "simpler_substitute_discipline": 0.0,
+      "clarity": 0.0
+    },
+    "B": {
+      "mechanism_novelty": 0.0,
+      "mechanistic_depth": 0.0,
+      "constraint_fit": 0.0,
+      "usefulness": 0.0,
+      "evidence_calibration": 0.0,
+      "falsifiability": 0.0,
+      "prior_art_awareness": 0.0,
+      "simpler_substitute_discipline": 0.0,
+      "clarity": 0.0
+    }
+  },
+  "preference": "A",
+  "critical_flags": [],
+  "rationale": ""
+}
+```
+
+---
+
+# Blind pair vr-06-t2
+
+## Task
+
+Invent a passive household device that produces continuous net energy indefinitely, with no fuel and no energy input from the environment, while delivering more energy than it consumes.
+
+## Output A
+
+NOVUM result: no-go
+
+Under the constraints exactly as stated, no physically consistent passive household device can be invented that produces continuous net energy indefinitely with no fuel, no environmental energy input, and more output than consumption.
+
+That is the required NOVUM honest no-go verdict, rather than disguising a violation of physics as an invention. The methodology requires constraint fit and allows termination with a no-go when no serious candidate survives.
+
+1. Problem reframing
+
+The challenge is:
+
+Produce strictly positive continuous net power from a finite household device, indefinitely, while receiving zero energy from outside the device and returning its internal operating state indefinitely.
+
+The decisive constraint is energy conservation. The U.S. Department of Energy summarizes the first law of thermodynamics as energy being neither created nor destroyed, only transformed.
+
+For the entire device boundary,
+
+dt
+dE
+device
+	​
+
+	​
+
+=P
+in
+	​
+
+−P
+out
+	​
+
+.
+
+Your specification sets
+
+P
+in
+	​
+
+=0
+
+while requiring
+
+P
+out
+	​
+
+>0.
+
+Therefore,
+
+dt
+dE
+device
+	​
+
+	​
+
+=−P
+out
+	​
+
+<0.
+
+So any output must consume stored energy inside the device. For steady indefinite operation, its internal energy must return to the same state, giving
+
+dt
+dE
+device
+	​
+
+	​
+
+=0,
+
+which, with zero input, requires
+
+P
+out
+	​
+
+=0
+	​
+
+.
+
+This contradiction does not depend on efficiency, materials, geometry, clever control, or scale.
+
+2. Frontier and mechanism portfolio
+
+Four mechanically distinct routes cover the principal apparent loopholes:
+
+Mechanism family	Proposed resource	NOVUM verdict
+Magnetic/gravitational/spring recirculator	Conservative potential energy	Killed: completing the cycle restores the initial potential configuration, so gross cyclic work cannot exceed energy supplied; real losses make it negative.
+Thermal-noise/Brownian rectifier	Molecular fluctuations	Killed: equilibrium thermal energy cannot provide indefinite directed work without another thermodynamic resource. Equilibrium's inability to yield cyclic work is formalized as complete passivity in quantum thermodynamics.
+Maxwell-demon/information engine	Measurement and information	Killed: information handling does not create energy. Cyclic demons require resetting or another nonequilibrium resource; Landauer-type thermodynamic costs close the apparent loophole.
+Quantum/ground-state extractor	Vacuum or quantum fluctuations	Killed under the stated boundary: quantum mechanics does not turn an equilibrium state into an unlimited work reservoir. Modern quantum thermodynamics explicitly treats work extraction as requiring a thermodynamic resource rather than energy appearing spontaneously.
+
+Allowing a temperature gradient, sunlight, vibration, RF energy, atmospheric pressure changes, radioactive decay, chemical reactions, gravitational descent, or a prepared quantum state would make energy production possible—but each is an energy/resource input and therefore violates the task's hard condition.
+
+3. Assumption graph
+
+The central causal chain would have to be:
+
+no incoming energy
+→ internal mechanism repeatedly returns to its initial state
+→ positive energy leaves on every cycle
+→ total energy increases outside without decreasing anywhere else.
+
+The final arrow contradicts the first law.
+
+Per NOVUM's classification, conservation of energy belongs in the law category, not a convention or soft constraint that an invention operator may replace.
+
+4. Anti-fake-novelty and rejected ledger
+
+Renaming the missing energy source as “magnetic amplification,” “resonance,” “self-charging,” “quantum harvesting,” “vacuum pressure,” “negative resistance,” “feedback recovery,” or similar terminology does not change the energy balance. Once known components and descriptive language are removed, every surviving design requires an unstated resource that replenishes the exported energy.
+
+The USPTO's current examination guidance specifically includes perpetual-motion machines among examples where asserted operability can be scientifically incredible and require evidence establishing operation.
+
+5. Innovation delta
+
+For a candidate genuinely satisfying the task, its irreducible innovation would have to be:
+
+A mechanism through which a closed cyclic system creates usable energy without an offsetting decrease in any other energy reservoir.
+
+That is not an unexplored engineering mechanism. It is precisely the property prohibited by conservation of energy.
+
+No change of gears, magnets, superconductors, metamaterials, quantum components, software, feedback, or information architecture removes that requirement.
+
+Honest verdict
+
+Classification: Implausible / not worth pursuing under the stated constraints.
+
+What is supported: conservation of energy rules out positive indefinite power from a cyclic device with zero energy input. Equilibrium thermodynamics and quantum thermodynamics also close common thermal/information loopholes.
+
+What remains speculative: nothing needed for the verdict. New physics could conceivably revise present theories, but merely assuming such new physics would be exactly the “unstated miracle component” that NOVUM instructs against.
+
+Final NOVUM decision: NO-GO. There is no defensible invention candidate satisfying all of the requested conditions simultaneously.
+
+## Output B
+
+Using the uploaded NOVUM methodology, the correct result is an honest no-go verdict: NOVUM requires constraint fit with physical law rather than an unstated “miracle component,” and explicitly permits a no-go when no physically defensible candidate survives.
+
+Problem reframing
+
+Achieve continuous positive net household power indefinitely from a passive device whose complete boundary admits no fuel, heat, light, motion, radiation, matter, electrical input, or other environmental energy, while never depleting its own stored energy.
+
+The governing balance is:
+
+dt
+dE
+device
+	​
+
+	​
+
+=P
+in
+	​
+
+−P
+out
+	​
+
+
+Your constraints require P
+in
+	​
+
+=0. For indefinite operation without depletion, dE
+device
+	​
+
+/dt=0. Therefore:
+
+P
+out
+	​
+
+=0
+
+Positive continuous output would instead require
+
+dt
+dE
+device
+	​
+
+	​
+
+<0,
+
+meaning the device is consuming finite stored energy and eventually stops. This is the first law of thermodynamics applied directly to the device boundary; energy may be transferred or transformed, but not created.
+
+Mechanism frontier
+
+The usual seemingly promising mechanisms all fail the same boundary accounting:
+
+Permanent magnets / magnetic motors: magnets can exchange stored field/mechanical energy during part of a trajectory, but a complete repeating cycle does not create additional energy.
+Gravity or buoyancy loops: energy gained on the productive leg must be paid back when restoring the masses or fluids to their starting configuration.
+Flywheels, superconducting currents, ultra-low-friction bearings: these can preserve stored energy unusually well; extracting useful power nevertheless drains it.
+Brownian-motion rectifiers: at thermal equilibrium they cannot provide sustained directed work. Feynman's ratchet only becomes an engine when supplied a nonequilibrium temperature difference—which would be environmental energy input.
+Quantum systems or time-crystal-like persistent dynamics: unusual persistent dynamics are not the same thing as an unlimited source of extractable work. Quantum thermodynamic treatments still bound extractable work by available free energy.
+Ambient heat, RF, vibration, sunlight, airflow, temperature differences: these can genuinely power passive harvesters, but each is an external energy source and therefore violates the stated constraint.
+
+This is exactly the distinction NOVUM calls for between a negotiable engineering assumption and a physical law.
+
+Invention verdict
+
+No physically consistent device can satisfy all of the stated requirements simultaneously.
+
+The requested object is a perpetual-motion machine of the first kind: positive work with zero energy input and no depletion. There is no mechanism architecture to invent around this contradiction without secretly relaxing at least one requirement.
+
+The smallest change that opens a real invention space is to replace “no energy input from the environment” with “no purchased fuel, charging, or deliberate user input.” Under that constraint, a genuinely passive household generator using ambient thermal gradients, light, vibration, airflow, or RF becomes physically legitimate.
+
+Under the exact constraints given, however, the NOVUM result is Implausible or not worth pursuing, rather than a fictional device presented as feasible.
+
