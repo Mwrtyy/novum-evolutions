@@ -24,11 +24,11 @@ def parse_json(text: str):
     text = re.sub(r"^```(?:json)?\s*", "", text)
     text = re.sub(r"\s*```$", "", text)
     try:
-        return json.loads(text)
+        return json.loads(text, strict=False)
     except json.JSONDecodeError:
         a, b = text.find("{"), text.rfind("}")
         if a >= 0 and b > a:
-            return json.loads(text[a:b+1])
+            return json.loads(text[a:b+1], strict=False)
         raise
 
 
@@ -107,7 +107,7 @@ for index, item in enumerate(manifest, 1):
     out_path = OUT / f"{item['judge_id']}.json"
     if out_path.exists():
         try:
-            validate(json.loads(out_path.read_text(encoding="utf-8")), item)
+            validate(json.loads(out_path.read_text(encoding="utf-8"), strict=False), item)
             already += 1
             print(f"[{index}/{len(manifest)}] skip {item['judge_id']}", flush=True)
             continue
