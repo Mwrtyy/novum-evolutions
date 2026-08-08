@@ -37,11 +37,27 @@ jobs:
           MAX_JUDGMENTS: ${{ inputs.max_judgments || '0' }}
         run: python scripts/auto_judge_exp001_copilot.py
 
-      - name: Commit locked judgments and status
+      - name: Aggregate only after all 72 are locked
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          p = Path('results/EXP-001/visible/judgments-copilot/AUTO_JUDGE_STATUS.json')
+          if not p.exists():
+              print('No judge status yet; skipping aggregation.')
+              raise SystemExit(0)
+          s = json.loads(p.read_text())
+          if s.get('complete'):
+              subprocess.run(['python', 'scripts/aggregate_exp001_judgments.py'], check=True)
+          else:
+              print(f"Judging incomplete ({s.get('total_present',0)}/{s.get('expected',72)}); mapping remains unrevealed to analysis.")
+          PY
+
+      - name: Commit locked judgments, status, and completed analysis
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add results/EXP-001/visible/judgments-copilot
+          git add results/EXP-001/visible/judgments-copilot results/EXP-001/visible/analysis 2>/dev/null || true
           if ! git diff --cached --quiet; then
             git commit -m 'Record EXP-001 Copilot CLI blind judgments'
             git push
