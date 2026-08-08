@@ -11,6 +11,9 @@ on:
         description: 'Use auto for Copilot Free; paid plans may pin a supported model'
         required: false
         default: 'auto'
+  push:
+    paths:
+      - 'results/EXP-001/visible/RUN_COPILOT_AUTO_JUDGE'
 
 permissions:
   contents: write
