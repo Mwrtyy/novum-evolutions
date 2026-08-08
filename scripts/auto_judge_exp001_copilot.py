@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BLIND = ROOT / "results/EXP-001/visible/blind"
 MANIFEST = BLIND / "JUDGE_MANIFEST.json"
 OUT = ROOT / "results/EXP-001/visible/judgments-copilot"
-MODEL = os.environ.get("JUDGE_MODEL", "gpt-5.4")
+MODEL = os.environ.get("JUDGE_MODEL", "auto")
 MAX_JUDGMENTS = int(os.environ.get("MAX_JUDGMENTS", "0"))  # 0 = all missing
 MAX_AI_CREDITS = int(os.environ.get("MAX_AI_CREDITS_PER_JUDGE", "40"))
 DIMS = [
@@ -58,7 +58,7 @@ def validate(obj, item):
         raise ValueError("rationale must be a string")
     obj["independence"] = "separate_context_same_model"
     obj["judge_provider"] = "github_copilot_cli"
-    obj["judge_model"] = MODEL
+    obj["judge_model_request"] = MODEL
     obj["prompt_status"] = item["prompt_status"]
     obj["max_ai_credits_per_judge"] = MAX_AI_CREDITS
     return obj
@@ -73,7 +73,6 @@ def run_copilot(prompt: str, judge_id: str):
         "copilot",
         "-p", prompt,
         "-s",
-        f"--model={MODEL}",
         f"--max-ai-credits={MAX_AI_CREDITS}",
         "--no-ask-user",
         "--no-custom-instructions",
@@ -81,6 +80,10 @@ def run_copilot(prompt: str, judge_id: str):
         "--no-remote-export",
         "--stream=off",
     ]
+    # Copilot Free only supports automatic model selection. Omitting --model
+    # invokes that path. Paid plans may pin a concrete supported model.
+    if MODEL and MODEL.lower() != "auto":
+        cmd.insert(4, f"--model={MODEL}")
     proc = subprocess.run(
         cmd,
         cwd=ROOT,
@@ -141,7 +144,7 @@ for index, item in enumerate(manifest, 1):
 result_files = [p for p in OUT.glob("*.json") if p.name != "AUTO_JUDGE_STATUS.json"]
 status = {
     "provider": "github_copilot_cli",
-    "model": MODEL,
+    "model_request": MODEL,
     "max_ai_credits_per_judge": MAX_AI_CREDITS,
     "expected": len(manifest),
     "already_present_at_start": already,
