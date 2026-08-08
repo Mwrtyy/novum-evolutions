@@ -1,0 +1,63 @@
+name: Auto-judge EXP-001 with Copilot CLI
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_judgments:
+        description: '0 = all missing judgments; use 1 for a smoke run'
+        required: false
+        default: '0'
+
+permissions:
+  contents: write
+  copilot-requests: write
+
+jobs:
+  judge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+
+      - name: Install current Copilot CLI
+        run: npm install -g @github/copilot
+
+      - name: Run resumable blind judgments
+        id: judge
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          JUDGE_MODEL: gpt-5.4
+          MAX_JUDGMENTS: ${{ inputs.max_judgments || '0' }}
+        run: python scripts/auto_judge_exp001_copilot.py
+
+      - name: Commit locked judgments and status
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add results/EXP-001/visible/judgments-copilot
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record EXP-001 Copilot CLI blind judgments'
+            git push
+          fi
+
+      - name: Report completion state
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path('results/EXP-001/visible/judgments-copilot/AUTO_JUDGE_STATUS.json')
+          if not p.exists():
+              raise SystemExit('No Copilot judge status was produced')
+          s = json.loads(p.read_text())
+          print(f"Locked judgments: {s['total_present']}/{s['expected']}")
+          print(f"Remaining: {s['remaining']}")
+          if s.get('failed'):
+              raise SystemExit(s['failed'][0]['error'])
+          PY
