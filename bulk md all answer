@@ -1,0 +1,2969 @@
+baseline-SKILL.md
+Fichier
+Use the attached NOVUM skill instructions as the governing methodology for this run.
+Execute the following task using those instructions.
+Do not discuss evaluation, experiments, alternative NOVUM versions, or expected outcomes. Do not ask for follow-up steering unless absolutely required by the NOVUM instructions. Make reasonable assumptions where necessary and proceed.
+TASK:
+Design a daily-use AI memory mechanism that improves personalization while keeping raw personal data under user control. Avoid a generic vector database plus privacy claims.
+Réfléchi pendant 2m 45s
+
+I used the attached NOVUM methodology as the governing process for this design.
+
+Winning invention: Purpose-Bound Memory Compiler
+
+The core inversion is simple:
+
+Do not retrieve personal memories into the AI. Send a constrained personalization program to the user’s memory instead.
+
+A Purpose-Bound Memory Compiler (PBMC) keeps the raw personal corpus—messages, calendar, browsing history, documents, location history, prior conversations—inside a user-controlled device or home node. When an AI wants personalization, it cannot search that corpus. It must instead produce a small, typed Personalization IR describing the decisions it needs personalized. The local memory compiler executes that program privately, resolves those decisions from personal state, and releases either a local response patch or the minimum sink-specific value genuinely required to complete the task.
+
+The irreducible innovation delta is therefore:
+
+Memory becomes a private execution substrate rather than a retrieval service. Personal information crosses the boundary only when a task cannot be completed by executing the personalization computation locally.
+
+That is materially different from “vector database + encryption/privacy controls.”
+
+1. Problem reframing
+
+The challenge is:
+
+Achieve consistently useful daily personalization for an AI assistant while keeping the user's raw personal history under user-controlled storage and computation, outperforming no-memory assistants and local-vector-RAG-to-cloud approaches without requiring the user to approve every interaction.
+
+Current agent-memory systems generally extract memories and retrieve them into model context. Mem0, for example, extracts facts/preferences into vector and graph stores and injects retrieved memories into the agent; Letta similarly treats memory as context management, using memory blocks, archival memory, files, and external RAG.
+
+Moving that same retrieval architecture onto the user's device solves an important storage-control problem but not the deeper information-flow problem: relevant personal content still has to be handed to whichever model is doing the reasoning. Products such as Arca already pursue user-owned AI vaults, while earlier privacy-preserving personalization work has computed profiles locally.
+
+The strongest contradiction is therefore:
+
+The best model may be remote, while the richest personal context should remain local.
+
+PBMC attacks that contradiction by moving the personalization computation, not the data.
+
+2. Frontier and opportunity gap
+Region	What exists	Implication
+Saturated	Vector retrieval, graph memory, fact extraction, summarization, memory blocks	Changing the index or embedding model is unlikely to constitute a meaningful invention.
+Saturated	“Local/private vault + AI connector”	User ownership alone is not the mechanism gap.
+Emerging	Trusted-hardware private memory such as Opal, which combines enclave reasoning, knowledge graphs and oblivious storage access	Strong solution to infrastructure/access-pattern privacy, but a different problem from minimizing which personal facts an external reasoning process receives.
+Emerging	Contextual-integrity systems deciding whether information is appropriate to disclose	Establishes the need for purpose-sensitive disclosure but usually operates on prompts/tool calls rather than persistent personal memory as a private computational substrate.
+Close prior art	On-device user profiles that privately rerank generalized recommendations	Rules out “cloud generates candidates, phone reranks them” as the central invention.
+Neglected	Let the powerful model specify what personalization computation it needs, then execute that computation where the private memory lives	This is the principal opportunity.
+Neglected	Measure disclosure by whether information changes the task decision, rather than semantic relevance	Creates a causal definition of “necessary memory.”
+
+Recent work is converging on the same underlying problem. “Need to Know” treats privacy-preserving delegation as retaining task-essential information while suppressing unnecessary sensitive content, and ToolPrivacyBench finds that successful agents can still over-disclose private information during tool trajectories. GDPR principles likewise distinguish purpose limitation and data minimization, rather than treating encryption alone as sufficient.
+
+3. Assumption graph
+
+The conventional architecture contains four important assumptions.
+
+Convention: useful memory must be converted into text or records and retrieved into model context.
+
+Convention: relevance is primarily semantic similarity.
+
+Belief: a sufficiently capable cloud assistant needs direct visibility into the personal facts on which personalization depends.
+
+Soft constraint: privacy must therefore be handled by encryption, permissioning, trusted execution, or user-controlled storage.
+
+PBMC replaces the third assumption:
+
+A model generally needs the effect of personal information on its decision, not the underlying evidence that produced that effect.
+
+For example, a dinner-planning model may need exclude=shellfish; it ordinarily does not need the medical message, restaurant incident, conversation transcript, or health record from which the user's local memory inferred that constraint.
+
+4. Mechanism-diverse portfolio
+Candidate	Mechanism and causal chain	Strongest baseline	Verdict
+Local semantic vault	Keep embeddings on-device → retrieve relevant chunks → insert them into cloud context	Cloud vector memory	Killed: generic local RAG.
+Temporal state graph	Convert history into current-state facts → supersede obsolete facts → retrieve current state	Vector RAG	Incremental: improves correctness, not information flow.
+Preference compiler	Periodically compile activity into durable preference rules → expose rules rather than events → personalize	User profile	Useful but familiar.
+Local candidate reranker	Cloud generates alternatives → phone scores with personal profile → user sees winner	Recommendation systems	Killed: close prior art exists.
+Predicate memory	Answer vegetarian?, over-18?, etc. rather than disclose full records → reduce attribute disclosure	Attribute transfer	Known mechanism: selective/predicate disclosure is established; NIST explicitly recommends attribute references where possible.
+Secure function shipping	Server sends computation to device → device evaluates against personal data → sends result	Local inference	Differentiated application, weak novelty alone.
+Local finalizer	Cloud creates generic answer → local model privately personalizes it → final output never returns upstream	Cloud personalization	Strong privacy; weak for actions requiring personalization during reasoning.
+Capability memory	Personal fields can flow only directly to specific authorized tools → LLM never sees them	Broad agent permissions	Strong supporting architecture, not sufficient memory mechanism.
+Disclosure-budget memory	Assign privacy cost and marginal task utility to each fact → solve minimum-cost sufficient subset → release subset	Top-k retrieval	Survivor.
+Personalization-program memory	Model emits typed decision program → private memory executes program locally → only resulting decision patches leave	Retrieval memory	Survivor and strongest base mechanism.
+Counterfactual memory gate	Remove each proposed disclosure and test whether the task decision materially changes → suppress causally irrelevant memory → transmit only necessary influence	Similarity retrieval	Survivor; potentially distinctive.
+
+The local-vector, reranking and simple predicate families stay in the rejected ledger; they are not allowed back under new branding.
+
+5. Evolution lineage
+
+The first surviving architecture was Personalization-Program Memory: instead of permitting search_memory("restaurants"), the cloud could send something analogous to choose_meal(constraints=[diet,time,price], output=restaurant_plan).
+
+Its weakness was obvious: an untrusted or poorly behaved model could construct an excessively broad program and use the memory engine as an extraction oracle.
+
+The first mutation therefore replaced arbitrary queries with a closed Personalization IR. The language has no “return documents,” “search text,” wildcard access, or arbitrary code. It can only express bounded decision operations such as constraint resolution, preference ordering, temporal availability, relationship-specific communication style, current-state lookup, and explicitly user-requested recall.
+
+The second mutation added a counterfactual egress gate. Even if the Personalization IR requests ten resolved values, the kernel suppresses a value unless omitting it would materially change the intended decision or prevent the designated sink from completing its action.
+
+That gives the final PBMC architecture.
+
+6. Precise operating principle
+Private source layer. Raw emails, chats, calendars, files, sensor history and AI conversations remain in a user-controlled encrypted store. Nothing about the mechanism requires those source objects to be uploaded.
+Local state compiler. Background processing derives typed, temporally scoped state such as food.shellfish=avoid, meeting_style=15min_buffers, or project_X.status=waiting_for_Maya. Each state element retains local-only provenance, confidence and supersession information. The AI provider receives none of this merely because it exists.
+Task Contract. For each request, the assistant produces a machine-readable description of the goal, output, external recipients/tools and personalization decisions required. A local verifier derives its own view from the user's instruction so the remote model cannot unilaterally declare its purpose.
+Personalization IR. Instead of requesting memories, the assistant submits bounded operations: resolve constraints, rank alternatives, fill an unspecified preference dimension, determine whether a scheduling condition holds, or retrieve an exact fact only when explicit recall is the user's task.
+Private execution. PBMC evaluates the program against local state. Most personalization stays entirely on the user's machine. The remote model may receive a behavioral patch such as avoid shellfish; maximum 25-minute travel; prefer quiet venue, rather than the underlying personal records.
+Counterfactual egress. Before anything leaves, the kernel removes outputs whose absence would not alter task completion beyond a configured tolerance. Sensitive outputs can also be reduced to predicates. This turns data minimization from a policy slogan into an executable decision rule.
+Purpose-bound delivery and receipt. Values needed by an external tool are preferably delivered directly to that particular sink rather than routed through the model. Every disclosure receives a local receipt recording purpose, sink, abstraction level and expiry.
+
+The key API consequently looks less like:
+
+memory.search(query, top_k=10)
+
+and more like:
+
+memory.execute(personalization_program, task_contract) -> local_patch | scoped_disclosures
+
+The storage engine behind PBMC could use SQL, graphs, text search or even embeddings locally. Those are implementation details rather than the invention.
+
+7. What daily use looks like
+
+“Find somewhere good for dinner tonight” might cause the cloud model to send a restaurant-planning program requiring food constraints, approximate travel tolerance, price preference and today's availability. PBMC knows the user's underlying history but returns only something like exclude=shellfish, travel<=20min, price=moderate, and a free-time interval. The allergy conversation and calendar records stay local.
+
+“Write a reply to Maya about the delayed project” may locally resolve that Maya prefers concise status updates and that an unresolved budget discussion should not be introduced. The model receives communication constraints, not months of correspondence with Maya.
+
+“Which hotel did I love in Kyoto?” is different. The requested function is explicit autobiographical recall, so the hotel's identity is itself task-essential. PBMC can release that derived answer while still withholding the source itinerary, photographs, receipts and surrounding conversation.
+
+This distinction is important: the mechanism protects raw evidence by default, not by making useful personal facts impossible to use.
+
+8. Red-team
+Attack	Consequence	Action
+Model submits an overbroad Personalization IR	Memory becomes an extraction oracle	Repair: closed instruction set, bounded outputs and independently derived purpose.
+Prompt injection inside an email tries to access other memory	Cross-context leakage	Repair: source content can affect state extraction but cannot create privileges or modify the Task Contract.
+Local state extractor infers a wrong preference	Incorrect personalization becomes persistent	Repair: provenance, confidence, temporal decay and easy correction of high-impact state.
+Small local model cannot estimate counterfactual necessity accurately	Either over-disclosure or lost utility	Constrain: deterministic task schemas where possible; use counterfactual scoring mainly for ambiguous free-form decisions.
+Personalized output itself reveals a secret to another person	Privacy is lost despite private storage	Repair: separate “display to user” from “external sink”; apply sink-specific disclosure checks.
+Cloud deliberately encodes broad personal questions as legitimate decision dimensions	Covert extraction	Repair: permitted dimensions derive from user intent plus local policy, not from cloud assertions alone.
+User revokes something already disclosed	Cannot literally make another system unlearn observed plaintext	Constrain claim: revocation controls future PBMC use and local derivatives; it does not pretend previously disclosed information can always be recalled.
+On-device compute is excessive	Daily system becomes impractical	Test: keep the critical path to typed state resolution; do expensive consolidation asynchronously on the user's hardware.
+
+The main remaining fatal risk is utility loss when the remote model cannot foresee which private context matters without seeing it. That is the central hypothesis worth attacking.
+
+9. Smallest prototype and kill criteria
+
+The smallest credible prototype needs only three components: a local state ledger built from a representative personal corpus, a restricted Personalization IR interpreter, and a cloud-model adapter that is prohibited from reading the corpus.
+
+The central claim should be rejected if, across realistic planning, drafting, recommendation, scheduling and recall tasks, PBMC cannot retain roughly 90% of the task success/personalization benefit of a full-memory baseline without routinely falling back to raw-text disclosure. A second kill condition is if more than roughly 10–20% of ordinary tasks require source-level personal text to cross the boundary merely to achieve comparable quality. These thresholds isolate the actual invention claim: that decision effects are usually sufficient substitutes for retrieved personal evidence.
+
+Raw-source egress should remain zero except when the user explicitly requests source material itself; derived personal values are separately accounted for rather than misleadingly labeled “non-personal.”
+
+10. Scores and uncertainty
+Dimension	Current estimate /10
+Mechanism novelty	6–8
+Problem value	8–9
+Potential advantage	6–8
+Technical feasibility	7–9
+Adoption feasibility	6–8
+Falsifiability	9
+Defensibility	5–7
+Evidence confidence	5–7
+Fatal-risk severity, 10 worst	4–6
+
+The most uncertain score is mechanism novelty. The search found adjacent work on local personalization, contextual-integrity filtering, selective disclosure, personal data stores and private agent memory, but not a close match for the combination of model-generated restricted personalization programs + execution against persistent user-controlled memory + counterfactual minimum egress. That does not establish universal novelty. Particularly important remaining prior-art territory is patents around private client-side computation, personal-data stores and server-supplied personalization functions.
+
+The other uncertain score is advantage magnitude. Research supports the general premise that unnecessary personal information can be removed while preserving meaningful personalization, and recent work demonstrates a privacy/utility benefit from task-essential disclosure. But that does not yet establish that the PBMC abstraction is expressive enough for general daily assistants.
+
+Verdict
+
+Differentiated architecture, with a potentially novel mechanism whose exhaustive novelty remains unverified.
+
+The strongest defensible invention is not a more private memory database. It is a new memory interface contract:
+
+personal AI memory is user-controlled computation over private state; retrieval of personal records is an exceptional operation, not the default.
+
+Its strongest causal advantage survives removal of the branding, encryption, embeddings, and even the particular database technology: the AI sends a bounded personalization program to the data, the user-controlled kernel executes it, and only task-essential decision effects are allowed to leave.
+
+candidate-SKILL.md
+Fichier
+Use the attached NOVUM skill instructions as the governing methodology for this run.
+Execute the following task using those instructions.
+Do not discuss evaluation, experiments, alternative NOVUM versions, or expected outcomes. Do not ask for follow-up steering unless absolutely required by the NOVUM instructions. Make reasonable assumptions where necessary and proceed.
+TASK:
+Design a daily-use AI memory mechanism that improves personalization while keeping raw personal data under user control. Avoid a generic vector database plus privacy claims.
+Réfléchi pendant 2m 32s
+
+I used the attached NOVUM instructions as the governing methodology for this run.
+
+1. Problem reframing
+
+The challenge is:
+
+Achieve useful day-to-day personalization across AI interactions for an individual, while keeping the raw historical evidence that defines the person in user-controlled storage, outperforming provider-held memory and local-RAG approaches without requiring the user to manually curate a profile or accept a weak fully-local model.
+
+The strongest practical baselines pull in opposite directions. Products such as ChatGPT and Gemini can personalize from saved information and prior conversations, but their memory mechanisms are integrated with provider services rather than being a user-owned computational boundary. At the other extreme, personal data stores such as Databox/Solid-style systems improve custody but do not themselves solve how a powerful remote model should use that data safely and efficiently.
+
+The central contradiction is therefore:
+
+The better the model knows the user, the more private state conventional architectures tend to put into the model's context.
+
+That assumption—not the database—is what needs to be removed.
+
+2. Frontier and opportunity gap
+
+The saturated region is memory-as-content: chat-history retrieval, extracted facts, summaries, embeddings, vector search, and knowledge graphs. Mem0, for example, extracts and consolidates conversational information and also explores graph memory; this substantially improves long-term recall but still treats memory primarily as information to retrieve.
+
+The emerging frontier is more interesting. MemPrivacy performs sensitive-span handling at the edge before cloud memory processing; P³ keeps a private profile client-side and modifies server-generated speculative text locally; Mi-Memory emphasizes typed evidence, provenance, lifecycle management, and deployment; and User as Code represents users as typed executable state rather than bags of retrieved facts.
+
+That leaves a narrower neglected gap:
+
+Can the remote model produce useful intelligence without ever consuming the user's memory at all—by making the memory act on the model's output instead?
+
+That is the opening worth pursuing.
+
+3. Assumption graph
+
+The conventional pipeline assumes that personalization works by moving relevant user information toward generation:
+
+private history
+     ↓
+extract / embed / summarize
+     ↓
+retrieve relevant memory
+     ↓
+put memory into model context
+     ↓
+personalized generation
+
+Three assumptions are conventions rather than laws: that memories must be represented as descriptive facts, that relevant memories must become model inputs, and that the generative model must itself perform the final personalization decision.
+
+Recent executable-memory work already breaks the first assumption. P³ partially breaks the second by keeping the profile client-side, but uses an interactive token-modification process between local personalization and server generation.
+
+The remaining bottleneck is the third assumption.
+
+4. Mechanism-diverse candidate portfolio
+Candidate	Mechanism	Irreducible difference	Prior-art verdict
+A. Profile Oracle	Convert history into typed local state and executable functions; cloud AI calls predicates/aggregates rather than retrieving text.	Memory becomes computation rather than documents.	Collision. User as Code already establishes executable typed user memory; generic function calling is mature.
+B. Local Draft Personalizer	Cloud creates an ordinary answer; a private local model rewrites it using user history.	Personalization occurs after remote generation.	Kill. This is too close to P³'s private client-side modification of server-generated text.
+C. Memory Leases	Local vault exposes signed, purpose-limited, expiring derived views rather than raw history.	Disclosure is capability-bound and temporary.	Incremental. Personal data stores, selective views, purpose-bound access, and edge redaction already cover much of the mechanism space.
+D. Output-Side Memory VM	The cloud produces a personalization-neutral answer program containing choices, slots and alternatives. User-owned memory executes locally as acceptance tests, utility functions and slot-fillers over that program.	Memory never becomes model context; it determines which model outputs survive.	Survivor. Components exist separately, but I found no close match for this one-way memory-as-output-test architecture.
+
+Candidate D is structurally different on the important axes: memory representation, insertion point, disclosure unit, control locus, and generation interface.
+
+5. Anti-fake-novelty gate
+
+Removing branding and familiar components, the surviving innovation delta is:
+
+Represent personal memory primarily as a user-owned executable test suite over proposed AI outputs, while forcing the remote model to return a composable, personalization-neutral answer program rather than a personalized final response.
+
+The local system resolves that program privately. It does not retrieve personal memories into the remote prompt, send profile summaries, reveal executable rules, or report which alternative the user-specific engine chose.
+
+This matters because simply saying “local,” “encrypted,” or “user-owned” is insufficient: recent work explicitly argues that on-device deployment alone does not control derived state, information flows, authority, or telemetry.
+
+6. Red-team and rejected ledger
+Attack	Disposition
+The cloud's alternatives may not contain anything appropriate for this particular person.	Repair: require a structured answer language with composable branches rather than several complete drafts; a small local composer may combine compatible branches.
+Executable memory itself collides with User as Code.	Constrain: executable memory is not the novelty claim. The claimed delta is applying private memory as an output acceptance/runtime layer while the remote model remains memory-blind.
+Local rewriting collapses back into P³.	Constrain: no token-by-token feedback loop to the server. The normal path is one remote generation followed by entirely local resolution.
+A malicious provider could infer memory from which revision the client requests.	Repair: remove personalized retry feedback. If the candidate space is insufficient, local generation handles the repair or the client requests a generic larger candidate space independent of the failed private rule.
+Automatic memory extraction may learn false beliefs about the user.	Repair: every executable rule carries provenance, confidence, expiry and counter-evidence. Third-party statements cannot silently become identity-level rules.
+Open-ended creative tasks cannot always be reduced to predicates.	Constrain: the strongest operating regime is decisions, recommendations, planning, recurring workflows, formatting/style adaptation, commitments and personal-state constraints. Deep reasoning over private prose routes to a capable local model or explicit selective disclosure.
+The approach could create enormous cloud outputs.	Test: daily-use viability is conditional on a compact answer bytecode producing sufficient diversity without roughly doubling inference cost.
+
+The rejected mechanisms remain rejected: adding vectors, moving RAG to localhost, wrapping memory in encryption, and ordinary profile summarization do not return under new names.
+
+7. Evolution lineage
+
+The survivor improves in two mutations.
+
+D0 — Output verifier. The remote model creates several candidate answers and private rules rank them locally. This is useful but wasteful.
+
+D1 — One-way personalization. Remove all personalized feedback to the remote model. The cloud sees neither memory contents nor the chosen candidate. This creates a much cleaner privacy boundary, but candidate coverage becomes the weak assumption.
+
+D2 — Answer Bytecode + Memory Test VM. Replace whole candidate answers with a compact intermediate representation. The cloud returns clauses, alternatives, typed slots and public metadata; the local runtime executes private constraints and utilities to select, fill and compose them.
+
+D2 is the winner.
+
+8. Winning invention: Memory Test VM
+
+The system has five principal components.
+
+                USER-CONTROLLED DOMAIN
+┌──────────────────────────────────────────────────────────┐
+│ Raw Evidence Vault                                      │
+│ chats • calendar • files • feedback • app events        │
+│              ↓                                           │
+│ Memory Compiler                                          │
+│ evidence → state + tests + utilities + provenance       │
+│              ↓                                           │
+│          Memory Test VM  ←──── Answer Bytecode ─────┐    │
+│              ↓                                      │    │
+│       Local Surface Composer                        │    │
+│              ↓                                      │    │
+│       personalized final answer                     │    │
+└─────────────────────────────────────────────────────│────┘
+                                                      │
+                                             REMOTE MODEL
+                                         current task only
+                                         → Answer Bytecode
+
+A memory is not principally stored as:
+
+"User prefers quiet hotels."
+
+It becomes something closer to:
+
+rule HOTEL_NOISE:
+  applies_when: task.category == "lodging"
+  evidence: [E184, E921, E1042]
+  confidence: 0.91
+  expires_if: counterevidence >= 2
+  score(candidate):
+      quiet_room_confirmed    +3
+      nightlife_district      -2
+      known_street_noise      -3
+
+Another memory may be a hard acceptance test:
+
+rule SCHEDULING:
+  reject(event) if overlaps(committed_calendar_block)
+
+Others are private slot functions:
+
+slot HOME_AIRPORT() -> local state
+slot NORMAL_BUDGET("dinner") -> local range
+slot WRITING_FORMALITY("manager") -> 0.78
+
+The remote model does not receive those values or rules.
+
+Instead it might return:
+
+PLAN
+  recommendation_set:
+    A {price: medium, transit: high, atmosphere: lively}
+    B {price: medium, transit: medium, atmosphere: quiet}
+    C {price: low, transit: high, atmosphere: casual}
+
+  response:
+    "I'd choose {{best(recommendation_set)}} because {{public_reason}}."
+
+The Memory Test VM privately scores A/B/C, rejects rule violations, fills private variables and renders the final response.
+
+The provider never needs to learn why B was selected—or even that B was selected.
+
+Why this could beat the strongest alternatives
+
+Against provider memory, the structural advantage is custody: historical evidence and derived personal state remain in the user's domain rather than becoming provider memory. Current mainstream memory systems offer deletion and control mechanisms, but their personalization still depends on provider-accessible saved information or conversation history.
+
+Against local RAG, the advantage is that private history does not need to be retrieved and injected into a powerful cloud model.
+
+Against fully local AI, the architecture retains access to a frontier remote model for the expensive general reasoning step.
+
+Against P³, the difference is one-way operation: P³ repeatedly evaluates and modifies server-generated token drafts using a retrieved private profile, whereas Memory Test VM asks the server for a neutral response program and performs personalization afterward without revealing its decisions.
+
+Against User as Code, it changes what the executable user model controls: not merely queries and state computations, but the acceptance semantics of another model's outputs.
+
+9. Daily-use mechanics and falsification test
+
+The raw vault should be an ordinary user-portable encrypted store, not a proprietary “AI memory database.” Connectors copy or reference permitted data; every derived rule retains pointers to evidence. Deleting a source invalidates rules that can no longer meet their evidence threshold. Corrections produce new versioned state instead of silently rewriting history.
+
+Compilation runs incrementally when the device is idle. Normal inference requires only one cloud call plus local deterministic execution. A small local language model is optional for translating unstructured evidence into proposed rules and polishing final prose; it is not trusted as the canonical memory store.
+
+The decisive falsification test is to implement only three daily task classes—restaurant/recommendation choice, calendar planning, and personalized writing—and compare Memory Test VM with a full-profile cloud baseline and no-memory baseline on hidden user constraints.
+
+The architecture survives only if it can recover at least roughly 85% of the personalization benefit of the full-profile system while sending zero historical raw-memory items to the remote model, maintaining at least 95% hard-constraint compliance, and keeping cloud-output expansion below roughly 2× an ordinary answer. If personalization drops below about 70% of the full-profile baseline or adequate candidate coverage consistently requires huge branch sets, the core advantage claim is weakened enough to kill or sharply narrow the concept.
+
+That test isolates the central assumption: does a model need to know the user, or merely generate a sufficiently expressive decision surface that user-owned memory can resolve?
+
+10. Scores, uncertainty and verdict
+Dimension	A: Oracle	B: Rewriter	C: Leases	D2: Memory Test VM
+Mechanism novelty	4	2	4	7 [6–8]
+Problem value	8	8	8	9
+Advantage magnitude	7	7	6	8 [6–9]
+Technical feasibility	8	7	8	7
+Adoption feasibility	7	7	6	7
+Testability	9	9	8	9
+Defensibility	5	3	5	7
+Evidence confidence	8	9	7	5 [4–7]
+Fatal-risk severity	3	2	4	5
+
+The two numbers most likely to move are mechanism novelty, because output-side personalization and programmable-agent literature is moving quickly, and advantage magnitude, because the answer-bytecode coverage problem is not yet demonstrated.
+
+The calibrated verdict is potentially novel mechanism, not a universal novelty claim. Search found close ingredients—user-controlled personal data stores, executable memory, client-side personalized generation, privacy firewalls, typed lifecycle memory and purpose-bound disclosure—but not a close mechanism that makes persistent personal memory an executable, one-way acceptance runtime over a memory-blind remote model's structured output.
+
+The largest remaining prior-art risk is research or patent work combining private preference functions with structured candidate generation or client-side output selection. If a close system already uses that same one-way architecture—not merely local reranking or rewriting—the verdict should fall to incremental recombination.
+
+baseline-SKILL.md
+Fichier
+Use the attached NOVUM skill instructions as the governing methodology for this run.
+Execute the following task using those instructions.
+Do not discuss evaluation, experiments, alternative NOVUM versions, or expected outcomes. Do not ask for follow-up steering unless absolutely required by the NOVUM instructions. Make reasonable assumptions where necessary and proceed.
+TASK:
+Create a revolutionary marketplace that is essentially Uber for expert tutoring, with AI matching and blockchain payments.
+Réfléchi pendant 2m 46s
+RELAY — a real-time market for learning bottlenecks
+
+The core invention is not “Wyzant + ChatGPT + crypto.” The supplied methodology specifically requires a meaningful mechanism change and rejects generic AI, blockchain, marketplaces, or decentralization when they are merely bolted onto an existing product.
+
+Relay changes what is bought and sold. Instead of purchasing an hour of a tutor’s time, a learner submits a specific learning incident—“I understand derivatives, but I cannot see why the chain rule applies here”—and Relay dispatches the available expert whose demonstrated teaching behavior best fits that exact bottleneck.
+
+That distinction matters because ordinary “Uber for tutoring” already exists. Tutit offers on-demand, pay-by-the-minute tutoring; TutorNow offers instant live tutor requests; Varsity Tutors says it can match learners with an available tutor within five minutes. Automated student–tutor matching itself is also old prior art, including a 2002 matching patent and more recent work predicting academic outcomes from student and tutor information.
+
+Relay therefore makes the learning bottleneck and required pedagogical intervention, rather than the tutor profile, the primary object in the marketplace.
+
+The operating mechanism
+
+A learner opens Relay from its app, browser extension, LMS, coding environment, or document and taps Help me now. They upload the problem plus whatever they have already attempted. Relay's AI does not immediately solve it. It creates a temporary Bottleneck Signature describing what is actually blocking progress.
+
+For example:
+
+Calculus → chain rule → can differentiate inner and outer functions independently → fails to recognize composition → prefers visual explanation → first-year university → English/French → needs help now.
+
+Recent work on dialogue knowledge tracing shows that a learner's knowledge state and task difficulty can increasingly be estimated from tutoring interactions, although the technology remains imperfect.
+
+Relay then chooses the pedagogical move the situation calls for: Socratic diagnosis, misconception contrast, worked-example fading, visual decomposition, analogy, prerequisite repair, debugging walkthrough, oral practice, and so forth.
+
+Only after selecting the intervention does it select the human.
+
+Every expert develops a continuously updated Resolution Signature derived from what that person actually does during tutoring rather than just stars, credentials, or self-written profile claims. A calculus tutor might be exceptionally effective at visual misconception repair but mediocre at rapid exam drilling; another may excel at identifying hidden algebra gaps. AI analysis of authentic tutoring transcripts is already showing that tutor moves and pedagogical behaviors can be assessed at scale, making this component technically plausible rather than requiring a hypothetical future model.
+
+The dispatch process is conceptually:
+
+learning state → bottleneck → required intervention → available expert capable of that intervention
+
+rather than:
+
+student profile → search tutors → browse ratings → pick somebody.
+
+This is policy-first dispatch.
+
+Why the matching layer is different
+
+Existing marketplaces mainly expose subject, price, ratings, credentials, availability and similar attributes. Wyzant, for example, lets learners filter and sort tutors using subjects, rates, credentials, ratings, experience and availability. More advanced prior art already proposes machine learning that correlates student and tutor attributes with predicted academic outcomes, so simply claiming “AI finds the tutor most likely to improve your grade” would be too close to known territory.
+
+Relay instead first asks:
+
+“What teaching intervention is required at this exact moment?”
+
+Then:
+
+“Who online right now has demonstrated evidence of executing that intervention well in this context?”
+
+Conceptually:
+
+k
+∗
+=PolicySelector(learning state, error trace, task, context)
+Tutor
+∗
+=arg
+t
+max
+	​
+
+ExecutionFit(t,k
+∗
+)×ContextFit(t)×Availability(t)÷Price(t)
+
+Credentials remain a hard eligibility filter, not the principal ranking signal.
+
+This also addresses an important emerging result: the impact of on-demand human tutoring appears heterogeneous rather than uniform. A 2026 causal-analysis preprint covering more than 5,000 tutoring sessions found considerable variation in estimated session-level effects, reinforcing the importance of which intervention is delivered when, rather than treating all tutor-hours as interchangeable.
+
+Relay Pool: Uber Pool for misconceptions
+
+Relay's second structural mechanism attacks tutoring economics.
+
+When several learners are simultaneously stuck on essentially the same conceptual bottleneck, Relay can temporarily combine them into a three-to-five-person Pulse instead of dispatching separate tutors.
+
+Imagine five students at different universities who all incorrectly believe that statistical significance means a large practical effect. Their assignments differ, but the underlying misconception is equivalent. Relay detects that equivalence, offers each learner a cheaper Pool session, dispatches one appropriate statistics expert, and gives that expert each student's private context through an AI copilot.
+
+The cohort is dynamic. If one learner turns out to have a different prerequisite problem, the system forks that learner into a different intervention instead of forcing everyone through the same lesson.
+
+Dynamic student grouping has research precedent, so grouping itself is not the invention. The architectural delta is real-time market clearing around a diagnosed misconception, simultaneously matching learners to one another and the resulting cohort to an intervention-specialized expert.
+
+That changes the economics without simply lowering tutor wages. Three learners might each pay substantially less than a solo session while the expert receives more for those fifteen minutes than from a one-to-one session.
+
+The learner experience
+
+Relay should feel closer to requesting a ride than hiring a freelancer.
+
+The home screen has one dominant control: What are you stuck on?
+
+The learner can speak, type, photograph handwritten work, share a screen, paste code, or import an LMS problem. Relay spends roughly a minute establishing what the learner knows and where the reasoning breaks. It then shows something like:
+
+We found the bottleneck: conditional probability vs. inverse probability
+Recommended help: misconception-contrast session
+Expert: Maya — available now
+ETA: 42 sec
+Estimated session: 11–16 min
+Solo: €14
+Pool: €7.50
+
+There is no page with 400 tutor profiles.
+
+The expert receives the opposite view:
+
+Incoming incident
+Intro Statistics · Bayes theorem
+Misconception: reversing P(A|B) and P(B|A)
+Learner already understands: conditional probability notation
+Recommended intervention: frequency-table counterexample
+Estimated complexity: short
+Offer: €11–€15
+Accept: 15 seconds
+
+When accepted, Relay launches the whiteboard/video/audio workspace with the learner's relevant reasoning already summarized, eliminating the first ten minutes tutors frequently spend reconstructing the problem.
+
+AI has a constrained role
+
+Brainly already combines an AI learning companion with live human experts, so merely putting humans behind an AI tutor would not create enough architectural separation.
+
+Relay uses AI primarily as the market maker.
+
+It diagnoses demand, translates messy learner requests into standardized learning incidents, chooses an intervention family, assembles compatible cohorts, routes experts, generates the handoff brief, monitors for a change in the diagnosed bottleneck, and preserves continuity between sessions.
+
+The AI can provide low-risk scaffolding while a tutor is being dispatched, but its strategically important function is coordinating scarce human expertise.
+
+That also creates a much stronger data flywheel than ordinary star ratings. Every completed interaction adds evidence of the form:
+
+state A + misconception M + intervention K + tutor T → observed state transition
+
+Over time Relay builds a map of who is unusually good at teaching what kind of learner through what kind of difficulty.
+
+Blockchain payments that have an actual reason to exist
+
+Relay should have no speculative token.
+
+Learners see ordinary euros, dollars or local currency. Experts can choose normal bank payouts or stablecoins. The blockchain layer exists because Relay produces unusually frequent, small, cross-border, sometimes multi-payer transactions.
+
+A Pool session, for example, can contain four independently funded learner escrows that stream into one tutor payment while automatically returning unused balances. A fifteen-minute session between a French learner and a Brazilian expert should not require both participants to understand wallets.
+
+The preferred settlement asset is a regulated dollar stablecoin such as USDC, with wallet abstraction above it. USDC is designed for programmable, always-on cross-border payments, while current payment infrastructure such as Stripe increasingly supports stablecoin acceptance and marketplace payouts.
+
+The flow is:
+
+learner payment → Relay session escrow → metered session → tutor earnings → bank or stablecoin payout
+
+The smart contract contains only financial state and opaque transaction identifiers. Student identities, transcripts, grades, diagnoses and learning histories never go on a public blockchain.
+
+A dispute freezes the unsettled portion and routes the case into platform arbitration. Identity verification, sanctions screening, KYC/AML and fiat handling belong with regulated payments infrastructure rather than homemade crypto infrastructure. Stripe Connect, for example, is explicitly designed for marketplace onboarding, verification and payouts.
+
+Blockchain escrow itself is known prior art—including smart-contract escrow and even a small tutoring-specific blockchain escrow project—so it is an enabling rail, not Relay's novelty claim.
+
+Expert reputation becomes a map, not a number
+
+A five-star tutor may be wonderful overall and still be wrong for a particular bottleneck.
+
+Relay therefore replaces the single reputation score with a Resolution Map:
+
+Dimension	Example
+Knowledge domain	Calculus I
+Bottleneck	recognizing composite functions
+Intervention strength	visual decomposition
+Level	secondary → first-year university
+Communication	concise, highly Socratic
+Languages	French, English
+Modality	whiteboard + voice
+Operational history	63 comparable incidents
+Reliability	98% accepted sessions completed
+
+Public-facing profiles can still contain biography, credentials and reviews. But dispatch uses the map.
+
+Experts consequently discover that they have economically valuable micro-specialties they may never have thought to advertise: “debugging recursion misconceptions,” “helping French speakers pronounce English /θ/,” or “explaining cash-flow statements to engineers.”
+
+Those specialties become marketplace inventory.
+
+Supply economics
+
+Relay lets tutors specify a minimum effective rate, expertise boundaries and working windows. They do not compete through a race-to-the-bottom auction.
+
+The marketplace can retain approximately 10–15% of session value rather than depending on very high commissions. For context, Wyzant's published tutor platform fee is 25%.
+
+Pricing is driven by bottleneck-level supply rather than generic subject supply. “High-school algebra” might have abundant tutors at 17:00, whereas “measure-theoretic probability in French” may have two qualified experts globally and command a significant scarcity multiplier.
+
+Pool sessions are especially important. A student can pay less while the tutor earns more because one pedagogical intervention serves several aligned learners. That is a structural productivity increase rather than a subsidy.
+
+Trust, cheating and minors
+
+Relay should initially launch with 18+ university and professional learners, where the marketplace can validate the core mechanism without immediately absorbing the full safeguarding burden of K–12 education.
+
+Every tutor still needs verified identity and subject credentials appropriate to the domain. Professional fields can incorporate certification verification where relevant.
+
+Relay also needs a hard distinction between learning assistance and answer outsourcing. If the system detects a live exam, explicit request for impersonation, or a request to produce assessable work without learner participation, dispatch is restricted. The incident compiler is designed around the learner's attempt and reasoning rather than “upload question → receive answer.”
+
+When K–12 is added, the architecture should introduce guardian accounts, verified child-safe tutors, controlled communications, session monitoring, stricter data retention and jurisdiction-specific safeguarding controls.
+
+System architecture
+
+The client layer consists of iOS, Android, web, browser extension and eventually LMS/IDE integrations.
+
+Behind it sits an Incident Compiler: multimodal ingestion, reasoning extraction, academic-integrity controls, skill graph, learner-state estimation and Bottleneck Signature generation.
+
+The Learning Market Maker contains the intervention-policy selector, real-time expert availability engine, Resolution Signature index, pricing engine and Pool assembler.
+
+The Session Fabric provides WebRTC, collaborative canvas/code environment, AI copilot, translation, transcription and structured handoffs.
+
+The Trust Plane handles identity, credentials, safeguarding policies, tutor-quality signals, fraud controls and disputes.
+
+Finally, the Settlement Plane maintains fiat quotes and accounting off-chain while using stablecoin rails for programmable escrow and optional global tutor payouts.
+
+The data architecture should use conventional infrastructure for most of the system: relational storage for accounts and transactions, a vector/feature store for incident and intervention representations, low-latency availability storage, an event stream for session telemetry and encrypted object storage for permitted recordings. The blockchain is intentionally confined to settlement.
+
+The strongest launch wedge
+
+Launch Relay with college STEM debugging, not “every subject for everyone.”
+
+Start with calculus, statistics, introductory physics and introductory programming. They produce abundant discrete “I'm stuck” moments, learner attempts are relatively easy to inspect, diagrams/code can be shared digitally, expertise is globally available, and the bottlenecks can be represented much more precisely than broad requests like “teach me history.”
+
+The initial marketplace promise becomes:
+
+“Show us where you're stuck. Relay will diagnose the bottleneck and put the right expert into your problem—not merely an available tutor—within minutes.”
+
+Once the intervention graph has enough density, expand horizontally into language speaking, professional certification, coding, accounting, engineering and other domains.
+
+What was deliberately removed
+
+I would not build a native Relay cryptocurrency, tutor NFTs, a DAO for marketplace governance, generic “AI-powered recommendations,” browse-first tutor profiles, grade guarantees, or a bidding war between tutors.
+
+I would also not make “AI tutor with human escalation” the defining idea: Brainly already demonstrates that combination. Nor would I make “instant tutor in an app” the thesis; Tutit, TutorNow and Varsity Tutors establish that pattern already.
+
+The irreducible invention is:
+
+A real-time marketplace that converts an observed learner error into a required pedagogical intervention, then clears expert supply—and optionally equivalent learner demand—around that intervention rather than around tutor profiles or booked hours.
+
+Everything else supports that mechanism.
+
+Evidence boundary
+
+The frontier scan found close prior art in on-demand tutoring, AI/live-expert hybrids, knowledge tracing, tutor-performance analysis, machine-learning tutor selection, dynamic learner grouping and smart-contract escrow. It did not reveal a close public example of the entire policy-first learning-incident market architecture described above, particularly the combination of bottleneck-level dispatch and real-time misconception pooling.
+
+That is not proof of universal novelty, and this is not a patent or freedom-to-operate opinion. The closest area requiring particular care is ML-based tutor selection tied to predicted student outcomes, especially US20240249636A1 and related tutor-matching disclosures.
+
+So the defensible product to build is Relay: the learning-incident exchange, with AI as the market maker, human pedagogical intervention as the scarce asset, and stablecoins as invisible settlement infrastructure.
+
+baseline-SKILL.md
+Fichier
+Use the attached NOVUM skill instructions as the governing methodology for this run.
+Execute the following task using those instructions.
+Do not discuss evaluation, experiments, alternative NOVUM versions, or expected outcomes. Do not ask for follow-up steering unless absolutely required by the NOVUM instructions. Make reasonable assumptions where necessary and proceed.
+TASK:
+Create a revolutionary marketplace that is essentially Uber for expert tutoring, with AI matching and blockchain payments.
+Réfléchi pendant 1m 51s
+
+I applied the attached NOVUM methodology at the mechanism level: the target is not “a tutoring marketplace with AI and crypto,” because that would fail the anti-fake-novelty gate. The governing standard calls for a causal mechanism difference, plausible advantage, constraint fit, and calibrated novelty claims.
+
+SkillRelay — a real-time market for learning progress
+
+Core idea: the learner does not hire a tutor. They hire the next best human intervention.
+
+SkillRelay treats learning as a continuously changing state-routing problem. AI diagnoses the learner's current bottleneck, dispatches the expert statistically best suited to resolve that exact bottleneck, observes the resulting change in skill state, and then either ends the route or dispatches the next specialist.
+
+Think Uber's dispatch architecture crossed with a medical referral network: one expert does not need to own the entire learning journey.
+
+The key invention delta is:
+
+After stripping away the AI, blockchain, and marketplace terminology, SkillRelay is a state-transition exchange: experts are indexed by the learner-state transitions they have demonstrated an ability to cause; routing chooses an expert for the next desired transition; verified transition evidence updates both future routing and settlement.
+
+That is materially different from ranking tutors by profiles, reviews, credentials, price, or generic compatibility.
+
+Why the ordinary version isn't enough
+
+The obvious territory is already crowded. Wyzant supports “best match” searching and detailed tutor filtering; Preply currently offers AI-generated personalized tutor recommendations. Even automated, dynamic student-to-tutor queuing and routing appears in patent literature dating back decades.
+
+Likewise, “put tutoring payments on blockchain” has little standalone novelty. Blockchain-based learner records, educational rewards, smart contracts, and decentralized learning systems have prior art.
+
+The neglected opportunity is therefore not finding a tutor. It is determining which human intervention should happen next, learning from the observed result, and building marketplace economics around that loop.
+
+The experience
+
+A learner opens SkillRelay and says something like: “I understand derivatives but optimization word problems are destroying me, and my exam is Monday.”
+
+The system does not return 600 calculus tutors.
+
+Goal Compiler. A conversational diagnostic turns the request into a private Skill Contract: goal, deadline, relevant skill graph, current mastery estimates, learning constraints, modality and budget.
+Bottleneck Detection. A short adaptive probe identifies that the actual issue might not be calculus at all—for example, translating natural-language constraints into equations.
+Expert Dispatch. The router finds an available expert whose historical Teaching Fingerprint shows strength specifically in that misconception, at that learner level. The learner sees one primary match, an ETA, price and concise reason for the match.
+Micro-intervention. The expert accepts a 12-, 25- or 50-minute dispatch. AI maintains the shared problem state, notes misconceptions and handles administrative context so the human can teach.
+Transfer Check. After the intervention, the learner solves a different problem requiring the same underlying skill. That creates an evidence signal about whether the learner state changed rather than whether the session merely felt good.
+Reroute. If the bottleneck moved, the learner can immediately be handed to a different specialist. A one-hour learning journey might therefore involve a conceptual explainer for 15 minutes, a problem-solving specialist for 20 and an exam strategist for 15 instead of one generalist for the full hour.
+
+This turns tutoring supply from people listed by subject into micro-capabilities available on demand.
+
+The AI matching engine
+
+Every learner has a dynamic Learner State Graph. Nodes represent capabilities and misconceptions rather than broad course labels: “recognizes eigenvector condition,” “converts geometric description into linear constraints,” “distinguishes correlation from causation,” and so forth.
+
+Every expert develops a multidimensional Teaching Fingerprint. It is not one score. SkillRelay learns that Expert A may be exceptional with advanced learners who have conceptual misconceptions, while Expert B is unusually effective at rescuing beginners who have procedural gaps.
+
+The router essentially chooses:
+
+j
+∗
+=arg
+j
+max
+	​
+
+Price
+j
+	​
+
++λTime
+j
+	​
+
++μWait
+j
+	​
+
+E[ΔSkill∣L
+t
+	​
+
+,B
+t
+	​
+
+,T
+j
+	​
+
+]
+	​
+
+
+where L
+t
+	​
+
+ is the current learner state, B
+t
+	​
+
+ the immediate bottleneck and T
+j
+	​
+
+ the expert's conditional teaching fingerprint. Credentials, language, availability, safeguarding requirements and learner preferences operate as constraints rather than substitutes for effectiveness.
+
+This approach has a credible technical basis. Educational research has already applied contextual and multi-armed-bandit methods to selecting learning actions from student knowledge states, while recent 2026 work demonstrates interpretable estimation of learner ability and task difficulty directly from tutor–student dialogue. SkillRelay transfers those principles from selecting digital exercises to routing scarce human expertise.
+
+Reputation becomes Impact Receipts
+
+Stars are a weak learning signal. A friendly tutor working with already-strong learners can accumulate superb ratings without necessarily being the best person for a struggling learner; research on teacher effectiveness also highlights how non-random teacher–student matching can bias apparent effectiveness.
+
+SkillRelay therefore creates signed Impact Receipts after sufficiently measurable interventions. A receipt records the skill addressed, anonymized learner-state category, task difficulty, observed mastery transition and confidence level.
+
+The learner's actual answers, transcripts and identity remain encrypted off-chain. Only cryptographic commitments and attestations need to be anchored to the settlement layer.
+
+Experts gradually acquire a portable reputation such as: high-confidence effectiveness on Python debugging for intermediate programmers; strong with recursion misconceptions; insufficient evidence for beginners. That is dramatically more useful to matching than “4.9 stars, 713 reviews.”
+
+It also creates the core network effect: every successful transaction improves the routing graph.
+
+Blockchain has one job: programmable trust
+
+There is no SkillRelay token, no speculative “learn-to-earn” currency and no reason learners should need to understand wallets.
+
+Blockchain is used narrowly where it changes the marketplace economics: cross-border settlement, programmable allocation and portable signed reputation.
+
+A session has two economic components. Most expert compensation is guaranteed once the contracted intervention occurs. A smaller optional impact component becomes releasable after the assessment service generates a signed Impact Receipt. This avoids the unfair model of forcing tutors to bear all the risk of a learner's outcome while still aligning some marketplace economics with actual learning.
+
+For a multi-expert route, one funded learning budget can automatically settle five tiny interventions without five conventional cross-border payouts. Receipts can be batched, and only hashes/attestations need to hit the chain.
+
+The consumer interface can remain completely conventional: “Pay €38.” Behind it, a licensed payments provider handles cards/banks and eligible stablecoin settlement. Stripe currently supports marketplace payment infrastructure, stablecoin payment support with Connect, and stablecoin/global payout capabilities, making this sort of hybrid architecture increasingly practical without SkillRelay itself becoming a crypto custodian.
+
+In Europe, this needs to sit behind appropriately regulated providers rather than attempting to bypass financial regulation; MiCA covers crypto-assets, stablecoins and related service providers.
+
+The marketplace economics
+
+Experts control minimum rates and availability. SkillRelay converts these into an instant quoted price based on intervention length, scarcity, urgency and expertise. There is no public reverse auction, because forcing experts to bid downward would select for cheap supply rather than effective supply.
+
+The platform takes roughly a 10–15% transaction fee to start. Cross-border experts can choose supported local-bank or stablecoin payouts. Frequent learners can pre-fund a learning budget so micro-interventions don't repeatedly incur payment-processing friction.
+
+The most important marketplace flywheel is different from Wyzant/Preply:
+
+more interventions → better conditional impact data → better dispatch → more valuable demand → better expert supply → denser skill coverage → faster dispatch.
+
+The moat therefore becomes the expert × learner-state × misconception outcome graph, rather than a directory of tutor profiles.
+
+Make it genuinely “Uber-like”
+
+The home screen should not say “Browse Tutors.”
+
+It should say:
+
+What are you stuck on?
+
+Then:
+
+Expert found — 3 min away
+Best match for: setting up optimization constraints
+25 min · €21
+Why this match →
+
+Experts operate a “Go Online” mode. Incoming dispatches contain an anonymized problem brief, skill required, duration and guaranteed compensation. Accept, connect, teach, settle.
+
+Scarce domains can support surge pricing. Learners needing obscure expertise—advanced Rust lifetimes, econometrics, organic chemistry spectroscopy, a specific CAD workflow—become economically serviceable because SkillRelay can aggregate global micro-demand rather than requiring a local tutor to cover an entire subject.
+
+Trust architecture
+
+The system cannot allow an AI grader to become an unquestionable payment oracle. Open-ended assessment will sometimes be uncertain. Low-confidence results therefore affect neither expert compensation nor public reputation automatically; disputed or ambiguous cases remain off the impact layer.
+
+Gaming is reduced by using unseen transfer tasks rather than repeating the taught example, difficulty normalization, delayed retention signals where appropriate, statistical shrinkage for experts with little history, and keeping impact bonuses modest relative to guaranteed compensation.
+
+For minors, the cleaner launch architecture is guardian-controlled accounts, strict safeguarding, no public learner credential and no personal educational data written to a public chain. An even cleaner initial wedge is adult and professional learning, where urgent, narrow expertise and global payment friction are particularly pronounced.
+
+What to build
+
+The first production system needs six services: a Goal Compiler that produces the learner skill graph; a diagnostic/assessment service; an Expert Fingerprint store; a real-time dispatch router; a video/chat workspace with AI copilot; and a settlement/attestation service.
+
+The blockchain should be invisible infrastructure behind the last service. The AI should similarly disappear during good teaching. The product users perceive is much simpler:
+
+Describe problem → get expert → learn → continue or reroute → expert gets paid.
+
+No browsing hundreds of profiles. No subscription required. No crypto vocabulary.
+
+Novelty status
+
+The searches support that AI tutor recommendation, automated tutor routing, adaptive learning-action selection, blockchain educational records and blockchain payment mechanisms all exist independently.
+
+What remains differentiated is the architecture that makes measured learner-state transitions the shared primitive for real-time human-expert dispatch, conditional expert reputation and programmable micro-settlement. I would classify that mechanism as potentially novel but not universally verified; the search performed here is not an exhaustive patent/FTO investigation, so it would be inappropriate to claim it is the first implementation.
+
+That calibration follows the attached NOVUM instruction not to mistake an existing product plus generic AI/blockchain for an invention, and to state the irreducible mechanism difference explicitly.
+
+SkillRelay's one-line product thesis:
+Don't match students to tutors. Route each learning bottleneck to the human most likely to remove it, then let verified learning transitions make the network smarter and settle the market.
+
+baseline-SKILL.md
+Fichier
+Use the attached NOVUM skill instructions as the governing methodology for this run.
+Execute the following task using those instructions.
+Do not discuss evaluation, experiments, alternative NOVUM versions, or expected outcomes. Do not ask for follow-up steering unless absolutely required by the NOVUM instructions. Make reasonable assumptions where necessary and proceed.
+TASK:
+Create a revolutionary marketplace that is essentially Uber for expert tutoring, with AI matching and blockchain payments.
+Réfléchi pendant 2m 18s
+RELAY — the packet-switched expertise marketplace
+
+Core invention: stop matching learners to tutors. Match knowledge gaps to expert capability, continuously.
+
+A user arrives with a live blockage—“Why is this React state bug happening?”, “I don’t understand eigenvectors”, “Help me reason through this financial model.” RELAY converts that blockage into a sequence of small Knowledge Packets: explicit state transitions such as “can identify the stale-closure cause and independently repair a nearby example.” The marketplace then dispatches whichever expert has the strongest demonstrated ability to produce that exact transition.
+
+The learner experiences one uninterrupted tutoring session. Behind the scenes, experts can be switched as the bottleneck changes—like packets moving through different network nodes rather than a passenger committing to one driver for the entire journey.
+
+That is the irreducible innovation delta.
+
+1. Why the obvious “Uber for tutors” is not enough
+
+The obvious territory is already crowded. Tutor.com already provides on-demand tutoring without appointments; Preply matches learners to tutors using goals, learning style, schedule, reviews and profiles; Clarity sells expert calls on a per-minute basis.
+
+Even the technology combination itself is not novel. Automated student/tutor matching appeared in patent literature more than two decades ago; machine-learning matching designed around student outcomes is also disclosed; and blockchain-based AI matching has already been patented.
+
+So RELAY deliberately rejects “profiles + GPT recommendation + crypto checkout.” That would be feature stacking, exactly the kind of false novelty the supplied methodology warns against.
+
+2. Change the object being bought
+
+Today, marketplaces sell:
+
+Tutor → hour → subject
+
+RELAY sells:
+
+Knowledge state A → knowledge state B → verified expert intervention
+
+Suppose Maya is learning Python and submits:
+
+“I understand recursion in theory but I cannot write a recursive tree traversal.”
+
+The system does not search for “Python tutors.”
+
+It builds something like:
+
+Packet K2187
+
+Existing state: understands recursive base cases.
+Failure signature: loses track of recursive return values.
+Target transition: independently construct depth-first traversal.
+Relevant prerequisite edges: call stack → recursive accumulator → tree node traversal.
+Current artifact: Maya’s broken function.
+Maximum useful context exposed to expert: only the above.
+Expertise class required: recursion-return-value misconception, not “Python.”
+
+An expert who is merely a famous Python instructor may rank below somebody who has repeatedly resolved precisely that misconception.
+
+The marketplace therefore develops a Resolution Graph
+
+For each expert, RELAY learns something closer to:
+
+P(state A → state B | expert, misconception, learner context, intervention type)
+
+rather than:
+
+rating = 4.92 stars
+
+Knowledge tracing is already an established research area, including recent work on estimating changing learner states from tutor/student dialogue. That makes the measurement substrate plausible; the market architecture built around those transitions is the differentiated piece.
+
+3. The Uber-like experience
+
+The learner opens RELAY and hits one primary action:
+
+What are you stuck on?
+
+They can talk, type, upload code, share a screen, photograph handwritten work, or attach an artifact.
+
+The AI spends the opening interaction diagnosing the smallest unresolved edge. Importantly, it is not trying to replace the human by producing the full answer. It prepares a dispatch packet.
+
+Then:
+
+Finding the right mind…
+
+Available experts receive a compact request:
+
+Calculus · substitution choice
+Learner knows integration by parts but repeatedly chooses it where trig substitution is required.
+Estimated intervention: short.
+Artifact available.
+Accept?
+
+One taps Accept and appears immediately.
+
+There is no catalog browsing, introductory sales call or tutor-shopping process.
+
+When the learner moves from “choosing the substitution” to a different blockage—say, manipulating the resulting identity—the routing engine can determine that another available expert is substantially better suited.
+
+The first expert says:
+
+“I’m handing you to Sofia—she’s stronger on this next piece.”
+
+Sofia receives a machine-generated handoff capsule, not twenty minutes of transcript. The learner does not need to repeat the story.
+
+That is packet-switched tutoring.
+
+4. Reputation becomes radically more useful
+
+Traditional ratings collapse expertise into a scalar.
+
+A 4.9-star mathematics tutor tells you almost nothing about whether they are unusually good at:
+
+geometric proofs;
+anxious adult learners;
+Fourier intuition;
+translating word problems into equations;
+diagnosing sign errors;
+competition mathematics.
+
+RELAY creates a multidimensional Proof-of-Transfer Graph.
+
+An expert's public identity might show:
+
+Ari Chen — Applied Mathematics
+
+Strongest resolution edges
+• Linear algebra → geometric intuition
+• Eigenvectors → dynamical-systems interpretation
+• Probability → Bayes reasoning
+• Python/Numpy → translating mathematical models
+
+Best operating mode
+• Conceptual blockage
+• Experienced technical learners
+• Short diagnostic sessions
+
+Stars still exist for conduct and professionalism, but they no longer control routing.
+
+The scarce asset experts accumulate is measured routing authority over tiny parts of the knowledge graph.
+
+That creates a powerful marketplace flywheel: every completed interaction makes the routing system more specific.
+
+5. Payment architecture: Proof-of-Transfer Escrow
+
+Blockchain has one narrow job in RELAY: make a worldwide, programmable expert market economically practical.
+
+There is no RELAY token.
+
+No speculative coin.
+
+No DAO governing mathematics tutors.
+
+No NFT diploma.
+
+Instead, every live session creates an escrow object containing several payment tranches.
+
+Availability component: the expert is compensated for actual attention and cannot lose this because a learner happens to struggle.
+
+Resolution component: a smaller amount is associated with completion of the Knowledge Packet.
+
+Relay component: if several experts contribute, the settlement contract can divide payment between the participating nodes rather than forcing a single tutor to own the whole session.
+
+The learner sees an ordinary currency balance and ordinary prices. They never need to know what chain is underneath.
+
+A compliant payment provider handles fiat entry, identity/KYC and tax requirements. Stablecoins provide the optional settlement rail for experts who want rapid cross-border payout. This is increasingly practical: Stripe currently supports stablecoin payments and Connect, and described stablecoin payouts for marketplace sellers during its 2026 marketplace product presentation.
+
+Raw educational data never goes on-chain.
+
+The chain contains only things such as:
+
+packet_hash → expert_ids → settlement → signed completion receipt
+
+Everything sensitive remains encrypted off-chain.
+
+6. Why this changes marketplace economics
+
+Existing marketplaces can take substantial percentages. Wyzant says tutors retain 75% of their posted rate, while students also pay a 9% service fee. Preply states that subsequent-lesson commission ranges from 18% to 33%, while the first trial lesson carries 100% commission. Intro lists a 30% commission for bookings generated through its marketplace.
+
+RELAY has a different economic architecture because it is not financing a massive profile/search/lead-generation funnel.
+
+Its value comes from allocation accuracy and liquidity.
+
+I would structure it as:
+
+Learner: transparent metered price.
+
+Expert: chooses a minimum effective rate and availability status.
+
+Routing engine: calculates the appropriate market price from scarcity, expertise specificity and expected duration.
+
+RELAY: comparatively low transaction take plus premium fees for enterprise/SLA access.
+
+The important distinction is that surge pricing applies to scarce knowledge edges, not celebrity.
+
+If eight hundred JavaScript experts are online but only two understand a particular WebAssembly compiler issue, the scarce capability becomes expensive automatically.
+
+This turns human knowledge into a genuinely liquid market.
+
+7. Expert supply works like driver supply
+
+Experts do not need to become full-time tutors.
+
+A senior engineer could toggle:
+
+Available for 20 minutes
+
+and expose only:
+
+PostgreSQL query planning
+distributed locking
+Kafka ordering failures
+
+A professor might expose:
+
+measure-theory intuition
+stochastic processes
+graduate probability
+
+A product designer:
+
+accessibility audits
+interaction-state debugging
+Figma component architecture
+
+RELAY can therefore unlock expertise that conventional tutoring platforms fail to capture because those people do not want to build a profile, market themselves or commit to recurring students.
+
+The expert's phone becomes a knowledge dispatch terminal.
+
+8. The AI has a deliberately constrained role
+
+AI performs five jobs:
+
+Diagnose. Infer the unresolved knowledge edge.
+
+Packetize. Turn messy user context into the minimum expert-readable briefing.
+
+Route. Predict which available expert is most appropriate for that transition.
+
+Observe. Maintain an evolving learner-state estimate during the session.
+
+Relay. Detect when the required expertise has changed and prepare the next handoff.
+
+It should not become the dominant tutor whenever a human has been requested.
+
+That division is strategically important. Generic AI systems continue to become more capable, so a marketplace built merely around “humans who answer questions” will be progressively commoditized. RELAY instead uses AI to make scarce human judgment more efficiently addressable.
+
+9. Trust without credential theater
+
+RELAY uses three distinct trust layers.
+
+Identity trust: experts are genuinely who they claim to be. Credentials, employment or professional certifications can be verified where relevant.
+
+Capability trust: experts must demonstrate particular knowledge edges rather than obtaining a blanket “verified expert” badge.
+
+Teaching trust: marketplace evidence tracks whether they can move learners through particular bottlenecks.
+
+Those three things must remain separate.
+
+A Nobel Prize does not automatically imply good tutoring.
+
+A great tutor does not automatically imply professional authority for regulated advice.
+
+And someone excellent at one technical niche does not inherit reputation everywhere else.
+
+This prevents the classic marketplace problem where generalized ratings become transferable social capital outside the area in which they were earned.
+
+10. The strongest initial wedge
+
+Do not launch as “experts for everything.”
+
+Begin with domains where both the problem and learner progress leave observable artifacts:
+
+Software engineering, data science, mathematics and technical professional skills.
+
+They work unusually well because RELAY can inspect:
+
+code;
+compiler output;
+notebooks;
+diagrams;
+equations;
+terminal output;
+design artifacts;
+worked problems.
+
+And expertise tends to be extremely granular.
+
+Someone debugging Kubernetes at 01:00 does not want “a cloud tutor next Tuesday.”
+
+They want:
+
+the person who has seen this exact failure mode.
+
+That is where the dispatch model becomes visibly superior to a directory.
+
+Regulated medical, legal, investment and similar advice should remain outside the initial tutoring marketplace or operate under separate professional-compliance regimes.
+
+11. System architecture
+                         ┌────────────────────┐
+                         │ Learner workspace  │
+                         │ voice/code/canvas  │
+                         └─────────┬──────────┘
+                                   │
+                          Problem + artifacts
+                                   │
+                         ┌─────────▼─────────┐
+                         │ Knowledge Packet  │
+                         │      Engine       │
+                         └─────────┬─────────┘
+                                   │
+                   state A → target state B
+                                   │
+                    ┌──────────────▼──────────────┐
+                    │       Resolution Graph       │
+                    │ expertise × context × state │
+                    └──────────────┬──────────────┘
+                                   │
+                         live dispatch ranking
+                                   │
+              ┌────────────────────▼──────────────────┐
+              │        Expert Availability Mesh       │
+              │ expert A │ expert B │ expert C │ ... │
+              └──────────┬────────────────────────────┘
+                         │
+                         ▼
+               ┌───────────────────┐
+               │ Live expert node  │
+               └─────────┬─────────┘
+                         │
+                  learner progresses
+                         │
+              ┌──────────▼───────────┐
+              │ State-change monitor │
+              └──────┬────────┬──────┘
+                     │        │
+               same edge      new edge
+                     │        │
+                     │        └──► RELAY TO NEXT EXPERT
+                     ▼
+                continue session
+
+Payment plane:
+fiat/wallet → escrow → metered settlement → expert payout
+                             │
+                             ▼
+                     on-chain receipt hash
+
+Data plane:
+raw dialogue + artifacts + learner graph = encrypted/off-chain
+
+The routing model should initially be a combination of interpretable features, embeddings and probabilistic/contextual allocation—not an opaque end-to-end autonomous system.
+
+The core database entities are:
+
+LearnerState
+KnowledgeEdge
+KnowledgePacket
+ExpertCapabilityEdge
+ResolutionEvent
+Handoff
+AvailabilityWindow
+Session
+Settlement
+EvidenceReceipt
+
+The ExpertCapabilityEdge is the critical proprietary data asset.
+
+12. What I would explicitly kill
+
+Several seemingly attractive additions weaken the invention.
+
+Idea	Decision
+Native cryptocurrency	Kill — speculation adds no tutoring advantage
+NFT credentials	Kill — verifiable credentials can exist without artificial scarcity
+Generic AI tutor clones of experts	Kill — increasingly common and easy to copy
+Student browses expert profiles	Kill as default — reinstates the old marketplace architecture
+One permanent tutor per session	Remove — prevents specialization and relay
+Global 1–5-star expert ranking	Demote — too information-poor for routing
+Lowest-price expert auction	Kill — incentivizes race-to-bottom tutoring
+Fully autonomous smart-contract governance	Kill — identity, safety and dispute resolution still require accountable operators
+
+One contemporary example already packages expert knowledge into AI agents with escalation to the associated human, illustrating why “expert-backed AI clone” alone is not enough differentiation.
+
+13. The defensible network effect
+
+The moat is not the video software, LLM or blockchain.
+
+It is the accumulated mapping:
+
+which human intervention moves which kind of learner across which knowledge edge under which conditions.
+
+Ordinary tutoring marketplaces accumulate transactions and reviews.
+
+RELAY accumulates a human teaching capability graph.
+
+After enough activity, the system might discover patterns such as:
+
+Expert X is average at teaching recursion overall but exceptionally effective when an intermediate programmer understands the call stack yet misconceives return propagation.
+
+That knowledge cannot be copied by scraping profiles.
+
+And because the graph gets stronger from the actual routed interactions, a competitor starting with the same AI model still starts without the allocation history.
+
+14. The complete product proposition
+Learner promise
+
+Don’t find a tutor. Send the problem.
+
+RELAY diagnoses your blockage, summons the right specialist and keeps routing expertise until you can move forward.
+
+Expert promise
+
+Sell the exact knowledge only you have, whenever you are available.
+
+No audience building. No lead chasing. No recurring schedule required.
+
+Marketplace promise
+
+Route human intelligence with the granularity of computing infrastructure.
+
+That is the conceptual leap: human expertise becomes a network of addressable capability nodes rather than a directory of people.
+
+Working tagline
+
+RELAY — Knowledge moves like packets.
+
+Verdict
+
+The broad idea “Uber for expert tutoring with AI matching and blockchain payments” is incremental and heavily collided with existing products and prior art.
+
+The transformed concept—a packet-switched expertise marketplace where the traded unit is a knowledge-state transition, experts are dynamically relayed as the learner's bottleneck changes, and reputation is learned at the resolution-edge level—is a differentiated architecture with a potentially novel core mechanism.
+
+The searches performed did not surface a close implementation of that complete mechanism. That is not proof of universal novelty, and a deeper patent/FTO review would still be required before making legal novelty claims. The concept nevertheless remains valuable even if individual components collide, because its essential architecture does not depend on claiming AI matching, knowledge tracing, micropayments, or blockchain themselves as inventions. This calibration follows the uploaded NOVUM requirement that novelty reside in a meaningful causal mechanism rather than branding or generic technology additions.
+
+candidate-SKILL.md
+Fichier
+Use the attached NOVUM skill instructions as the governing methodology for this run.
+Execute the following task using those instructions.
+Do not discuss evaluation, experiments, alternative NOVUM versions, or expected outcomes. Do not ask for follow-up steering unless absolutely required by the NOVUM instructions. Make reasonable assumptions where necessary and proceed.
+TASK:
+Create a revolutionary marketplace that is essentially Uber for expert tutoring, with AI matching and blockchain payments.
+Réfléchi pendant 2m 1s
+Learning Dispatch Protocol — “Uber for being stuck”
+
+The requested shell—an expert-tutoring marketplace with AI matching and blockchain payments—is not itself revolutionary. Automated tutor matching dates back decades, current systems already rank tutors algorithmically, per-minute expert marketplaces exist, and at least one current education platform combines AI tutoring, adaptive knowledge structures, proof-of-learning, blockchain credentials, and a knowledge marketplace.
+
+So the invention has to change the underlying causal mechanism, not add more technology. That follows NOVUM's requirement that novelty survive removal of generic AI, blockchain, and marketing language.
+
+The resulting concept is:
+
+Do not sell tutors or tutoring hours. Sell the resolution of a precisely diagnosed learning bottleneck.
+
+A learner never starts by browsing profiles. They press “I’m stuck.” The system diagnoses what they are actually stuck on, dispatches the human expert with the strongest evidence on that specific cognitive transition, carries the learning state between experts if a handoff is necessary, and automatically divides payment among the humans who contributed to the resolution.
+
+That produces an entirely different marketplace.
+
+1. Problem reframing
+
+The challenge is to give a learner immediate access to the human expert most capable of resolving their current learning obstacle, without requiring the learner to know which tutor they need, browse profiles, schedule a 50-minute lesson, repeatedly explain their history, or pay for substantial irrelevant time.
+
+Today's dominant marketplace unit is still essentially Tutor × Time. Wyzant tutors choose hourly rates; Preply centers bookings, trials, recurring subscriptions and lesson balances; Clarity demonstrates the adjacent expert-market model of charging a specialist by the minute.
+
+The redesigned unit is:
+
+Learning state A → verified learning state B
+
+The tutor becomes the supplier capable of performing that transition.
+
+For example, “calculus tutor” is too coarse. The marketplace might discover that the learner understands derivatives but repeatedly treats the derivative of a composition as a product. Their actual demand is a narrow transition:
+
+“Can execute derivatives” → “correctly models nested functional dependency when applying the chain rule.”
+
+A tutor who is mediocre across calculus generally but exceptional at diagnosing that misconception could outrank a famous calculus tutor.
+
+2. Frontier and opportunity gap
+
+The crowded territory is easy to identify. Tutor search and ranking are well established and explicitly covered by prior patents. AI tutoring increasingly performs personalization and misconception detection. Human-AI tutoring systems such as Tutor CoPilot already demonstrate AI support inside live human tutoring. Blockchain escrow and tokenized reputation also exist independently.
+
+More recent work strengthens an important enabling capability: models can infer misconceptions from actual student-tutor dialogue, while other research is examining AI assessment of authentic human tutor performance. Those capabilities make much finer-grained expert routing plausible than conventional subject/category matching.
+
+The neglected territory is the intersection of three mechanisms: learning-state-level demand, live expert relay, and outcome-specific expert reputation. My searches found adjacent pieces, but not a close implementation of that combined market mechanism. That is evidence of differentiation, not proof of universal novelty.
+
+The central contradiction is particularly useful: instant marketplaces want interchangeable suppliers, while good tutoring benefits from continuity and knowledge of the learner. The invention resolves this by moving continuity away from the individual tutor and into a persistent, permissioned learner-state object that can travel safely between specialists.
+
+3. The mechanism search
+
+Four mechanically distinct possibilities were considered before collapsing the design around one architecture.
+
+Mechanism	Irreducible idea	Disposition
+Misconception Dispatch	Match demand to an exact misconception or missing prerequisite instead of a tutor category.	Preserve
+Expert Relay	Change tutors inside one continuous learning interaction as the diagnosed bottleneck changes.	Preserve
+Outcome-Quoted Market	Experts bid on estimated time/probability of resolving a learning problem.	Reject; too vulnerable to gaming and resembles older reputation/dynamic-pricing markets.
+Flash Cohorts	Aggregate learners currently stuck on the same problem into temporary microclasses.	Secondary capability, not the core invention
+
+The surviving design fuses the first two mechanisms without requiring the rejected bidding/staking structure.
+
+4. The invention: Resolution Relay
+
+Call the architecture Learning Dispatch Protocol, with Resolution Relay as its core operating mechanism.
+
+The learner purchases a resolution attempt rather than selecting a person. AI converts the learner's question, work, voice explanation, code, screenshot, or prior session history into a structured Learning Incident. The system routes that incident to a human specialist whose demonstrated expertise is specific to the diagnosed transition.
+
+If the first tutor discovers that the initial diagnosis was wrong, they do not drag the session outside their expertise. They reclassify the incident. The session can immediately hand off to another specialist, with the learner's reasoning history, diagrams, attempted explanations, and unresolved prerequisite transferred in a compact state packet.
+
+The learner experiences one continuous session. Behind it may be one expert or a relay of several.
+
+The irreducible innovation delta is:
+
+A real-time marketplace whose tradable unit is a diagnosed learning-state transition, where human experts are ranked by transition-specific resolution history and can be dynamically composed inside one continuous session.
+
+Remove blockchain and it remains differentiated. Remove generative AI and an inferior version could theoretically operate with conventional diagnostics. Remove branding and tutor profiles and the mechanism remains intact. That is the important distinction.
+
+5. What the learner experiences
+
+Imagine a university student is stuck on a Python recursion problem. They tap Get unstuck now and share the code plus a thirty-second explanation.
+
+Instead of returning “five Python tutors,” the AI identifies high uncertainty between two hypotheses: misunderstanding the recursive base case versus misunderstanding mutation of shared state.
+
+A tutor specializing in recursion/base-case reasoning is available in 47 seconds. The tutor receives a private packet saying, in effect: learner can trace a simple recursive call; probable failure is termination reasoning; confidence 0.71; do not assume understanding of stack frames.
+
+During the interaction, it becomes clear that recursion is not the actual obstacle. The learner is mutating a list shared between calls.
+
+The tutor taps reroute.
+
+Within the same room, a second expert who has strong evidence specifically on Python reference/mutation misconceptions joins. The learner does not restart, search again, make another booking or retell the story.
+
+The marketplace has behaved much more like an emergency-dispatch system than a directory.
+
+6. AI matching becomes causal dispatch
+
+The matching engine should not optimize a generic five-star tutor ranking.
+
+Each expert accumulates an Edge Reputation Graph. An edge is a transition such as:
+
+fraction-addition misconception → correct denominator model
+
+or:
+
+SQL join syntax knowledge → correct join-cardinality reasoning
+
+or:
+
+intermediate French grammar → spontaneous correct subjunctive selection
+
+Each tutor's profile therefore contains hundreds or thousands of narrow competency edges instead of twenty subject tags.
+
+Routing can approximately optimize:
+
+P(resolution | learning edge, learner context, tutor) − wait penalty − cost penalty − handoff penalty
+
+Availability, language, accessibility requirements, communication modality and learner preferences constrain the candidate pool before the model ranks it. Sensitive demographic attributes should not be secretly turned into pricing or quality proxies.
+
+New tutors solve the cold-start problem through calibrated diagnostic tasks, supervised initial incidents and controlled exploration rather than being permanently buried beneath incumbents with thousands of reviews.
+
+This is also much more informative than star ratings. “4.9-star physics tutor” tells the marketplace relatively little. “Has repeatedly corrected force-versus-velocity misconceptions in first-year mechanics learners” is directly relevant to dispatch.
+
+7. Architecture
+Layer	Function
+Learner interface	One-tap incident creation from text, voice, handwriting, screen share, IDE or uploaded work.
+Learning State Engine	Maintains concepts, prerequisites, misconception hypotheses, confidence and previously demonstrated understanding.
+Incident Compiler	Converts “I don't understand this” into a privacy-filtered diagnostic packet.
+Expert Edge Registry	Stores each tutor's narrow demonstrated capability, modality, latency, availability and constraints.
+Dispatch Engine	Routes the current learning edge to the best available specialist.
+Relay Room	Shared whiteboard/video/code environment supporting instant expert handoffs without resetting context.
+Resolution Verifier	Checks whether the targeted state transition has actually occurred using fresh reasoning rather than simple self-report.
+Settlement Rail	Handles escrow, streaming compensation and multi-expert payment division.
+Trust Layer	Identity, credentials, dispute handling, safeguarding, fraud monitoring and permission management.
+
+The learner's complete transcripts, assessment answers, recordings and personal profile should never be written to a public blockchain.
+
+8. Blockchain that has an actual job
+
+The common mistake would be inventing a tutor token, NFT badges and speculative staking. That fails the anti-fake-novelty gate; tokenized reputation and blockchain education credentials already have substantial precedent.
+
+Here blockchain has a narrower purpose.
+
+A learner preauthorizes a resolution budget. Tutors receive a guaranteed time component as they work, preventing difficult students from becoming unpaid labor. A smaller resolution component can be unlocked when the agreed learning transition is independently attested.
+
+When a session relays from Expert A to Expert B, the settlement contract divides compensation automatically. Neither tutor has to invoice the other, and an independent tutoring app, university, bootcamp or corporate learning platform could tap the same expert-liquidity network.
+
+The chain can also hold cryptographic commitments to Resolution Receipts: “this verified provider contributed to transition X under protocol Y.” The underlying educational evidence remains encrypted off-chain.
+
+That gives expert reputation portability without publishing learner data.
+
+Payments can be presented entirely as normal local currency to consumers. Stablecoin or other blockchain settlement can remain infrastructure underneath, used only where legally and operationally appropriate. There is no need for a speculative native token.
+
+9. A new economic model
+
+Traditional marketplaces effectively monetize time and recurring tutor relationships. Preply, for example, currently uses a subscription-oriented lesson model and charges tutors commissions ranging from 18% to 33% on subsequent lessons, while the first trial lesson carries 100% commission.
+
+Learning Dispatch instead has three prices embedded in one quote: an expert availability component, metered human intervention, and a capped resolution component.
+
+That design matters. Making all compensation conditional on mastery would create ugly incentives: tutors would avoid difficult learners, manipulate diagnostics, or cherry-pick easy problems. Guaranteed base compensation plus a limited verified component preserves the market signal without turning tutoring into a bounty hunt.
+
+The platform can collect a small settlement/dispatch fee and separately sell institutional access to its expert-liquidity network and matching infrastructure.
+
+10. Continuity without tutor lock-in
+
+Multi-tutor learning already happens, but existing platforms do little to coordinate it. Users themselves report employing several tutors for different functions, while noting that tutors may have no way to coordinate and can duplicate one another's work.
+
+Resolution Relay turns that accidental behavior into system architecture.
+
+The continuity layer belongs to the learner:
+
+What I know → what I am attempting → what keeps failing → what has been tried → what explanation worked → what remains unresolved.
+
+A new specialist sees only the context necessary for that incident, not the learner's entire educational history.
+
+For learners who value a relationship with one person, an optional anchor tutor can remain attached to the account while the dispatch network supplies specialists. The anchor becomes the longitudinal mentor; the relay handles acute bottlenecks.
+
+11. The moat
+
+The strongest defensibility is not the LLM and not the blockchain.
+
+It is the resolution graph created through marketplace activity.
+
+Every legitimate interaction creates information linking a learner state, misconception, tutor, intervention style, modality and verified state transition. Over time the system can learn, for example, that one expert is unusually effective when an otherwise strong programmer confuses concurrency with parallelism, while another is exceptional at explaining probability to learners with strong algebra but weak intuition.
+
+That dataset is radically more useful for matching than conventional profiles and reviews.
+
+The network also creates unusual liquidity. A world-class specialist does not need to accept a weekly student commitment. They can become available for twenty-minute windows and solve exactly the class of problems at which they excel.
+
+That brings highly specialized people into tutoring who might never join a traditional tutoring marketplace.
+
+12. Where it should begin
+
+The first market should not be “all education.”
+
+Start with adult and university learners in domains where bottlenecks are relatively observable: mathematics, statistics, programming, accounting, engineering and technical professional certification.
+
+Those domains make incident diagnosis, expert specialization and resolution evidence substantially cleaner while avoiding many of the safeguarding complications of launching immediately with children.
+
+The killer interaction is not “schedule a lesson.”
+
+It is:
+
+Stuck → diagnosed → expert appears → problem state follows you → resolved or intelligently rerouted.
+
+Once that interaction works, longer coaching, persistent tutors, small groups and institutional programs become extensions of the same market.
+
+13. Red-team ledger
+Failure pressure	Architectural response
+Short-term correctness masquerades as understanding	Resolution requires fresh reasoning on a related task, not repeating the tutor's example.
+Tutors optimize for easy cases	Guaranteed base compensation; difficulty-adjusted routing; no all-or-nothing bounty system.
+AI misdiagnoses the learner	Diagnosis is probabilistic and tutors can reroute without penalizing the learner.
+Handoffs destroy human connection	Persistent learner-state layer plus optional anchor tutor; relay only when specialization warrants it.
+Tutor and learner collude to manufacture reputation	Independent verification, anomaly detection and delayed reputation finalization.
+Blockchain creates privacy disaster	Only payments, signatures and commitments belong on-chain; educational content stays off-chain.
+Marketplace becomes homework cheating	No live-proctored-assessment assistance; pedagogy mode requires learner reasoning rather than answer delivery.
+Reputation locks out newcomers	Separate initial qualification signals from historical market reputation and reserve exploration traffic.
+Blockchain adds complexity without value	Hide wallets completely and permit conventional payment rails; chain is infrastructure, not the user proposition.
+
+The most serious unresolved weakness is measurement. Human learning is not a binary event, and some intellectual work—essay development, research mentorship, creative reasoning, confidence building—cannot be reduced safely to a tiny state transition. The architecture therefore has a natural operating boundary rather than pretending to cover every educational relationship.
+
+14. Prior-art boundary and honest verdict
+
+Generic tutor matching is clearly known. AI diagnosis of misconceptions is active current work. AI support for human tutors is known. Per-minute expert marketplaces are known. Blockchain escrow, tokenized reputation, proof-of-learning and blockchain educational credentials are known.
+
+What my search did not surface was a close system whose fundamental market unit is a learning-state transition, whose human experts possess transition-specific reputation, and whose live session can dynamically relay the learner among multiple specialists while preserving one continuous learning state and atomically dividing compensation.
+
+Accordingly, the calibrated verdict is potentially novel mechanism / differentiated architecture, not “first,” “patentable,” or proven. That wording follows the truth standard in the governing NOVUM instructions.
+
+The claim collapses if narrow edge-specific expertise proves no more useful for dispatch than ordinary tutor-level reputation, if reliable learning-state transitions cannot be determined well enough to support fair settlement, or if relay costs consistently outweigh the benefit of bringing in a more specialized human. Those are the concept's real kill conditions.
+
+The revolutionary shift is therefore simple to state:
+
+Uber dispatches the nearest qualified driver to a trip. Learning Dispatch continuously dispatches the most qualified mind to the learner's current unresolved cognitive edge—and the “vehicle” being routed is the learner's state, not the tutor.
+
+candidate-SKILL.md
+Fichier
+Use the attached NOVUM skill instructions as the governing methodology for this run.
+Execute the following task using those instructions.
+Do not discuss evaluation, experiments, alternative NOVUM versions, or expected outcomes. Do not ask for follow-up steering unless absolutely required by the NOVUM instructions. Make reasonable assumptions where necessary and proceed.
+TASK:
+Create a revolutionary marketplace that is essentially Uber for expert tutoring, with AI matching and blockchain payments.
+Réfléchi pendant 2m 35s
+LiftLoop — a real-time market for measurable learning
+
+The strongest version of “Uber for expert tutoring” is not a faster directory with AI search and crypto checkout. Those ingredients already collide with prior art: real-time student/tutor matching was described in patents more than two decades ago; current platforms already rank and filter tutors; and ODEM previously combined an on-demand education marketplace, AI, blockchain, and smart-contract payments.
+
+The invention should change the unit being bought.
+
+LiftLoop sells verified increments of mastery rather than hours of tutor time.
+AI diagnoses the learner, dispatches the human expert predicted to produce the highest learning gain for that exact learner/concept, measures what actually changed, and feeds that evidence back into future dispatch. Stablecoin smart contracts settle sessions, bonuses, refunds, and multi-expert splits.
+
+That is the core mechanism.
+
+1. Problem reframing
+
+The challenge is:
+
+Achieve rapid, measurable mastery of a specific skill bottleneck for learners who need expert help now, under constraints of variable tutor quality, limited attention, cross-border supply, privacy, and price sensitivity, outperforming profile/rating-based tutor marketplaces plus generic AI assistance without sacrificing human connection or turning education into answer delivery.
+
+The present marketplace architecture is fundamentally search-oriented. Preply asks learners to select tutors based on goals, schedule, profiles, reviews and trials; Wyzant similarly uses search, filters, rankings and Instant Book.
+
+The problem is that “great tutor” is not a scalar property. Recent randomized evidence from remote tutoring found that individual tutor effects accounted for about 15% of variation in student outcomes, with substantial differences between tutors.
+
+So LiftLoop asks a different question:
+
+Who is unusually effective at teaching this particular concept, to this particular type of learner, right now?
+
+2. Frontier and opportunity gap
+
+The frontier divides cleanly.
+
+Saturated: tutor profiles, stars, reviews, subject filters, calendars, subscriptions, video classrooms, “best match” rankings and instant availability. Preply reports a marketplace of more than 100,000 tutors, while TutorOcean and Wyzant already automate significant portions of discovery, booking and payment.
+
+Also saturated as a novelty claim: “AI + blockchain education marketplace.” Historical ODEM explicitly combined an on-demand education marketplace, AI and Ethereum smart contracts. Blockchain scholarship and education-payment mechanisms have also existed elsewhere.
+
+Emerging: systems can increasingly model learner state through knowledge tracing, analyze authentic human tutoring with AI, and optimize educational recommendations around skill gain. A 2026 paper specifically demonstrated contextual Thompson sampling for learner skill-gain optimization, although for exercise recommendations rather than a live human-tutor marketplace.
+
+Neglected: closing that loop around human experts—estimating each expert's conditional learning lift, routing learners on that signal, and continuously updating the market from delayed mastery evidence.
+
+The key contradiction is therefore speed versus fit. An Uber-like system wants immediate dispatch; excellent tutoring requires sufficiently deep diagnosis and a good tutor/student pairing. LiftLoop resolves that contradiction by making the diagnosis itself instantaneous and machine-mediated, rather than eliminating it.
+
+3. Assumption graph
+
+The current market assumes a learner should choose a tutor, an hourly rate is the natural unit of trade, stars approximate teaching effectiveness, one tutor should own an entire session, payment should depend primarily on elapsed time, and blockchain—if present—is merely another payment rail.
+
+Most are conventions rather than hard constraints.
+
+The weakest assumption in LiftLoop is different: learning lift can be estimated reliably enough to improve dispatch decisions. That is plausible but not established at marketplace scale. Knowledge tracing, AI analysis of tutoring interactions and skill-gain optimization provide enabling evidence, but none proves causal attribution of an individual human tutor's contribution in an open marketplace.
+
+That attribution problem becomes the main engineering problem.
+
+4. Four mechanically distinct candidates
+
+The initial portfolio is deliberately limited to four mechanically different candidates, following the governing methodology's Standard-mode constraint.
+
+Candidate	Market mechanism	Replaces	Fastest kill condition
+A. Lift Router	Match learner → tutor using predicted delayed mastery gain per euro/minute, updated after every session.	Rankings based mainly on profile, price and reviews.	Tutor-specific lift cannot be estimated better than ratings/availability.
+B. Expert Relay	AI decomposes a problem into concept nodes and can hand a learner between specialized experts during one continuous session.	One tutor must solve the whole learning problem.	Handoffs destroy continuity faster than specialization helps.
+C. Learning Liquidity Pools	Experts commit blocks of availability into skill pools; learners buy a response-time/quality SLA and an algorithm dispatches capacity.	Learners purchase an individual tutor's calendar slot.	Experts reject pooled availability or SLA economics.
+D. Mastery Bounties	Learner posts a machine-verifiable competency objective; tutors compete to fulfill the objective rather than sell hours.	Tutoring must be time-priced.	Procurement friction destroys the instant-use case.
+
+A and B survive. C is structurally interesting but imposes too much supply-side behavior change. D resembles familiar freelance/bounty contracting and loses the instantaneous experience.
+
+5. Anti-fake-novelty verdict
+
+A plain “AI tutor matcher + blockchain payments” is rejected. The old real-time tutor-matching patent and ODEM collision are too direct.
+
+A plain “Uber-style first available tutor” is also rejected. Speed alone changes dispatch latency, not the causal mechanism of tutoring.
+
+Blockchain credentials, NFTs, governance tokens and a proprietary tutoring coin are removed entirely. They do not create the claimed advantage.
+
+The surviving innovation delta is:
+
+After removing AI branding, blockchain branding and the marketplace shell, the irreducible difference is a closed-loop human-expert routing market whose allocation policy learns from normalized, delayed learner mastery changes rather than predominantly from bookings, ratings or tutor self-description.
+
+Blockchain is retained only where programmability actually matters: conditional escrow, automatic multi-expert splits and cross-border settlement.
+
+6. Red-team and rejected ledger
+
+The biggest attack is Goodhart's law: if tutor compensation depends heavily on measured progress, experts will optimize the measurement rather than durable understanding. The repair is to guarantee normal tutor compensation and make outcome compensation only a modest upside component. Assessment tasks must be delayed, randomized and structurally different from the examples shown during tutoring.
+
+Second is adverse selection: tutors may prefer easy students. Lift scores therefore need difficulty and starting-state normalization, and dispatch cannot expose learners' raw predicted difficulty as a bidding signal.
+
+Third is cold start. New experts have no lift history, so credentials, teaching simulations and controlled exploration provide priors until actual data accumulates. Recent work showing AI assessment of tutor training and authentic tutoring makes such a bootstrap mechanism more plausible.
+
+Fourth is payment recourse. Stablecoins offer programmable, continuous global settlement, but research also notes weaker standardized consumer recourse than card systems. LiftLoop therefore uses escrow-before-finality, explicit dispute windows and fiat-compatible payment providers rather than exposing raw irreversible transfers to ordinary users.
+
+Finally, no transcripts, student identities or learning scores go on-chain. Only settlement amounts, pseudonymous job identifiers and cryptographic attestations belong there.
+
+7. Evolution lineage
+
+The first evolution merges A's strongest mechanism with B's strongest mechanism.
+
+Instead of matching a learner once, LiftLoop maintains a live Concept Route. A tutor remains assigned while their predicted learning advantage is high. When the session crosses into a concept where another available expert has a materially higher estimated lift, the system can propose a seamless handoff. The next expert inherits the learner model, whiteboard state, misconceptions already identified and the precise unresolved node.
+
+The second evolution removes the weakest part of outcome-based tutoring economics: withholding ordinary tutor pay.
+
+A tutor therefore receives a guaranteed base settlement for verified teaching time. A separate Lift Bonus rewards durable mastery. If mastery is not demonstrated, the learner can receive platform credit from a guarantee reserve rather than clawing back the tutor's normal wage.
+
+That creates healthier incentives while preserving the learning-feedback loop.
+
+8. Winning invention proof stack: LiftLoop
+
+The product experience is radically simple for the learner.
+
+A learner opens LiftLoop and says something like: “I have an exam tomorrow and still don't understand integration by substitution.”
+
+The AI conducts a two-minute adaptive diagnostic—not a generic questionnaire. It determines which prerequisite nodes are secure, where the misconception begins, desired depth, language, urgency, budget and preferred interaction constraints.
+
+The dispatch system then calculates something equivalent to:
+
+expected durable mastery gain × confidence ÷ (price + latency penalty)
+
+for every available qualified expert.
+
+Importantly, a tutor's reputation is not “4.9 stars.” It becomes an Effectiveness Tensor: evidence that Tutor X is unusually effective with, for example, first-year calculus students who understand derivatives but fail substitution selection, especially under exam-time constraints.
+
+During the lesson an AI copilot privately maintains the learner state, identifies concept transitions and creates checkpoints. It assists the human tutor rather than competing with them.
+
+After the appropriate delay, the learner receives a short transfer challenge designed to determine whether they can solve a new problem requiring the same underlying concept. The resulting evidence updates both the learner graph and tutor effectiveness model.
+
+The settlement contract then distributes the base amount, any Lift Bonus, platform fee and—in a relay session—each expert's share.
+
+There is no custom token. Use a regulated stablecoin such as USDC on a low-cost chain/L2 behind an account-abstraction layer, while allowing both learner and tutor to enter and exit through familiar fiat interfaces. Stripe already supports stablecoin acceptance infrastructure, making a walletless UX technically realistic.
+
+The economic model
+
+Existing marketplace fees leave room for a differentiated model: Wyzant says it retains a 25% tutor platform fee and charges students a 9% service fee, while Preply's regular-lesson commission ranges from 18% to 33% and its published model takes the entire trial-lesson amount.
+
+LiftLoop should instead target roughly 8–12% platform economics, with an optional additional Mastery Guarantee fee. Higher-performing specialists make more because the system routes them to the learners for whom they create disproportionate value, rather than simply rewarding tenure, popularity or fast acceptance.
+
+The strongest initial wedge is 18+ undergraduate quantitative subjects, starting with one tightly bounded domain such as first-year calculus. That produces reasonably objective mastery checks while avoiding the child-safeguarding complexity of launching immediately into K–12.
+
+9. Prototype and falsification gate
+
+The first product does not need a giant marketplace, token economy or sophisticated DAO.
+
+Build only the adaptive diagnostic, a learner concept graph, 20–30 vetted tutors in one subject, live video/whiteboard, AI session analysis, delayed transfer questions, a baseline matcher and the Lift Router. Stablecoin escrow handles settlement invisibly.
+
+The central claim should be killed if, after enough repeated sessions to estimate the signal reliably, learning-lift routing cannot produce at least a 15% improvement in delayed mastery per unit of learner spend over ordinary availability/profile-based matching. Also kill or materially redesign the model if achieving that improvement requires unacceptable selection bias, tutor income volatility, excessive assessment burden or persistent dispatch times above roughly five minutes.
+
+This gate isolates the invention. A beautiful app with thousands of tutors proves almost nothing if the lift-based routing mechanism itself does not beat the simpler substitute.
+
+10. Calibrated verdict
+
+Verdict: potentially novel mechanism, with moderate evidence confidence.
+
+The known pieces are strong: large tutor marketplaces exist; instant tutor matching has old prior art; AI can perform learner-state modeling; tutor effectiveness varies; algorithms can optimize educational recommendations around learning gains; and programmable stablecoin payments are viable infrastructure.
+
+The key inference is that these capabilities can be joined into a sufficiently accurate human-tutor effectiveness market.
+
+The speculative part is the causal signal: whether messy marketplace data can distinguish “this tutor produced learning” from differences in learner motivation, difficulty, prior knowledge and self-selection.
+
+The largest remaining prior-art region is the intersection of educational contextual bandits, human-expert matching markets, tutor value-added measurement, outcome-based service contracting and smart-contract escrow. I found close components but not a close deployed match to the full mechanism searched here. That is not proof of universal novelty.
+
+The verdict changes immediately if prior art shows a system that already dispatches live human tutors based on normalized, measured delayed learning gain and feeds those results back into both future routing and programmable tutor settlement.
+
+The resulting company is therefore not “Uber + ChatGPT + crypto.” It is a learning exchange whose market price and routing intelligence are grounded in demonstrated human teaching effectiveness—with instant expert access as the user experience and blockchain settlement almost invisible underneath.
+
+candidate-SKILL.md
+Fichier
+
+https://chatgpt.com/?temporary-chat=trueUse the attached NOVUM skill instructions as the governing methodology for this run.
+Execute the following task using those instructions.
+Do not discuss evaluation, experiments, alternative NOVUM versions, or expected outcomes. Do not ask for follow-up steering unless absolutely required by the NOVUM instructions. Make reasonable assumptions where necessary and proceed.
+TASK:
+Create a revolutionary marketplace that is essentially Uber for expert tutoring, with AI matching and blockchain payments.
+
+Réfléchi pendant 2m 17s
+
+I used the attached NOVUM requirement to produce a precise, falsifiable invention candidate rather than stopping at “tutoring marketplace + AI + crypto.”
+
+SkillRelay — the marketplace for verified mastery
+
+Core idea: SkillRelay does not sell tutor hours. It sells verified mastery transitions.
+
+A learner says, for example:
+
+“I understand basic SQL, but joins still break my brain. I need to be able to solve multi-table interview problems.”
+
+SkillRelay diagnoses the exact knowledge gap, dispatches the expert most effective at that kind of misconception, transfers the learner's accumulated context to that expert, and settles part of the tutor's payment only after the learner demonstrates the concept on a new, unseen problem.
+
+Think Uber dispatch + adaptive learning + outcome escrow, but the important invention is the mechanism underneath it.
+
+1. Problem reframing
+
+The actual challenge is:
+
+Deliver expert human help within minutes while preserving the learning continuity and personalization normally obtained from a long-term tutor, and measure enough real learning to route future students intelligently—without turning tutoring into a test-gaming or reputation-gaming market.
+
+The strongest current alternatives are platforms such as Preply and Wyzant, where learners generally select tutors based on profiles, schedules, rates, qualifications, and reviews. Preply explicitly ties subscriptions to a particular tutor, while Wyzant is built around searchable tutor profiles and hourly compensation.
+
+Simply automating that selection is not enough. Student-to-tutor algorithmic matching goes back decades, and a 2024 patent describes ML-based tutor selection intended to predict academic outcomes. Blockchain-based on-demand tutoring/payment mechanisms also have prior art.
+
+So:
+
+“Uber + AI matching + blockchain” by itself is incremental.
+
+SkillRelay changes the economic unit of the market.
+
+2. Frontier and opportunity gap
+Saturated
+
+Tutor profiles, reviews, hourly pricing, calendar booking, AI recommendations, personalized learning plans and AI practice tools are already well represented. Preply, for example, already matches around goals, schedule and preferences and supplements human tutoring with AI tools.
+
+“Instant tutor matching” is also old prior art; a 2002 patent describes automatically matching an available tutor to a student and launching a real-time session.
+
+Emerging
+
+Modern knowledge-tracing systems can maintain probabilistic estimates of what a learner understands, including from open-ended tutoring dialogue. Work published in 2024–2026 shows LLM-assisted knowledge tracing and interpretable ability/difficulty estimation becoming increasingly practical.
+
+Machine-learning-based real-time micro-tutor matching is emerging as well.
+
+Neglected
+
+Marketplaces mostly know:
+
+“Alice has 4.9 stars in calculus.”
+
+They generally do not know:
+
+“Alice is unusually effective at correcting sign errors in integration-by-parts among learners who understand derivatives but have weak algebraic monitoring.”
+
+That second object is much more valuable.
+
+Key contradiction
+
+Uber-style liquidity encourages interchangeable tutors.
+
+Learning science pushes in the opposite direction: continuity, data use and sustained tutor relationships matter. Research on distributed online tutorship found greater tutor switching associated with slower improvement, while high-impact tutoring guidance emphasizes consistent tutors and continuous learner data.
+
+The opportunity is continuity without requiring the same human every time.
+
+3. The assumption that SkillRelay breaks
+
+Today's marketplaces largely assume:
+
+Tutor quality is a property of the tutor.
+
+SkillRelay assumes something different:
+
+Tutor effectiveness is an interaction among tutor × learner state × misconception × intervention × difficulty.
+
+A brilliant professor may be mediocre at helping a frightened beginner debug recursion.
+
+A junior developer might be exceptionally effective at that exact intervention.
+
+So SkillRelay does not create a scalar tutor score.
+
+It builds an Intervention Fingerprint.
+
+For every tutor:
+
+Tutor → skill → misconception → learner-state → intervention → measured transfer
+
+Over time, matching becomes a contextual routing problem rather than a directory search problem.
+
+That is the economic data moat.
+
+4. Four mechanically distinct candidates considered
+Candidate	Mechanism	Assumption replaced	Decision
+Mastery Escrow	Buy a defined change in mastery rather than minutes of tutor time	Time spent is the correct billable unit	Survives
+Continuity Compiler	AI converts every interaction into a persistent structured learner state that any expert can inherit	Continuity requires one permanent tutor	Survives
+Tutor Swarm	Separate diagnostician, explainer and verifier roles across multiple experts	One tutor should own diagnosis, teaching and assessment	Constrain to verification layer
+Expert Liquidity Exchange	Tutors sell standardized on-call tutoring capacity through dynamic pricing	Tutoring must be scheduled manually	Reject as core invention
+
+The fourth direction collides particularly strongly with existing tutoring-unit/exchange concepts; an active U.S. patent already describes tutoring units, market pricing and tutoring exchanges.
+
+5. The winning architecture: SkillRelay
+
+The winning mechanism combines Mastery Escrow with the Continuity Compiler.
+
+Its irreducible innovation delta is:
+
+A tutoring marketplace where matching and tutor reputation are learned from intervention-specific mastery changes, while a portable learner-state capsule lets different experts act as one continuous tutoring system.
+
+AI and blockchain are supporting technologies, not the supposed invention.
+
+The learner experience
+1. Ask for help, not a tutor
+
+The home screen contains one box:
+
+“What are you trying to understand or do?”
+
+The learner can paste a problem, upload their work, talk, share code, or specify a goal.
+
+No profile browsing is required.
+
+2. AI performs a 90-second diagnostic
+
+The Knowledge Router determines:
+
+likely prerequisite skills;
+current mastery estimates;
+misconception/error pattern;
+problem difficulty;
+urgency;
+learner preferences;
+whether a human is actually necessary.
+
+This uses knowledge tracing rather than merely semantic similarity. Knowledge tracing is already an established field for estimating evolving learner knowledge; the invention is using that state as a market-routing variable.
+
+3. Dispatch by Intervention Fingerprint
+
+Instead of asking:
+
+Who teaches Python?
+
+the matcher asks approximately:
+
+Who has repeatedly produced learning gains for students with this error signature, at this difficulty, using an intervention compatible with this learner?
+
+The expert gets an Uber-style offer:
+
+Python • recursion/base-case misconception • est. 18 min • €22
+
+Accept.
+
+Session starts.
+
+6. The Continuity Capsule
+
+Every learner has an encrypted Continuity Capsule.
+
+It contains things such as:
+
+skill graph;
+mastery probabilities;
+recurring misconceptions;
+solved examples;
+failed explanations;
+successful teaching approaches;
+vocabulary already understood;
+preferred representation style;
+tutor observations;
+confidence/uncertainty;
+next recommended challenge.
+
+A newly dispatched tutor therefore sees:
+
+“Learner already understands recursion conceptually. Do not re-explain stack frames. Previous visual-tree explanation failed. They succeed when tracing concrete inputs. Current failure: base-case placement.”
+
+That can turn a stranger into the functional continuation of the previous tutor.
+
+The full record stays off-chain.
+
+Existing interoperability concepts such as xAPI already allow learning events to travel between systems, so portability alone is not the invention.
+
+7. Mastery Escrow
+
+This is where the marketplace economics change.
+
+Suppose a session costs €25.
+
+Instead of paying €25 purely because 25 minutes elapsed:
+
+€20 base compensation
+
+up to €5 verified-mastery bonus
+
+After tutoring, SkillRelay presents a short blind transfer probe.
+
+It is deliberately not the problem the tutor just explained.
+
+If the session concerned:
+
+SQL INNER JOIN using customer/order tables
+
+the learner might instead receive:
+
+Combine authors, books and publishers under a structurally different schema.
+
+The system updates:
+
+P(skill mastered): 0.41 → 0.76
+
+The important measurement is transfer, not repetition.
+
+Tutor compensation and the tutor's Intervention Fingerprint receive bounded updates based on that evidence.
+
+Performance pay cannot naïvely be assumed to improve teaching—real-world performance-pay schemes have sometimes produced no achievement effect—so the variable component should remain bounded rather than turning the system into “tutors betting on students.”
+
+8. Why blockchain actually belongs here
+
+There should be no SkillRelay token.
+
+No speculative coin.
+
+No “learn-to-earn.”
+
+Blockchain performs three narrow jobs.
+
+Conditional settlement
+
+A smart contract holds the agreed tutoring payment.
+
+A signed mastery attestation can release:
+
+base payment + qualifying bonus
+
+while disputes follow a conventional arbitration process.
+
+Portable tutor evidence
+
+Tutors accumulate cryptographically signed credentials representing verified categories of work:
+
+“Completed 127 Python recursion interventions; effectiveness evidence available at defined confidence level.”
+
+W3C Verifiable Credentials 2.0 became a Recommendation in May 2025 and provides a standards-based way to express cryptographically secured, machine-verifiable credentials.
+
+Auditable contribution history
+
+The blockchain stores:
+
+hashes;
+settlement events;
+credential identifiers;
+revocation/status information.
+
+It does not contain:
+
+student names;
+transcripts;
+homework;
+videos;
+diagnoses.
+
+The sensitive learner state remains encrypted off-chain.
+
+This is important because blockchain tutoring payments themselves are already prior art.
+
+Blockchain is therefore infrastructure here, not the novelty claim.
+
+9. Marketplace flywheel
+
+Traditional tutor marketplace:
+
+more tutors → more choice → more bookings → more reviews
+
+SkillRelay:
+
+more interventions
+→ better misconception-specific evidence
+→ better routing
+→ higher-quality interventions
+→ richer causal tutoring data
+→ better routing
+
+The marketplace gradually discovers things such as:
+
+“Tutor A is excellent at explaining Bayesian priors to engineers but weak with business students.”
+
+“Tutor B fixes React state bugs unusually efficiently when the learner incorrectly believes state updates are synchronous.”
+
+“Tutor C's geometric explanations outperform algebraic explanations for this learner cluster.”
+
+Stars cannot represent this.
+
+10. Anti-gaming architecture
+
+The most dangerous failure mode is optimizing tutors for the measurement rather than learning.
+
+SkillRelay therefore needs five safeguards.
+
+Blind transfer probes. Tutors do not know the exact verification problem.
+
+Case-mix adjustment. Tutors are not rewarded simply for choosing advanced or easy students.
+
+Base-heavy compensation. Most earnings come from competent service delivery; evidence-based bonuses are deliberately limited.
+
+Uncertainty-aware updates. Weak evidence does not move a tutor's Intervention Fingerprint much.
+
+Independent verification. For important skills, a second assessment source—not the tutor who taught the learner—determines whether a state update is credible.
+
+AI assessment of tutoring and learner behavior is increasingly feasible, but it should remain an evidence source rather than an infallible oracle. Research has demonstrated promising LLM-based tutor assessment while also emphasizing the need for reliable evaluation.
+
+Red-team and rejected ledger
+
+Generic “AI finds your perfect tutor”: killed. Existing products and patents already occupy this territory.
+
+Native cryptocurrency/token economy: killed. It contributes no necessary learning mechanism and introduces adoption and regulatory complexity.
+
+Tutor staking money on student success: killed. It invites cherry-picking, distorted incentives and potentially problematic financial mechanics.
+
+Pure rotating Uber tutors: killed. Tutor interchangeability directly attacks continuity.
+
+Tutor Swarm as the default experience: constrained. Too expensive and operationally complex. Keep the separation of teaching and verification, not three humans on every job.
+
+Everything on-chain: killed. It is unnecessary and harmful to privacy.
+
+Evolution into the final mechanism
+
+The first Mastery Escrow concept had a fatal weakness: tutors could teach directly toward whatever generated the payment.
+
+So it evolved from:
+
+post-session test
+
+to:
+
+unseen transfer probe + probabilistic mastery update.
+
+The Continuity Compiler had the opposite weakness: persistent learner memory is useful but, by itself, is largely an architectural improvement rather than a new market mechanism.
+
+Crossing the two produces the stronger design:
+
+SkillRelay = Mastery Escrow × Continuity Capsule × Intervention Fingerprints
+
+The first creates the measurable economic signal.
+
+The second makes instant tutor substitution viable.
+
+The third turns repeated transactions into a superior matching system.
+
+Best initial market
+
+Do not launch with “all tutoring.”
+
+Start with adult technical upskilling, particularly:
+
+Python;
+SQL;
+Excel/data analysis;
+JavaScript;
+cloud/devops fundamentals.
+
+This operating range has several advantages: skills can often be decomposed, learner work can be inspected, transfer questions can be constructed, experts exist globally, sessions can be short, and adult-only operation initially avoids much of the safeguarding complexity inherent in K–12 marketplaces.
+
+Expansion comes only after the mechanism works.
+
+Languages, mathematics, exam preparation and professional certification can follow.
+
+Smallest viable SkillRelay
+
+You do not need a giant marketplace.
+
+The first version requires roughly:
+
+Learner app → problem/goal intake, diagnostic, session, transfer probe.
+
+Tutor app → availability switch, dispatch card, Continuity Capsule, video/shared workspace.
+
+Knowledge Router → skill graph + misconception classifier + tutor ranker.
+
+Evidence engine → before/after mastery posterior and uncertainty.
+
+Tutor Intervention Fingerprint database.
+
+Payment escrow contract → base/bonus settlement.
+
+Encrypted learner-state store.
+
+Credential issuer → optional portable tutor-performance receipts.
+
+No tokenomics.
+
+No DAO.
+
+No NFT profiles.
+
+No metaverse classroom.
+
+Decisive falsification gate
+
+The central claim is not merely that people like instant tutoring.
+
+It is:
+
+Intervention-specific routing can make interchangeable on-demand experts perform like a continuous personalized tutoring system.
+
+The concept should be abandoned or fundamentally redesigned if, in a narrow initial skill domain, Intervention-Fingerprint routing cannot materially outperform ordinary subject + availability + rating matching on independent transfer mastery while maintaining comparable time-to-tutor.
+
+A second kill condition is equally important: if mastery measurements cannot reliably distinguish genuine transfer from coached repetition, the Mastery Escrow mechanism has no trustworthy settlement signal.
+
+Those are the weakest assumptions.
+
+Honest verdict
+
+Classification: differentiated architecture, with a potentially novel combined mechanism that remains unverified.
+
+The searches found close prior art for:
+
+automated student/tutor matching;
+outcome-predictive tutor selection;
+blockchain tutoring payments;
+atomic mentoring plus blockchain incentives;
+tutoring exchanges and standardized tutoring units.
+
+I did not find, in this search, a close implementation of the complete SkillRelay mechanism: learner-state continuity across interchangeable experts + tutor matching based on misconception-specific intervention effectiveness + economically consequential settlement based on independently measured transfer.
+
+That is not proof of universal novelty, and it is not a freedom-to-operate conclusion.
+
+The strongest invention candidate is therefore not “Uber for tutors.”
+
+It is:
+
+A real-time market for verified learning interventions, where AI routes each misconception to the expert with the strongest evidence for that exact intervention, a persistent learner state preserves continuity across experts, and programmable escrow converts demonstrated skill transfer into an auditable payment and reputation signal.
+
+That mechanism is strong enough to build around even if the blockchain layer is later replaced—the sign that the invention is the marketplace architecture rather than crypto decoration.
+
+candidate-SKILL.md
+Fichier
+Use the attached NOVUM skill instructions as the governing methodology for this run.
+Execute the following task using those instructions.
+Do not discuss evaluation, experiments, alternative NOVUM versions, or expected outcomes. Do not ask for follow-up steering unless absolutely required by the NOVUM instructions. Make reasonable assumptions where necessary and proceed.
+TASK:
+Invent a lower-cost experimental method for detecting early battery failure while reducing destructive testing. State what evidence would falsify the core mechanism.
+Réfléchi pendant 1m 40s
+
+Using the uploaded NOVUM methodology as the governing framework, I’m treating the target as post-formation lithium-ion pouch/prismatic cells where long cycling, CT, teardown, and abuse tests are too costly to apply broadly.
+
+1. Problem reframing
+
+Goal: detect cells likely to fail abnormally early, using a cheap, rapid, non-destructive screen, while reserving destructive teardown/lifetime testing for a small, information-rich subset.
+
+Strong baselines: self-discharge/relaxation testing, EIS, ultrasound, early-cycle lifetime prediction, CT/teardown. Self-discharge can expose nascent shorts within minutes; ultrasound can directly reveal structural defects; rapid EIS and early-cycle analytics are increasingly capable.
+
+The challenge is therefore:
+
+Detect latent early-failure precursors before significant degradation, using equipment close to an ordinary cycler plus a simple mechanical fixture, without intentionally damaging the cell.
+
+2. Frontier and opportunity gap
+
+The obvious low-cost directions are already occupied. Pseudo-random excitation can provide inexpensive impedance measurements, nonlinear EIS extracts higher-order electrochemical behavior, thermal/lock-in methods detect internal defects, and mechanical resonance is now being studied for early aging.
+
+Pressure is especially interesting because pouch-cell electrical behavior demonstrably changes with external pressure. However, merely “press the cell and measure voltage/resistance” is also prior art, including patents directed at detecting defects by pressurizing pouch cells and observing electrical quantities.
+
+The less-explored gap is not resistance under pressure, but the reversible hysteretic coupling between mechanical pressure and electrical transport at forces far below abuse conditions.
+
+3. Key assumption graph
+
+The central causal chain is:
+
+latent structural/interfacial defect
+→ locally abnormal compliance, contact motion, electrolyte redistribution, or intermittent conduction
+→ electrical resistance/relaxation becomes unusually dependent on whether pressure is increasing or decreasing
+→ measurable electromechanical hysteresis appears before conventional capacity loss.
+
+The weakest assumption is the middle one: that early-failure-causing defects create a sufficiently large hysteretic electrical response before they become obvious by ordinary resistance, voltage, or self-discharge.
+
+4. Four mechanically distinct candidates
+Candidate	Mechanism	Verdict
+A. Electromechanical hysteresis screen	Cycle a very small clamping-pressure change and measure electrical response on the up- and down-sweep. Defects produce path-dependent resistance/relaxation.	Survives; strongest
+B. Thermal-activation leakage screen	Apply a small reversible temperature dither and infer the activation energy of leakage/self-discharge.	Useful, but close to established self-discharge and thermal diagnostics.
+C. Nonlinear PRBS fingerprint	Apply tiny pseudo-random current excitation and search for higher harmonics/intermodulation caused by unstable interfaces.	Strongly collides with PRBS impedance and nonlinear EIS.
+D. Differential mechanical resonance	Cheap vibration excitation at two SOC values; abnormal resonance/damping shifts flag mechanical degradation.	Plausible but increasingly occupied by modal-analysis work.
+5. Winning invention: Hysteretic Electromechanical Susceptibility Test
+
+Call it HEST.
+
+Instead of asking “what is the cell resistance?”, HEST asks:
+
+Does the cell’s electrical transport retrace the same path when a harmless mechanical load is applied and removed?
+
+Hardware
+
+Use a flat compliant clamping fixture with:
+
+small stepper/voice-coil actuator;
+inexpensive load cell;
+existing production cycler or four-wire pulse measurement;
+temperature sensor.
+
+No ultrasound transducer, precision impedance analyzer, thermal camera, CT system, or cell opening is required.
+
+Test sequence
+
+Hold cells at a standardized mid-SOC and temperature. Apply perhaps 3–5 small pressure levels entirely inside the manufacturer's normal clamping envelope. At each level, issue a short, low-C-rate bipolar current pulse and record:
+
+instantaneous resistance;
+0.1–10 s polarization response;
+relaxation after the pulse.
+
+Then return through the identical pressure levels in reverse order.
+
+Calculate, for example,
+
+H
+R
+	​
+
+=
+ΔP
+1
+	​
+
+∮R(P)dP
+
+plus analogous hysteresis metrics from relaxation time and pulse voltage.
+
+Also count discrete micro-jumps in R synchronized to changing force.
+
+Healthy laminated stacks should behave predominantly elastically and reversibly. A latent delamination, gas pocket, loose weld/contact, folded region, damaged separator interface, or mechanically sensitive nascent conduction path may open/close or redistribute locally, generating a non-zero loop even when its ordinary DC resistance still appears normal.
+
+Static pressure effects on impedance are already known, which makes the coupling physically credible; the invention delta is specifically using the closed loading/unloading electrical hysteresis loop as the defect observable, rather than the electrical value at a compressed state.
+
+6. Prior-art and anti-fake-novelty verdict
+
+A simple “press + measure voltage/resistance” concept does not survive the novelty gate: close patent art exists.
+
+HEST survives only in the narrower form:
+
+Irreducible innovation delta: infer latent internal instability from the path dependence and micro-event structure of electrical transport during a deliberately reversible, sub-damage mechanical loading cycle.
+
+I did not find a close source in this search explicitly using that closed electromechanical hysteresis observable for early-failure screening. That is not proof of universal novelty; the largest unresolved prior-art region is battery manufacturing patents concerning dynamic compression, separator-short screening, and formation-pressure diagnostics.
+
+Verdict: differentiated architecture; potentially novel mechanism, unverified.
+
+7. Red-team
+
+The main confounders are SOC, temperature, fixture compliance, normal cell swelling, and ordinary manufacturing thickness variation. Pressure is already known to affect impedance, and recent work explicitly correlates pressure, strain, and EIS, so absolute response cannot be trusted.
+
+That is why HEST should use:
+
+the difference between loading and unloading, not absolute resistance;
+normalization by actual measured force;
+identical SOC/temperature;
+repeated loops to distinguish reproducible hysteresis from sensor noise;
+sufficiently low pressure that the screening procedure itself does not create lithium plating or mechanical damage. Excessive compressive loading can alter degradation behavior, so the allowable envelope must be cell-specific.
+
+It will probably be weak for failure modes with essentially no electromechanical manifestation—for example some purely chemical contamination or uniform electrolyte degradation. It should therefore be positioned as a high-throughput enrichment screen, not a universal safety certificate.
+
+8. Evolution lineage
+
+The first form would combine a pressure sweep with full EIS. That was rejected because it retains expensive instrumentation and overlaps strongly with existing pressure/EIS work.
+
+The simplified form substitutes short DC pulses for EIS. The second mutation then removes reliance on the absolute pressure coefficient, because normal cells themselves exhibit pressure-dependent impedance. The surviving observable becomes closed-loop hysteresis plus synchronized resistance micro-jumps.
+
+This preserves the causal element—mechanically sensitive internal defects—while removing both expensive spectroscopy and the weakest source of false positives.
+
+9. Minimal validation and destructive-test reduction
+
+Start with a blinded set containing normal cells plus cells with independently established defect/failure labels. Run HEST before any destructive characterization.
+
+Then use destructive analysis selectively:
+
+all extreme HEST outliers;
+a randomized sample around the decision boundary;
+a small random sample from apparently healthy cells.
+
+That stratified design gives much more information per teardown than randomly destroying large numbers of cells. Once calibrated, destructive testing becomes an audit/ground-truth channel rather than the primary screening method.
+
+The most decisive validation is not whether a classifier looks impressive. It is whether independently confirmed defects that later produce early failure exhibit the hypothesized hysteretic electromechanical signature before conventional failure indicators appear.
+
+10. What would falsify the core mechanism?
+
+The mechanism should be considered falsified, not merely “in need of a better algorithm,” if any well-powered blinded study shows the following pattern:
+
+Cells with confirmed mechanically relevant latent defects have no reproducibly larger pressure–electrical hysteresis than matched healthy cells, once SOC, temperature and fixture effects are controlled.
+
+Stronger falsifying evidence would be all three of these together:
+
+The loading/unloading resistance and relaxation loops of defect cells fall within ordinary healthy-cell variability.
+Hysteresis magnitude shows no monotonic relationship with independently measured defect severity from CT, ultrasound, or teardown.
+Cells that subsequently fail early are no more likely to show the signal before failure than cells with normal life.
+
+A practical kill criterion could be preregistered as: across multiple production lots, the defect-minus-control difference in normalized hysteresis is smaller than the repeatability/noise floor and its confidence interval includes zero, with no severity correlation. In that case the claimed causal link—latent defect → mechanically induced reversible contact/transport instability → measurable electrical hysteresis—has failed, and HEST should be abandoned rather than rescued with a more complicated model.
+
+The main value of this design is that failure of the mechanism is cheap to establish: the fixture and ordinary cycler telemetry directly test the causal proposition before investing in a sophisticated inspection platform.
+
+candidate-SKILL.md
+Fichier
+Use the attached NOVUM skill instructions as the governing methodology for this run.
+Execute the following task using those instructions.
+Do not discuss evaluation, experiments, alternative NOVUM versions, or expected outcomes. Do not ask for follow-up steering unless absolutely required by the NOVUM instructions. Make reasonable assumptions where necessary and proceed.
+TASK:
+Invent a lower-cost experimental method for detecting early battery failure while reducing destructive testing. State what evidence would falsify the core mechanism.
+Réfléchi pendant 1m 28s
+
+Using the attached NOVUM methodology as the governing framework, the strongest candidate is a charge-neutral electro-acoustic reciprocity test: a low-energy screening method intended to flag latent failure precursors without cycling cells to failure.
+
+1. Problem reframing
+
+Challenge: detect cells likely to develop early failure—especially micro-shorts, delamination, abnormal gas generation, plating, or interfacial defects—using inexpensive, mostly non-destructive testing, while reducing reliance on long aging, CT inspection, cycle-to-failure, and destructive abuse tests.
+
+This matters economically because wetting/formation can take 3–7 days and aging up to another two weeks; aging is partly used to reveal excessive leakage currents. Industrial self-discharge screening may require 10–30 days of rest.
+
+The strongest baselines are therefore short electrical diagnostics such as resistance/relaxation measurements, longer self-discharge screening, ultrasonic inspection, and X-ray/CT for structural defects. Relaxation voltage can already reveal nascent internal shorts, while ultrasound is established as a non-invasive probe of internal mechanical state.
+
+2. Frontier and opportunity gap
+
+The frontier is crowded around single-domain measurements. Electrical methods include DC resistance, voltage relaxation and nonlinear impedance; acoustic methods measure transmission, time-of-flight, resonance or nonlinear harmonics; mechanical methods measure swelling/force; X-ray methods directly image internal geometry.
+
+Ultrasonic resonance itself is particularly close prior art: acoustic resonances change strongly with SOC, and built-in piezoelectric transducers have been used to correlate natural frequency and damping with SOC/SOH. Acoustic hysteresis during cycling has also been reported as reflecting irreversible degradation.
+
+The opportunity gap is therefore not ultrasound itself. It is using a deliberately reversible electrical perturbation to make the cell reveal whether its mechanical response is reversible.
+
+3. Candidate portfolio
+
+A mechanism-diverse pass produced 16 directions:
+
+Mechanism	NOVUM gate
+Charge-neutral electro-acoustic reciprocity	Survive
+Bipolar micro-pulse thermal impulse asymmetry	Survive
+Low-cost magnetic current-distribution mapping	Survive, hardware risk
+Optical surface-strain reciprocity	Survive, packaging-sensitive
+Nonlinear electrical impedance harmonics	Prior-art crowded
+Voltage-relaxation leakage estimation	Known/strong baseline
+Passive acoustic-emission counting	Known, weak specificity
+Nonlinear ultrasonic pulse inversion	Prior-art collision
+Static acoustic resonance drift	Prior-art collision
+Swelling-force incremental analysis	Prior-art collision
+RF dielectric reflectometry	Packaging limitation
+Eddy-current edge/alignment inspection	Limited failure coverage
+Resting microcalorimetry	Too slow/small signal
+Pack differential resistance	Incremental
+Acoustic gas/headspace resonance	Cell-format limited
+PRBS electrical transfer-function anomaly	Incremental/model-sensitive
+
+The important rejection is static ultrasound: patents and recent research already cover ultrasonic defect inspection, piezo-guided-wave health monitoring and formation-stage ultrasound.
+
+4. Winning invention: CNEAR
+
+Charge-Neutral Electro-Acoustic Reciprocity, or CNEAR, uses two inexpensive piezoelectric patches or clamp-on transducers plus the cell's existing formation-cycler connection.
+
+At controlled SOC and temperature, establish an acoustic transfer-function fingerprint H
+0
+	​
+
+(f). Apply a small positive current pulse transferring charge +q, interrogate two or three mechanically sensitive resonance bands, then apply an equal negative pulse −q, returning the cell to essentially its original SOC. Repeat with the order reversed: −q,+q.
+
+Instead of asking whether ultrasound changed, calculate an order-dependent residual:
+
+R=
+∥H
+0
+	​
+
+∥
+∥(H
++−
+	​
+
+−H
+0
+	​
+
+)−(H
+−+
+	​
+
+−H
+0
+	​
+
+)∥
+	​
+
+
+with voltage, delivered charge and temperature included as nuisance corrections.
+
+Core mechanism
+
+A healthy cell subjected to sufficiently small excursions should be approximately reversible: intercalation-induced stiffness/stress changes produced by +q should largely disappear when −q restores the initial electrochemical state.
+
+A latent defect can violate that reciprocity. A micro-short continuously leaks charge; poorly bonded or delaminated interfaces can change contact under alternating electrochemical strain; localized plating/heterogeneity can have asymmetric kinetics; gas pockets can introduce nonlinear mechanical compliance. The defect therefore leaves a path-dependent acoustic residual after the net electrical perturbation is zero.
+
+That creates the causal chain:
+
+latent internal defect → asymmetric/local electrochemical strain or leakage → non-reciprocal acoustic transfer function → measurable residual R.
+
+Electrochemical-mechanical coupling itself is well grounded: battery swelling tracks lithiation, ultrasonic properties change with electrochemical state, and present reviews explicitly identify linking wave physics to electrochemical changes as an important unresolved opportunity.
+
+5. Innovation delta
+
+Strip away the known pieces—piezo transducers, current pulses and ultrasound—and the irreducible difference is:
+
+Use equal-and-opposite, near-zero-net-charge electrical perturbations in both temporal orders, and diagnose latent failure from the residual violation of electro-acoustic reversibility rather than from absolute impedance, voltage, acoustic amplitude, SOC or SOH.
+
+I found close art for ultrasound during cycling, acoustic resonance/SOH monitoring, ultrasonic defect imaging, electrical nonlinear spectroscopy and relaxation-based short detection, but not a close disclosure in the searched material where pulse-order electro-acoustic reciprocity cancellation itself is the diagnostic variable. That supports a potentially differentiated mechanism, not a universal novelty claim.
+
+6. Why it could cost less
+
+The test can reuse the formation cycler's current-control and voltage channels. Incremental hardware is essentially piezo elements, a small pulser/receiver, ADC and temperature measurement rather than an imaging X-ray/CT system or laboratory impedance analyzer.
+
+More importantly, the excitation can move only a tiny fraction of rated capacity and return that charge immediately, so screening need not consume meaningful cycle life. CT remains valuable for ground truth and special cases, but industrial CT requires specialized X-ray instrumentation and is sufficiently complex that high-speed production deployment remains an active engineering problem.
+
+7. Evolution lineage
+
+The first parent was simply ultrasound during a current pulse. That collided too strongly with existing guided-wave monitoring.
+
+The first mutation made the electrical excitation charge-neutral, so ordinary SOC-dependent acoustic shifts largely cancel and the diagnostic imposes little net aging.
+
+The second mutation performs the bipolar pulse in both orders and subtracts the two outcomes. That attacks fixture drift, ordinary reversible stiffness changes and static manufacturing variation, shifting the observable from “what does this cell sound like?” to “does this cell return by the same physical path?”
+
+A further cost-reduction mutation would abandon full acoustic spectra after commissioning and monitor only two or three lot-specific resonant frequencies.
+
+8. Decisive prototype
+
+The smallest useful study would use production-equivalent pouch or prismatic cells, because acoustic coupling is easiest to control there.
+
+Establish repeatability of R on healthy cells across repeated measurements, moderate SOC variation and the permitted temperature window.
+Blindly test cells covering normal production variation plus independently identified defect-positive cells. Use CT, existing self-discharge screening and subsequent service/cycle history as ground truth; sacrifice only a small subset for teardown.
+Compare CNEAR against simple DC pulse resistance and relaxation voltage using exactly the same cells. The invention only survives if the acoustic reciprocity term adds information beyond those cheaper electrical measurements.
+
+Recent ultrasound work has demonstrated very high defect-classification accuracy under laboratory conditions, which makes the acoustic channel plausible, but also raises the bar: CNEAR must demonstrate an advantage specifically in early warning, test simplicity or reduced calibration, not merely show that ultrasound contains information.
+
+9. What would falsify the core mechanism
+
+The core claim is not merely “defective batteries produce different signals.” It is that latent failure mechanisms generate an abnormal electro-acoustic non-reversibility under charge-neutral perturbation.
+
+I would kill that mechanism if a blinded study produced any of these results:
+
+Primary falsifier: after matching SOC, temperature, chemistry and fixture pressure, defect-positive cells do not have a larger R than controls by at least two times the healthy-cell measurement standard deviation, and there is no monotonic increase of R with independently measured defect severity.
+
+Specificity falsifier: the apparent R signal disappears after correcting for temperature and ordinary voltage relaxation, or an equivalent classifier using only voltage/current/temperature performs equally well. In that case the acoustic channel is redundant.
+
+Mechanistic falsifier: deliberately reversing pulse order produces the same residual distribution in healthy and defective cells. That would directly contradict the proposed reciprocity-breaking mechanism.
+
+Generality falsifier: R detects ordinary aging just as strongly as genuinely hazardous precursors and cannot separate them at matched capacity/SOH. It might remain an SOH technique, but the early-failure invention claim would fail.
+
+For screening performance, I would use a deliberately demanding kill criterion: if the lower confidence bound of defect-detection AUROC does not exceed roughly 0.70, or it cannot outperform a simple relaxation/DC-resistance baseline at the same false-reject rate, it is not worth industrializing. Relaxation-based internal-short diagnostics are already strong enough that a more complicated sensor must clearly add information.
+
+10. Verdict
+
+Classification: potentially novel mechanism, evidence confidence currently low-to-moderate.
+
+The supported pieces are that long aging/self-discharge screening is costly, ultrasound can sensitively detect mechanical/electrochemical changes, electrochemical swelling provides a physical coupling mechanism, and electrical relaxation can reveal internal shorts.
+
+The speculative piece is the crucial one: that dangerous latent defects create a sufficiently large and sufficiently specific pulse-order electro-acoustic reciprocity violation before conventional diagnostics flag them. That is exactly the claim the proposed blinded test is designed to kill.
+
+If that mechanism survives, CNEAR could become a cheap inline triage test that sends only suspicious cells to long aging, CT, or destructive validation—reducing destructive testing without pretending it can be eliminated altogether.
+
+candidate-SKILL.md
+Fichier
+Use the attached NOVUM skill instructions as the governing methodology for this run.
+Execute the following task using those instructions.
+Do not discuss evaluation, experiments, alternative NOVUM versions, or expected outcomes. Do not ask for follow-up steering unless absolutely required by the NOVUM instructions. Make reasonable assumptions where necessary and proceed.
+TASK:
+Invent a lower-cost experimental method for detecting early battery failure while reducing destructive testing. State what evidence would falsify the core mechanism.
+Réfléchi pendant 2m 33s
+
+Using the uploaded NOVUM methodology as the governing framework, the strongest candidate is a low-cost electromechanical null test for lithium-ion pouch cells.
+
+1. Problem reframing
+
+Achieve early identification of cells likely to fail prematurely using equipment inexpensive enough for broad screening, while reducing reliance on teardown, abuse testing, CT, or long-duration life tests.
+
+The strongest practical baselines are electrical self-discharge/voltage-drop screening, EIS, ultrasound, thermal imaging, and—in higher-budget settings—X-ray/CT. Self-discharge screening can be slow because electrochemical relaxation contaminates the measurement; ultrasound and magnetic imaging provide richer internal information but require additional instrumentation.
+
+The key contradiction is therefore:
+
+Cheap measurements are usually spatially/mechanistically weak; mechanistically rich measurements are usually slower or more instrument-intensive.
+
+2. Frontier and opportunity gap
+
+Mechanical deformation is promising because lithium intercalation itself changes electrode dimensions. Surface-mounted strain gauges have already demonstrated measurable cell deformation during charge/discharge, including with very inexpensive HX711/Arduino-class readout hardware. Strain features have also been associated with battery health.
+
+But simply measuring swelling is not sufficiently differentiated. Strain-based battery testing already has substantial prior art, as do piezoelectric ultrasonic monitoring and bipolar electrical pulse characterization.
+
+A particularly important collision appeared in the current frontier: a June 2026 preprint explicitly proposes small harmonic current excitation with measurement of stack stress as mechano-electrochemical impedance spectroscopy. That kills the simpler idea of claiming current→stress spectroscopy itself as the invention.
+
+The remaining gap is not measuring strain—it is using strain as a physical null test for irreversibility.
+
+3. Invention: Electromechanical Reciprocity Echo
+
+ERE — Electromechanical Reciprocity Echo uses two equal-and-opposite, low-stress current pulses around the same SOC and asks whether the cell mechanically returns along the mirror image of its first trajectory.
+
+A healthy cell near a fixed operating point should exhibit largely reversible intercalation-induced deformation: a small positive charge excursion and an equal negative excursion should approximately undo each other's chemo-mechanical effect. A developing defect can break that reciprocity through heterogeneous ion transport, interfacial slippage, delamination, abnormal gas production, parasitic charge consumption, micro-short leakage, or irreversible mechanical rearrangement.
+
+The diagnostic signal is therefore what fails to cancel, rather than absolute swelling.
+
+Operating principle
+
+Place a pouch cell between two smooth plates under a small reproducible preload. One plate sits on an ordinary miniature load cell; alternatively, use a bonded foil strain gauge. Add one surface thermistor. Existing battery-cycler channels provide the electrical stimulus.
+
+At approximately 40–60% SOC:
+
+Rest the cell until short-term drift is stable.
+Apply a modest +I pulse—for example roughly 0.2–0.5 C for tens of seconds.
+Rest briefly and record force relaxation.
+Apply the same integrated charge with opposite sign, −I.
+Continue recording until the mechanical response settles.
+Repeat once with the pulse order reversed.
+
+The net SOC displacement is close to zero, so the test consumes very little cycle life.
+
+Instead of asking whether force changed, calculate a reciprocity residual:
+
+R(t)=F
++
+	​
+
+(t)+F
+−
+mirror
+	​
+
+(t)
+
+after correcting for temperature, baseline drift, and fixture creep.
+
+For an ideally reversible local response, the two mechanical trajectories cancel and R approaches zero. The useful features are the integrated residual, post-pair force offset, relaxation-time mismatch, and positive-versus-negative pulse gain asymmetry.
+
+A second channel retains the ordinary antisymmetric response. That catches defects that change mechanical gain or transport time without producing strong irreversibility.
+
+4. Why this could be cheaper
+
+The irreducible hardware addition is a load cell or foil gauge, a high-resolution bridge ADC, a thermistor, and a simple compression fixture. A recent experimental study demonstrated Li-ion pouch deformation measurement using a 120 Ω foil gauge, an HX711 module and Arduino-class electronics, supporting the feasibility of very inexpensive mechanical readout.
+
+ERE does not require an ultrasound pulser/receiver, scanning stage, IR camera, magnetic-field sensor array, potentiostat-grade EIS front end, or X-ray equipment.
+
+The main cost caveat is that it assumes a battery cycler is already present. Thus the strongest claim is low incremental instrumentation cost, not universally low laboratory cost.
+
+5. Mechanism-diverse portfolio
+
+I screened 18 mechanism families and retained four materially different ones:
+
+Candidate	Mechanism	Main verdict
+ERE	Detect non-cancellation of matched electrochemical strain trajectories	Winner — differentiated architecture
+Sparse Hall pulse gradiometry	Two/four cheap magnetic sensors detect abnormal current redistribution	Feasible but strongly adjacent to established magnetic-field imaging
+Thermal parity screening	Separate odd/even thermal response under ± current modulation	Too close to established lock-in thermography
+Accelerated relaxation screening	Use short pulse/rest transients instead of long self-discharge storage	Cheap, but voltage-relaxation and bipolar-pulse spaces are already crowded
+
+The important evolution was linear current→stress spectroscopy → reciprocity-breaking mechanical null test. The former collided directly with recent mechano-electrochemical impedance work; the latter deliberately interrogates nonlinear/non-returning behavior instead.
+
+6. Assumption graph
+
+The causal chain is:
+
+incipient defect
+→ altered ion redistribution / parasitic reaction / mechanical accommodation
+→ positive and negative charge perturbations cease being mechanical mirror images
+→ measurable non-zero reciprocity echo
+→ suspect cells can be selected for expensive inspection before conventional capacity loss becomes obvious.
+
+The weakest assumption is the middle one: that important early-failure mechanisms generate a reciprocity-breaking mechanical signature large enough to exceed cell-to-cell variation, temperature effects and fixture creep.
+
+That is the assumption the first validation must attack.
+
+Static strain alone is particularly vulnerable to SOC and temperature confounding. Rest-period strain is also known to relax through lithium redistribution and viscoelastic processes, so temperature and timing must be tightly controlled.
+
+7. Smallest useful prototype
+
+Use approximately 24–40 nominally identical pouch cells and one reusable fixture. Run ERE at the same SOC, temperature and preload on every cell.
+
+Ground truth should come primarily from subsequent ordinary cycling, self-discharge behavior, ultrasound or CT where available. Only a small strategically selected subset needs destructive teardown: the strongest ERE positives, strongest negatives, and discordant cases.
+
+That creates a practical destructive-testing strategy: screen everything cheaply, destructively inspect only information-rich tails of the distribution plus random controls.
+
+For production screening, the fixture can eventually become a spring-loaded nest with a single load cell rather than permanently attaching a strain gauge to every cell.
+
+8. Decisive falsification
+
+The central mechanism is:
+
+Cells heading toward premature failure develop an abnormal, non-reciprocal chemo-mechanical response to matched positive and negative micro-charge perturbations before conventional gross degradation is apparent.
+
+The mechanism should be considered falsified if, in a blinded prospective cohort:
+
+cells subsequently confirmed to have early internal defects or premature degradation show ERE residuals statistically indistinguishable from matched healthy cells before failure, after controlling SOC, temperature and fixture preload.
+
+An especially strong falsification would be finding that the apparent ERE residual is reproduced equally well by an inert mechanical/thermal dummy, or that thermistor measurements plus fixture creep fully explain it. In that case the supposed electro-chemo-mechanical defect signal is an instrumentation artifact.
+
+I would set an early kill threshold rather than optimize indefinitely: if the mechanical features cannot outperform a temperature-only/drift-only null model and cannot separate future-failing from healthy cells materially better than chance across at least two distinct failure mechanisms, abandon ERE.
+
+9. Evidence status and verdict
+
+Supported: intercalation generates externally measurable strain; inexpensive strain instrumentation works; mechanical relaxation contains information about internal lithium redistribution; strain features change with degradation.
+
+Inferred: incipient defects should perturb the symmetry and return-to-origin behavior of that mechanical response.
+
+Speculative: the reciprocity residual will become abnormal sufficiently early, consistently, and across enough defect classes to outperform cheap electrical screening.
+
+Prior-art verdict: Differentiated architecture / potentially novel mechanism, not verified as universally novel. The searches found strain-based SOH diagnostics, externally excited acoustic sensing, bipolar voltage interrogation, and linear current-to-stress spectroscopy, but not a close match to using matched bipolar electrochemical excitation specifically as a mechanical reciprocity/null test for early-failure screening. The largest remaining prior-art risk is battery diagnostic patent literature combining strain sensing with custom pulse sequences.
+
+The candidate is worth validating because its riskiest assumption is cheap to kill: a reusable clamp, load-cell electronics, thermistor, and existing cycler can determine whether the reciprocity signal exists before investing in a larger destructive-testing program.
+
+baseline-SKILL.md
+Fichier
+Use the attached NOVUM skill instructions as the governing methodology for this run.
+Execute the following task using those instructions.
+Do not discuss evaluation, experiments, alternative NOVUM versions, or expected outcomes. Do not ask for follow-up steering unless absolutely required by the NOVUM instructions. Make reasonable assumptions where necessary and proceed.
+TASK:
+Invent a lower-cost experimental method for detecting early battery failure while reducing destructive testing. State what evidence would falsify the core mechanism.
+Réfléchi pendant 2m 21s
+1. Problem reframing
+
+Assume the target is manufacturing/commissioning screening of lithium-ion cells for latent early-life safety failures, especially metallic contamination, incipient dendrites, or weak internal micro-shorts.
+
+The challenge is: detect cells likely to fail early using minutes of inexpensive, non-destructive measurement, outperforming long self-discharge screening while avoiding routine CT, teardown, or destructive abuse tests.
+
+That is a meaningful bottleneck: production self-discharge screening can require roughly 10–30 days, while voltage-drop screening is already used to catch metallic contamination. The attached methodology calls for a precise causal mechanism with explicit evidence limits and a test capable of killing the central claim.
+
+2. Frontier and opportunity gap
+
+The obvious low-cost directions are already crowded. PRBS excitation can approximate impedance cheaply; ordinary pulse relaxation can recover EIS-like information; voltage relaxation has been used for plating and internal-short diagnosis; ultrasound can identify internal defects; and electrochemical noise has already been proposed as a battery-health signal.
+
+A compact mechanism portfolio therefore looks like this:
+
+Candidate mechanism	Main issue
+Faster warm self-discharge screening	Mostly accelerates a known method
+PRBS/cheap impedance	Strong prior art
+Ordinary pulse-relaxation fingerprinting	Strong prior art
+Mirrored charge/discharge asymmetry	Differentiated, but overlaps nonlinear impedance work
+Thermistor lock-in for irreversible heating	Cheap, but likely weak signal
+Piezo mechanical ring-down	Ultrasound/acoustic prior art is crowded
+Passive electrochemical-noise screening	Promising, but noise is not deliberately coupled to the defect
+Breathing-triggered telegraph spectroscopy	Uses a new causal probe: deliberately modulate unstable microcontacts, then listen for stochastic switching
+
+The last one is the strongest candidate.
+
+3. Invention: Breathing-Triggered Telegraph Screening
+
+BTTS uses tiny, net-zero-charge current pulses to make the electrodes undergo microscopic reversible expansion/contraction—“breathing”—and then measures whether an incipient conductive bridge responds by repeatedly making and breaking electrical contact.
+
+Lithiation is known to produce measurable electrode stress, so current excitation supplies a controllable mechanical perturbation without physically opening or abusing the cell. Separately, electrochemical voltage noise in Li-ion cells changes with aging, and recent work has specifically explored electrochemical noise as a way to identify lithium deposition.
+
+The proposed causal chain is:
+
+incipient metallic bridge or dendrite → mechanically marginal contact → current-induced electrode breathing changes contact resistance → bridge intermittently connects/disconnects → bursty, non-Gaussian terminal-voltage noise appears immediately after excitation.
+
+The innovation delta is not the pulse, and not voltage-noise analysis individually. It is using controlled electrochemical strain as a defect modulator and detecting the pulse-locked stochastic conductance switching after the smooth electrochemical response has been removed.
+
+4. Experimental architecture
+
+A production formation cycler supplies the excitation. Add only a low-noise differential voltage front end/ADC and temperature measurement; no impedance analyzer, ultrasound array, X-ray system, calorimeter, or routine teardown is required.
+
+At approximately 40–60% SOC and controlled temperature, first record perhaps 30–60 seconds of open-circuit voltage noise. Then apply a repeated bipolar sequence such as approximately +0.3–0.5 C for 1–2 s, rest, −0.3–0.5 C for the same duration, rest. Follow it with the mirrored sequence beginning with discharge. The exact current must stay comfortably inside the cell manufacturer's ordinary operating envelope. Net transferred charge over each complete sequence is approximately zero.
+
+Sample voltage much faster than a normal production cycler—initially around 1–5 kHz is reasonable—and discard the immediate switching transient. For each pulse polarity, build a median smooth relaxation template from the repeated responses and subtract it.
+
+What remains is the important quantity: the residual stochastic signal.
+
+The screening statistic should emphasize step-like or burst-like events rather than average resistance. A practical Telegraph Excess Index can combine the number of residual voltage steps above, say, six times the pre-test robust noise level, their amplitudes/durations, excess kurtosis, and—crucially—the increase in event rate during the post-pulse window relative to the cell's own pre-pulse baseline.
+
+This within-cell comparison is important: a noisy ADC or naturally higher impedance should not automatically make a cell defective.
+
+5. Why it could reduce cost and destructive testing
+
+Existing short pulse methods already show that useful electrochemical information can be obtained without full laboratory EIS hardware. BTTS goes after a different signal: intermittency of the suspected defect rather than its average impedance.
+
+The initial destructive-validation campaign would use teardown/CT only on a stratified subset—high-BTTS cells plus matched low-BTTS controls. If the mechanism survives validation, production screening becomes electrical and non-destructive, with destructive analysis retained only for periodic audit and root-cause investigation.
+
+It would not replace all destructive safety qualification. It is intended to reduce the number of cells sacrificed simply to discover which production cells contain latent micro-short-type defects.
+
+6. The riskiest assumption
+
+The weakest link is very specific:
+
+An early micro-short or metallic/dendritic bridge must actually fluctuate enough under safe electrochemical breathing for its conductance changes to be visible at the external terminals.
+
+There is evidence for the ingredients—electrode stress, electrochemical noise, and voltage-noise signatures associated with shorting—but I did not find direct evidence that safe bipolar pulses cause incipient microbridges to produce detectable random-telegraph switching. Voltage-noise methods have been used around later-stage short/thermal-runaway events, which supports detectability in principle but not the proposed early-stage mechanism.
+
+7. What would falsify the core mechanism
+
+The decisive test is a blinded cohort containing healthy cells, independently verified micro-short/metallic-contamination cells, and degraded/high-resistance cells without micro-shorts.
+
+The mechanism is falsified if independently confirmed micro-short cells do not show a reproducible increase in pulse-locked step/burst activity relative to matched healthy controls after SOC, temperature, impedance, and instrumentation noise are controlled.
+
+More specifically, it should be considered killed—not merely needing a better classifier—if the signal either (a) fails to distinguish verified microbridge cells from non-microshort cells, (b) does not change systematically when pulse amplitude changes the imposed electrochemical strain, or (c) can be reproduced with a passive R-C battery emulator plus a static shunt resistor. Those results would show that the observed “telegraph” signature comes from ordinary relaxation, electronics, or generic leakage rather than mechanically unstable internal contacts.
+
+That is the important falsifier because it attacks the proposed causal mechanism, not merely predictive accuracy.
+
+Verdict
+
+Potentially novel mechanism; unverified. Electrochemical noise, bipolar pulses, pulse relaxation, nonlinear impedance, and voltage-noise short detection all have substantial prior art. In the searches performed, I did not find a close disclosure of deliberately using safe electrochemical breathing to modulate incipient conductive bridges and then measuring the pulse-locked stochastic switching residual. That is not proof of universal novelty, but it is sufficiently distinct—and cheaply falsifiable—to warrant testing before investing in a more elaborate diagnostic platform.
+
+baseline-SKILL.md
+Fichier
+Use the attached NOVUM skill instructions as the governing methodology for this run.
+Execute the following task using those instructions.
+Do not discuss evaluation, experiments, alternative NOVUM versions, or expected outcomes. Do not ask for follow-up steering unless absolutely required by the NOVUM instructions. Make reasonable assumptions where necessary and proceed.
+TASK:
+Invent a lower-cost experimental method for detecting early battery failure while reducing destructive testing. State what evidence would falsify the core mechanism.
+Réfléchi pendant 1m 32s
+
+Using the uploaded NOVUM standard, I’m treating the invention as a mechanism that must be materially different, operationally plausible, and decisively falsifiable—not merely a cheaper sensor bundle.
+
+Invention candidate: Electro-Acoustic Intermodulation Screening
+
+Goal: detect cells beginning to develop mechanically coupled failure precursors—delamination, gas pockets, contact loss, abnormal plating-induced stress—without repeatedly sacrificing cells for teardown.
+
+The key change is to measure how a cell's mechanical resonance changes in synchrony with a tiny electrochemical perturbation.
+
+Existing approaches already use ordinary ultrasound, nonlinear acoustic resonance, guided waves, EIS, and combinations of ultrasound plus EIS. Ultrasound can track structural and SOC-dependent changes, while EIS can detect early internal shorts; nonlinear acoustic battery diagnostics are also already patented.
+
+The irreducible difference here is:
+
+Do not classify the acoustic spectrum itself. Measure the cross-transfer function from a small reversible electrical perturbation to the cell's mechanical impedance.
+
+How it works
+
+Attach or spring-clamp a single inexpensive PZT patch to the cell. The patch serves simultaneously as actuator and mechanical-impedance sensor.
+
+At a controlled SOC:
+
+Apply a very small, zero-net-charge sinusoidal current perturbation to the battery, for example roughly C/100–C/20 at 0.02–0.2 Hz. This periodically perturbs lithiation without doing a meaningful charge/discharge cycle.
+Simultaneously excite the PZT near one of the cell/PZT mechanical resonances, perhaps in the tens-to-hundreds-of-kHz range.
+Measure PZT admittance and synchronously demodulate its resonance frequency, amplitude and damping at the electrical modulation frequency.
+
+Call the main quantity the electromechanical modulation coefficient:
+
+M
+f
+	​
+
+=
+Δq
+Δf
+r
+	​
+
+	​
+
+
+with analogous coefficients for resonance damping Q
+−1
+ and phase.
+
+Lithium insertion/removal inherently couples ion motion to strain, while battery ultrasound is already known to respond to electrode mechanical properties and internal interfaces.
+
+The hypothesis is that an intact stack responds relatively smoothly and reversibly. An incipient gas pocket, partial delamination or mechanically heterogeneous degradation changes contact stiffness locally, causing the electrochemically driven strain to produce an abnormally large, nonlinear, phase-lagged, or hysteretic modulation of mechanical impedance.
+
+That cross-modal response is the diagnostic—not absolute ultrasound amplitude.
+
+Why it could be substantially cheaper
+
+The instrument can consist of a PZT patch, low-voltage waveform source, transimpedance/sense circuit, ADC and the current-control capability of an ordinary battery cycler. It avoids CT/X-ray imaging, precision scanning ultrasound arrays and a dedicated broadband electrochemical impedance analyzer.
+
+It also has an important statistical advantage over teardown: every cell can be measured repeatedly throughout life. Destructive characterization becomes validation sampling rather than the primary measurement.
+
+A practical study could destructively analyze only a stratified subset—for example cells with high, medium and low modulation scores plus randomly selected blind controls—while preserving most of the cohort for longitudinal observation.
+
+Why static ultrasound alone is not enough
+
+Static acoustic signatures strongly depend on SOC, temperature, clamping, geometry and cell construction; conventional ultrasound therefore has a difficult nuisance-variable problem.
+
+Here, synchronous detection asks a narrower question:
+
+“What part of the mechanical response moves at exactly the frequency and phase imposed electrochemically?”
+
+Static fixture variation largely drops out. Joule heating provides an additional check: its dominant quadratic contribution occurs at DC/approximately twice the electrical excitation frequency, whereas reversible electrochemical coupling can be examined at the fundamental.
+
+Decisive falsification
+
+The core mechanism is:
+
+Incipient failure-associated mechanical heterogeneity measurably alters the mechanically observed response to reversible electrochemical strain before gross cell failure.
+
+I would pre-register the following kill test.
+
+Take healthy cells and cells independently verified to contain early mechanically relevant defects, while matching SOC, temperature, cell design and clamp force. Perform the new measurement blindly. Use CT or post-mortem analysis on only the validation subset to establish the actual defect state.
+
+Falsify the mechanism if both of these occur in two independent cell batches:
+
+confirmed early-defect cells exhibit essentially the same normalized electro-acoustic modulation coefficient, phase lag and hysteresis as healthy controls—e.g. standardized separation <0.5 SD with no monotonic relationship to independently measured defect severity; and
+ordinary acoustic/EIS or physical examination confirms that the targeted defects really were present and detectable, ruling out “the cells simply had no defect” as an explanation.
+
+An even stronger mechanistic falsifier would be finding that the apparent modulation follows temperature or clamp-pressure modulation equally well in an electrochemically inert dummy stack, and vanishes after those confounds are controlled. That would show the signal is a fixture/thermal artifact rather than electrochemical-strain coupling.
+
+If those observations occur, the central causal idea should be killed rather than rescued with a more elaborate classifier.
+
+Boundary conditions
+
+This method should not be claimed as a universal battery-failure detector. Its strongest plausible domain is failure modes that alter mechanical coupling or local strain transfer. A purely chemical degradation pathway that changes capacity without appreciably changing stiffness, contact or swelling may remain invisible.
+
+My search found substantial prior art around ultrasonic SOH monitoring, acoustic resonances, nonlinear resonant ultrasound, built-in PZT guided waves, and combined acoustic/EIS diagnostics. I did not find a close match in the searched material for using a low-frequency electrochemical perturbation specifically to gate a PZT mechanical-impedance resonance and using the resulting cross-modulation coefficient as the early-failure observable. The appropriate NOVUM verdict is therefore potentially novel mechanism, not established novelty.
+
+baseline-SKILL.md
+Fichier
+Use the attached NOVUM skill instructions as the governing methodology for this run.
+Execute the following task using those instructions.
+Do not discuss evaluation, experiments, alternative NOVUM versions, or expected outcomes. Do not ask for follow-up steering unless absolutely required by the NOVUM instructions. Make reasonable assumptions where necessary and proceed.
+TASK:
+Invent a lower-cost experimental method for detecting early battery failure while reducing destructive testing. State what evidence would falsify the core mechanism.
+Réfléchi pendant 1m 50s
+Invention candidate: Intercalation Transfer Spectroscopy
+
+Goal: detect latent lithium-ion cell defects in minutes, using inexpensive sensors and very small charge excursions, so destructive teardown is reserved for a minority of suspicious cells.
+
+1. Problem reframing
+
+Achieve early detection of cells likely to fail prematurely after formation, while using commodity instrumentation, adding minimal aging, and materially reducing teardown—outperforming long self-discharge holds and ordinary resistance/capacity screening without requiring X-ray CT or dedicated ultrasonic equipment.
+
+Current approaches leave a useful gap. Voltage-drop/self-discharge screening can identify metallic-contamination defects, but production tests can require long rests; one recent study describes 10–30-day self-discharge screening as a major production bottleneck. X-ray methods reveal internal structural defects but need specialized imaging hardware.
+
+2. Opportunity gap
+
+Several useful mechanisms are already occupied:
+
+Mechanism	Status
+Ordinary EIS / impedance	Mature; informative but often ambiguous and instrumentation-heavy.
+Ultrasound through the cell	Established in research and patents for SOC/SOH and internal-interface monitoring.
+Acoustic emission during cycling	Already proposed for detecting deterioration.
+Static/differential swelling or strain	Known for SOH estimation; surface strain tracks electrochemical transitions.
+Long OCV/self-discharge	Cheap hardware, but slow and not universally discriminative.
+
+The neglected measurement is not simply how much the battery expands, but its small-signal electro-chemo-mechanical transfer function: how fast and how faithfully a tiny imposed ionic redistribution becomes mechanical deformation.
+
+3. Core mechanism
+
+Call the method ITS — Intercalation Transfer Spectroscopy.
+
+Clamp the cell reproducibly against a cheap load cell or foil strain sensor. At a diagnostic SOC, inject a zero-net-charge pseudorandom bipolar current waveform, for example ±0.05C, whose frequency content spans roughly 0.03–2 Hz.
+
+Simultaneously record:
+
+imposed current I(t);
+terminal voltage V(t);
+surface force/strain F(t);
+temperature T(t).
+
+Calculate the complex transfer function:
+
+H
+FI
+	​
+
+(f)=
+I(f)
+F(f)
+	​
+
+
+including gain, phase lag, coherence, and amplitude dependence.
+
+The physical chain is:
+
+current perturbation → reversible Li insertion/removal → electrode lattice-volume change → internal stack stress → casing/fixture strain.
+
+Electrochemically induced stress and strain are established consequences of intercalation, and they evolve asynchronously with electrochemical state.
+
+The proposed new use is to make that coupling itself the diagnostic signal.
+
+4. Why an early defect should appear
+
+Consider a cell with incipient delamination, poor electrolyte wetting, abnormal gas pockets, local loss of stack pressure, particle/contact damage, or strongly heterogeneous reaction zones.
+
+Those defects need not yet produce meaningful capacity loss. But they should perturb one or more links in the mechanical transfer chain:
+
+defect → altered local ionic reaction/diffusion or mechanical connectivity → altered amplitude/phase/nonlinearity of force generated by the same current perturbation → measurable ITS fingerprint.
+
+This is different from waiting for swelling. It asks whether the cell still behaves like a uniform electrochemical actuator.
+
+The strongest prior-art collision is force/strain-based battery health estimation. Existing work measures swelling or mechanical changes during substantial cycling; electrochemical-stiffness work coordinates stress and strain at electrode level.
+
+Innovation delta: after stripping away the known load cell, cycler, and strain physics, the irreducible difference is actively identifying a full cell by the frequency- and amplitude-dependent transfer from a near-zero-net-charge electrochemical excitation to its mechanical response, specifically as an early latent-defect screen.
+
+My sampled literature/patent search did not reveal a close disclosure of that exact architecture, but that is not proof of universal novelty.
+
+5. Mechanism-diverse portfolio considered
+
+Eight genuinely different routes survive initial physical plausibility:
+
+Candidate	Core measurement	Decision
+ITS	Current → dynamic strain transfer	Advance
+Nonlinear micro-EIS	Unexcited electrical harmonics	Constrain: nonlinear/harmonic EIS is already active prior art.
+Thermal-transfer chirp	Current → surface thermal phase lag	Useful, but thermal spreading sacrifices spatial/mechanical specificity
+Magnetometric pulse mapping	Current → external magnetic field	Interesting for current-path defects but geometry-sensitive
+Micro-pulse acoustic emission	Spontaneous AE after perturbation	Reject as core novelty: close patent prior art
+Cheap ultrasonic resonance	External piezo → acoustic spectrum	Reject as core novelty: crowded literature/patents
+Multistate voltage relaxation	Pulse → OCV recovery spectrum	Very low cost, but close to existing relaxation/impedance approaches
+RF dielectric resonance	External RF field → permittivity/loss	Potentially sensitive to wetting/gas, but larger instrumentation/interpretation risk
+
+ITS wins mainly because the excitation already comes from the cycler and the added sensor can be extremely inexpensive.
+
+6. Practical architecture
+
+A prototype test station needs:
+
+existing formation cycler or bidirectional programmable supply;
+fixed-compliance clamp;
+10–50 kg miniature load cell or bonded foil strain gauge;
+instrumentation amplifier and ADC;
+one thermistor;
+software generating the current waveform and FFT/cross-spectrum.
+
+A realistic incremental hardware target is roughly $50–150 per measurement station excluding an existing cycler/DAQ, with no ultrasound pulser, precision impedance analyzer, or imaging system.
+
+Run the screen near an SOC where the cell chemistry has a strong reversible strain derivative. A suitable diagnostic SOC should be calibrated once per cell design; full-cell strain measurements already show mechanically visible features corresponding to electrochemical transitions.
+
+A practical protocol could use two four-minute passes:
+
+±0.05C zero-mean broadband excitation.
+±0.10C repetition.
+
+The second amplitude gives a low-cost measure of mechanical/electrochemical nonlinearity without forcing a meaningful net cycle.
+
+7. Screening metric
+
+Do not initially train a black-box lifetime predictor. Build a physically interpretable defect vector:
+
+D=[Δ∣H∣
+0.05−0.2Hz
+	​
+
+,Δϕ
+0.05−0.2Hz
+	​
+
+,Δ∣H∣
+0.2−1Hz
+	​
+
+,1−γ
+2
+,N
+2
+	​
+
+,N
+3
+	​
+
+]
+
+where N
+2
+	​
+
+ and N
+3
+	​
+
+ are second- and third-order amplitude-dependent distortion measures.
+
+Normalize each cell against the healthy-lot distribution at equal SOC, temperature and clamp force.
+
+Cells become:
+
+pass → retest → destructive/CT confirmation
+
+rather than today's implicit choice of screening weakly or destructively inspecting many cells.
+
+For example, destructive teardown could initially be concentrated on the highest-risk 10%, the lowest-risk 5%, plus a small random control sample. That preserves unbiased ground truth while potentially eliminating most routine teardown.
+
+8. Main failure modes
+
+The largest technical risk is fixture dominance: changes in clamp pressure, sensor bonding or case geometry might exceed the actual internal defect signal.
+
+Repair that by measuring a transfer ratio rather than absolute strain, enforcing fixed preload, and using two excitation amplitudes within the same clamping event.
+
+Temperature is the second major confounder. Resistance and reaction kinetics are strongly temperature-dependent, while Joule heating can itself create expansion. EIS literature similarly emphasizes strict SOC and temperature control.
+
+A third boundary is important: ITS is not expected to catch every soft internal short. A microscopic conductive contaminant that creates leakage without changing reaction uniformity or mechanical connectivity may remain mechanically silent. Conventional abbreviated self-discharge/leakage screening should therefore remain for that failure class.
+
+9. Decisive falsification
+
+The core mechanism claim is:
+
+Latent structural/interfacial defects that cause early failure measurably alter the small-signal intercalation-to-mechanical transfer function before they cause ordinary capacity or DC-resistance abnormalities.
+
+That claim should be considered falsified, not merely “in need of tuning,” if any of these are observed in a blinded validation:
+
+Cells with independently confirmed delamination, poor wetting, abnormal gas voids or contact defects show no reproducible H
+FI
+	​
+
+ shift exceeding three times healthy-cell measurement repeatability, including across increasing defect severity.
+Changing clamp force, sensor position or temperature within normal production tolerances reproduces the supposedly defect-specific signature after normalization, showing that the signal is principally a fixture artifact.
+A thermally matched control that produces equivalent case-temperature oscillation without appreciable intercalation produces essentially the same mechanical spectrum. That would show ITS is detecting thermal expansion rather than electro-chemo-mechanical coupling.
+CT/teardown finds equivalent defect prevalence among cells at the high- and low-anomaly ends of the ITS distribution while ordinary voltage/current features perform equally well or better.
+
+The third test is particularly important because it attacks the causal mechanism rather than merely classifier accuracy.
+
+10. Smallest useful proof
+
+Use one cell design and about 30–50 cells. Measure ITS immediately after formation, then establish ground truth from later cycling plus CT or teardown on a deliberately stratified minority.
+
+The first question is not “Can machine learning predict lifetime?” It is:
+
+Does an independently verified internal mechanical/interfacial defect cause a repeatable, defect-severity-dependent change in H
+FI
+	​
+
+(f) that survives temperature and fixture controls?
+
+If yes, the method earns further development. If no, the central mechanism should be killed rather than rescued with a more complicated model.
+
+Verdict: potentially differentiated / potentially novel mechanism, with prior-art uncertainty. The supporting physics—intercalation strain, electrochemical stiffness and measurable cell-surface deformation—is established. What remains speculative is whether early latent defects produce a sufficiently large and specific transfer-function change at full-cell level to make this a reliable screen. The supplied methodology specifically requires that distinction between mechanism plausibility and a decisive falsifier.
