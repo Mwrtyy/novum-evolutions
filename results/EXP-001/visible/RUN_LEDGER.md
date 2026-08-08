@@ -7,7 +7,7 @@ Authoritative progress record for visible execution. Raw outputs are preserved v
 | Case | Trial | Baseline | Candidate | Pair status |
 |---|---:|---|---|---|
 | vr-01-private-memory | 1 | RECORDED | RECORDED | COMPLETE |
-| vr-01-private-memory | 2 | PENDING | RECORDED | PARTIAL |
+| vr-01-private-memory | 2 | RECORDED | RECORDED | COMPLETE |
 | vr-01-private-memory | 3 | PENDING | PENDING | PENDING |
 | vr-02-waterless-cooling | 1 | PENDING | PENDING | PENDING |
 | vr-02-waterless-cooling | 2 | PENDING | PENDING | PENDING |
@@ -45,6 +45,10 @@ Authoritative progress record for visible execution. Raw outputs are preserved v
   - path: `results/EXP-001/visible/raw/vr-01/trial-2-candidate.md`
   - local capture SHA-256: `7b21bef6a4651ff9f08aea777fba6f7ad909c08426060638e5b67ec2df0640e2`
   - source supplied by user as a copied ChatGPT Web answer
+- `vr-01 / trial 2 / baseline`
+  - path: `results/EXP-001/visible/raw/vr-01/trial-2-baseline.md`
+  - local capture SHA-256: `461512f9fdcf895f2c3bc5bc81795e6566e82e86803f29cde03243d3a2703f9a`
+  - source supplied by user as a copied ChatGPT Web answer
 
 Model-run timestamps/tool-call metadata were not separately supplied for these runs and therefore are not invented here.
 
@@ -52,9 +56,9 @@ Model-run timestamps/tool-call metadata were not separately supplied for these r
 
 Per the frozen interleaving protocol, the next generation is:
 
-`vr-01-private-memory / trial 2 / baseline`
+`vr-01-private-memory / trial 3 / baseline`
 
-After that pair is complete, continue with `vr-01-private-memory / trial 3 / baseline`, then candidate.
+Then run the paired candidate arm for trial 3.
 
 ## Scientific status
 
