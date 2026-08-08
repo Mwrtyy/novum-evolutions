@@ -26,7 +26,7 @@ jobs:
       - name: Install current Copilot CLI
         run: npm install -g @github/copilot
 
-      - name: Judge one blinded pair with GPT-5.4
+      - name: Judge one blinded pair with Copilot Auto
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
@@ -36,7 +36,6 @@ jobs:
           copilot \
             -p "$(cat "$PROMPT_FILE")" \
             -s \
-            --model=gpt-5.4 \
             --no-ask-user \
             --no-custom-instructions \
             --no-remote \
@@ -69,7 +68,7 @@ jobs:
                   v = float(obj['scores'][arm][dim])
                   assert 0 <= v <= 10
           obj['judge_provider'] = 'github_copilot_cli'
-          obj['judge_model'] = 'gpt-5.4'
+          obj['judge_model'] = 'auto'
           obj['smoke_test_only'] = True
           Path('results/EXP-001/visible/copilot-smoke/validated.json').write_text(json.dumps(obj, indent=2, ensure_ascii=False)+'\n', encoding='utf-8')
           print('COPILOT_SMOKE_PASS')
