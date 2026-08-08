@@ -8,6 +8,7 @@ MANIFEST = BLIND / "JUDGE_MANIFEST.json"
 OUT = ROOT / "results/EXP-001/visible/judgments-copilot"
 MODEL = os.environ.get("JUDGE_MODEL", "gpt-5.4")
 MAX_JUDGMENTS = int(os.environ.get("MAX_JUDGMENTS", "0"))  # 0 = all missing
+MAX_AI_CREDITS = int(os.environ.get("MAX_AI_CREDITS_PER_JUDGE", "40"))
 DIMS = [
     "mechanism_novelty", "mechanistic_depth", "constraint_fit", "usefulness",
     "evidence_calibration", "falsifiability", "prior_art_awareness",
@@ -59,6 +60,7 @@ def validate(obj, item):
     obj["judge_provider"] = "github_copilot_cli"
     obj["judge_model"] = MODEL
     obj["prompt_status"] = item["prompt_status"]
+    obj["max_ai_credits_per_judge"] = MAX_AI_CREDITS
     return obj
 
 
@@ -72,6 +74,7 @@ def run_copilot(prompt: str, judge_id: str):
         "-p", prompt,
         "-s",
         f"--model={MODEL}",
+        f"--max-ai-credits={MAX_AI_CREDITS}",
         "--no-ask-user",
         "--no-custom-instructions",
         "--no-remote",
@@ -132,7 +135,6 @@ for index, item in enumerate(manifest, 1):
                 time.sleep(10)
     if not success:
         failed.append({"judge_id": item["judge_id"], "error": last_error})
-        # Policy/license failure is global; stop immediately instead of burning 71 more calls.
         if last_error and "Access denied by policy settings" in last_error:
             break
 
@@ -140,6 +142,7 @@ result_files = [p for p in OUT.glob("*.json") if p.name != "AUTO_JUDGE_STATUS.js
 status = {
     "provider": "github_copilot_cli",
     "model": MODEL,
+    "max_ai_credits_per_judge": MAX_AI_CREDITS,
     "expected": len(manifest),
     "already_present_at_start": already,
     "completed_this_run": completed,
