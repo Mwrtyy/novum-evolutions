@@ -8,9 +8,9 @@ on:
         required: false
         default: '0'
       judge_model:
-        description: 'Pinned model for reproducibility; use auto only if your plan requires auto selection'
+        description: 'Use auto for Copilot Free; paid plans may pin a supported model'
         required: false
-        default: 'gpt-5.4'
+        default: 'auto'
 
 permissions:
   contents: write
@@ -37,7 +37,7 @@ jobs:
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          JUDGE_MODEL: ${{ inputs.judge_model || 'gpt-5.4' }}
+          JUDGE_MODEL: ${{ inputs.judge_model || 'auto' }}
           MAX_JUDGMENTS: ${{ inputs.max_judgments || '0' }}
           MAX_AI_CREDITS_PER_JUDGE: '40'
         run: python scripts/auto_judge_exp001_copilot.py
