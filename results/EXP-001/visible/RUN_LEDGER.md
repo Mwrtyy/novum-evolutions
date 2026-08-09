@@ -41,8 +41,17 @@ Authoritative progress record for visible execution. EXP-001 Protocol Amendment 
 
 ## Next phase
 
-Visible generation is complete. Proceed to frozen blind judging, then strict post-freeze hidden holdout before any promotion decision.
+Visible generation and frozen blind judging are complete:
+
+- judgments locked: **72/72**
+- pairs: **24/24**
+- evaluator roles per pair: **3/3**
+- pair-majority result after post-lock reveal: candidate 15, baseline 6, tie 3
+- detailed analysis: `results/EXP-001/visible/analysis/VISIBLE_JUDGING_ANALYSIS.md`
+- protocol audit: `results/EXP-001/PROTOCOL_AUDIT_VISIBLE.md`
+
+Proceed to the strict post-freeze hidden holdout before any promotion decision.
 
 ## Scientific status
 
-48/48 visible generations completed with declared protocol deviation. Do not describe this campaign as exact-string preregistration compliant.
+48/48 visible generations and 72/72 blind judgments completed with the declared protocol deviation. Do not describe this campaign as exact-string preregistration compliant, external replication, or sufficient promotion evidence.

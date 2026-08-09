@@ -13,11 +13,24 @@ Behaviorally superior invention performance on unseen tasks with acceptable comp
 - Visible frozen tasks are regression material, not final unseen evidence.
 - Structural compliance is not a promotion criterion by itself.
 
-## Current unresolved frontier
+## Current evidence and unresolved frontier
 
-**EXP-001: Does portfolio compression improve depth/novelty under approximately fixed total reasoning budget?**
+EXP-001 visible execution and blind judging are complete:
 
-This is highest-information because it tests a likely architectural bottleneck without adding new machinery.
+- 48/48 visible outputs;
+- 72/72 judgments locked before reveal;
+- pair-majority result: candidate 15, baseline 6, tie 3;
+- judge preferences: candidate 43, baseline 22, tie 7;
+- all mean dimension deltas are non-negative, but effects are small and uncertainty intervals usually include zero;
+- visible regressions remain on private-memory and simplify-not-invent cases;
+- `vr-05`–`vr-08` retain the declared post-hoc near-equivalent-prompt deviation;
+- evaluators were fresh contexts from the same model family, not external replication.
+
+The unresolved frontier is now:
+
+**Does the weak-to-moderate visible signal survive a strict post-freeze hidden holdout with exact paired prompts?**
+
+No EXP-001 promotion or rejection decision is authorized until that holdout and a protocol audit are complete.
 
 ## Next hypotheses after EXP-001, only if still relevant
 
