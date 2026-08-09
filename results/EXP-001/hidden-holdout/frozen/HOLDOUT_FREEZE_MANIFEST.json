@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "experiment_id": "EXP-001",
+  "phase": "strict_post_freeze_hidden_holdout",
+  "status": "HOLDOUT_TASK_SET_FROZEN_BEFORE_ARM_GENERATION",
+  "frozen_at_utc": "2026-08-09T14:06:51Z",
+  "timing_disclosure": "The 7-domain × 3-trial structure and semantic prompt selection were fixed after visible analysis, but selection was performed in a fresh context with no visible outputs, judgments, mapping, or performance summary. Candidate and judge rubric were already frozen.",
+  "selector_independence": "fresh_context_no_visible_results_same_model_family",
+  "seed_string": "EXP-001-HIDDEN-HOLDOUT-V1|ad61ff084f482d9e06b3398970be565bdd5d7d29c132b1a3dfd0c45bd88a4688",
+  "selection_procedure": "For each domain and non-domain dimension, SHA-256(SEED_STRING|domain|dimension) modulo option count fixed the cell; a fresh result-blind selector authored wording and overlap audits.",
+  "holdout_tasks": {
+    "path": "results/EXP-001/hidden-holdout/frozen/HOLDOUT_TASKS.json",
+    "sha256": "819f17cb4a62200aab6252047b03f74e84fb757bf01758f0b4d97db51f2107e7",
+    "bytes": 17540,
+    "case_count": 7,
+    "prompt_sha256": {
+      "hh-01-software": "ffed33fd1d15ae26b7a58f5f8848099c299c73b1e16f4ee87db65946d8e1a789",
+      "hh-02-physical-system": "9e4efebbdb6023a92f695fbf5344f3416c10b65b040bf36a8714f157aa9b4b87",
+      "hh-03-operations": "baf6fcbc068945b5419e59ae03d838d957f34db784a5c4873adf13e1392bef4e",
+      "hh-04-scientific-method": "7319efaf6a286e005847e82d5084db9867111279881e625c69db643c4ba186a1",
+      "hh-05-economic-system": "3071aa93ff20105c915a73a79c7879afd5d8dd025ac07dedf98fa3dc8ecc3978",
+      "hh-06-product-strategy": "dc96c9983cf144799770ebae753e111071726f85bae6ed2618806a49086d67f1",
+      "hh-07-public-service": "ce90412cb91d6e08797fd23c4a462b0fe99d23ddca8af1466aa36da3c34f2b86"
+    }
+  },
+  "frozen_arms": {
+    "baseline": {
+      "version": "2.0.0",
+      "skill_sha256": "1d6dea7cdb5343aad114ad48fa9f010ea88bd8bf1ccb6c45059f88e1bfa4c4a6",
+      "archive_sha256": "e38cd4e62439c5759bf99bf2fc72e165abf2876f75396c170f445d6a3c529dda"
+    },
+    "candidate": {
+      "skill_sha256": "ad61ff084f482d9e06b3398970be565bdd5d7d29c132b1a3dfd0c45bd88a4688"
+    }
+  },
+  "frozen_evaluation": {
+    "dimensions": [
+      "mechanism_novelty",
+      "mechanistic_depth",
+      "constraint_fit",
+      "usefulness",
+      "evidence_calibration",
+      "falsifiability",
+      "prior_art_awareness",
+      "simpler_substitute_discipline",
+      "clarity"
+    ],
+    "roles": [
+      "hostile_regression",
+      "simplicity",
+      "domain_or_generalist"
+    ],
+    "blind_judging_packet_sha256": "babae4b92adfa8a7181ebf4f5b9885de85adc25f4631b42c75de6d0e391d8cf0"
+  },
+  "execution_contract": {
+    "trials_per_case_per_arm": 3,
+    "expected_outputs": 42,
+    "expected_pairs": 21,
+    "expected_judgments": 63,
+    "exact_same_prompt_bytes_within_each_pair": true,
+    "fresh_generation_context_per_case_trial_arm": true,
+    "fresh_judge_context_per_pair_role": true,
+    "model_family": "GPT-5.6 Sol / same current Codex model family",
+    "external_reasoning_budget": "same configuration; hidden internal budget uncontrolled"
+  },
+  "invalidation_rules": [
+    "Any prompt edit after this freeze invalidates the hidden campaign.",
+    "Any arm-specific prompt or follow-up steering invalidates the affected pair.",
+    "Judgment reveal before 63/63 lock invalidates confirmatory aggregation."
+  ]
+}

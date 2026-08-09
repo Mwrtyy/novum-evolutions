@@ -1,0 +1,1710 @@
+{
+  "schema_version": 1,
+  "experiment_id": "EXP-001",
+  "phase": "hidden_holdout",
+  "irreversible_transition": "A/B revealed only after verified judgment lock",
+  "lock": {
+    "schema_version": 1,
+    "experiment_id": "EXP-001",
+    "phase": "hidden_holdout",
+    "status": "JUDGMENTS_LOCKED_MAPPING_NOT_USED",
+    "pair_count": 21,
+    "judgment_count": 63,
+    "roles": [
+      "hostile_regression",
+      "simplicity",
+      "domain_or_generalist"
+    ],
+    "dimensions": [
+      "mechanism_novelty",
+      "mechanistic_depth",
+      "constraint_fit",
+      "usefulness",
+      "evidence_calibration",
+      "falsifiability",
+      "prior_art_awareness",
+      "simpler_substitute_discipline",
+      "clarity"
+    ],
+    "judgment_set_sha256": "80009ca7863240f5149321254742dc06c3d5349f59d0a2c1adb5c281f6ad5f49",
+    "pair_ids_sha256": "6a46e9a5edddd9a1da1da8366a981c9665cddd781d4f4e7143a6ee709d6c6de5",
+    "mapping_used_during_validation_or_lock": false,
+    "independence_counts": {
+      "separate_context_same_model_per_packet": 60,
+      "separate_context_same_model": 3
+    }
+  },
+  "mapping_sha256": "c699ee0c5c1448539348b0c1b8483cc202035e803a7a38df930fb60d0a8e25e3",
+  "pairs": 21,
+  "judgments": 63,
+  "overall": {
+    "judgments": 63,
+    "preferences": {
+      "candidate": 25,
+      "baseline": 38,
+      "tie": 0
+    },
+    "tie_adjusted_candidate_win_rate": 0.3968253968253968,
+    "candidate_win_rate_excluding_ties": 0.3968253968253968,
+    "mean_scores": {
+      "candidate": {
+        "mechanism_novelty": 4.874603174603175,
+        "mechanistic_depth": 9.176190476190477,
+        "constraint_fit": 9.096825396825396,
+        "usefulness": 9.195238095238095,
+        "evidence_calibration": 9.003174603174603,
+        "falsifiability": 9.412698412698413,
+        "prior_art_awareness": 8.438095238095238,
+        "simpler_substitute_discipline": 9.352380952380953,
+        "clarity": 9.003174603174603
+      },
+      "baseline": {
+        "mechanism_novelty": 4.9412698412698415,
+        "mechanistic_depth": 9.196825396825396,
+        "constraint_fit": 9.077777777777778,
+        "usefulness": 9.198412698412698,
+        "evidence_calibration": 8.996825396825397,
+        "falsifiability": 9.398412698412699,
+        "prior_art_awareness": 8.555555555555555,
+        "simpler_substitute_discipline": 9.266666666666666,
+        "clarity": 9.063492063492063
+      }
+    },
+    "mean_candidate_minus_baseline": {
+      "mechanism_novelty": -0.06666666666666668,
+      "mechanistic_depth": -0.020634920634920645,
+      "constraint_fit": 0.019047619047619094,
+      "usefulness": -0.0031746031746030363,
+      "evidence_calibration": 0.006349206349206482,
+      "falsifiability": 0.014285714285714433,
+      "prior_art_awareness": -0.11746031746031742,
+      "simpler_substitute_discipline": 0.08571428571428555,
+      "clarity": -0.0603174603174601
+    },
+    "tie_adjusted_candidate_win_rate_cluster_bootstrap_95ci": [
+      0.23809523809523808,
+      0.5714285714285714
+    ]
+  },
+  "pair_majority_counts": {
+    "candidate": 7,
+    "baseline": 14,
+    "tie": 0
+  },
+  "pair_majority_candidate_win_rate_excluding_ties": 0.3333333333333333,
+  "pair_majority_tie_adjusted_candidate_win_rate": 0.3333333333333333,
+  "effect_sizes": {
+    "mechanism_novelty": {
+      "paired_standardized_mean_difference_dz": -0.1336787570555207,
+      "delta_sample_sd": 0.4987080081764828
+    },
+    "mechanistic_depth": {
+      "paired_standardized_mean_difference_dz": -0.04326534849753264,
+      "delta_sample_sd": 0.47693873622900373
+    },
+    "constraint_fit": {
+      "paired_standardized_mean_difference_dz": 0.031495055164470126,
+      "delta_sample_sd": 0.6047812568719326
+    },
+    "usefulness": {
+      "paired_standardized_mean_difference_dz": -0.006080651268076894,
+      "delta_sample_sd": 0.5220827563766959
+    },
+    "evidence_calibration": {
+      "paired_standardized_mean_difference_dz": 0.01163038650246966,
+      "delta_sample_sd": 0.5459153354755886
+    },
+    "falsifiability": {
+      "paired_standardized_mean_difference_dz": 0.037796447300923096,
+      "delta_sample_sd": 0.37796447300922736
+    },
+    "prior_art_awareness": {
+      "paired_standardized_mean_difference_dz": -0.09515645035760181,
+      "delta_sample_sd": 1.2343915417073332
+    },
+    "simpler_substitute_discipline": {
+      "paired_standardized_mean_difference_dz": 0.09727671593325622,
+      "delta_sample_sd": 0.8811387688405936
+    },
+    "clarity": {
+      "paired_standardized_mean_difference_dz": -0.10411050915571518,
+      "delta_sample_sd": 0.5793599590147519
+    }
+  },
+  "uncertainty": {
+    "mechanism_novelty": {
+      "cluster_bootstrap_mean_delta_95ci": [
+        -0.273015873015873,
+        0.12380952380952377
+      ]
+    },
+    "mechanistic_depth": {
+      "cluster_bootstrap_mean_delta_95ci": [
+        -0.19206349206349194,
+        0.1825793650793646
+      ]
+    },
+    "constraint_fit": {
+      "cluster_bootstrap_mean_delta_95ci": [
+        -0.20797619047619054,
+        0.25873015873015887
+      ]
+    },
+    "usefulness": {
+      "cluster_bootstrap_mean_delta_95ci": [
+        -0.19365079365079335,
+        0.2301587301587302
+      ]
+    },
+    "evidence_calibration": {
+      "cluster_bootstrap_mean_delta_95ci": [
+        -0.18730158730158702,
+        0.22543650793650757
+      ]
+    },
+    "falsifiability": {
+      "cluster_bootstrap_mean_delta_95ci": [
+        -0.1126984126984126,
+        0.1650793650793653
+      ]
+    },
+    "prior_art_awareness": {
+      "cluster_bootstrap_mean_delta_95ci": [
+        -0.6523809523809523,
+        0.37464285714285656
+      ]
+    },
+    "simpler_substitute_discipline": {
+      "cluster_bootstrap_mean_delta_95ci": [
+        -0.23496031746031773,
+        0.438095238095238
+      ]
+    },
+    "clarity": {
+      "cluster_bootstrap_mean_delta_95ci": [
+        -0.28888888888888875,
+        0.15396825396825403
+      ]
+    }
+  },
+  "by_case": {
+    "hh-01-software": {
+      "judgments": 9,
+      "preferences": {
+        "candidate": 2,
+        "baseline": 7,
+        "tie": 0
+      },
+      "tie_adjusted_candidate_win_rate": 0.2222222222222222,
+      "candidate_win_rate_excluding_ties": 0.2222222222222222,
+      "mean_scores": {
+        "candidate": {
+          "mechanism_novelty": 5.944444444444445,
+          "mechanistic_depth": 9.077777777777778,
+          "constraint_fit": 9.31111111111111,
+          "usefulness": 9.077777777777778,
+          "evidence_calibration": 8.866666666666667,
+          "falsifiability": 9.411111111111111,
+          "prior_art_awareness": 8.81111111111111,
+          "simpler_substitute_discipline": 9.466666666666667,
+          "clarity": 8.855555555555556
+        },
+        "baseline": {
+          "mechanism_novelty": 6.022222222222222,
+          "mechanistic_depth": 9.266666666666667,
+          "constraint_fit": 9.433333333333334,
+          "usefulness": 9.255555555555555,
+          "evidence_calibration": 9.100000000000001,
+          "falsifiability": 9.5,
+          "prior_art_awareness": 9.144444444444444,
+          "simpler_substitute_discipline": 9.533333333333333,
+          "clarity": 8.866666666666667
+        }
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.07777777777777789,
+        "mechanistic_depth": -0.188888888888889,
+        "constraint_fit": -0.12222222222222198,
+        "usefulness": -0.17777777777777773,
+        "evidence_calibration": -0.2333333333333331,
+        "falsifiability": -0.08888888888888857,
+        "prior_art_awareness": -0.33333333333333354,
+        "simpler_substitute_discipline": -0.06666666666666643,
+        "clarity": -0.011111111111110874
+      },
+      "pair_majorities": {
+        "baseline": 2,
+        "candidate": 1
+      }
+    },
+    "hh-02-physical-system": {
+      "judgments": 9,
+      "preferences": {
+        "candidate": 6,
+        "baseline": 3,
+        "tie": 0
+      },
+      "tie_adjusted_candidate_win_rate": 0.6666666666666666,
+      "candidate_win_rate_excluding_ties": 0.6666666666666666,
+      "mean_scores": {
+        "candidate": {
+          "mechanism_novelty": 3.2,
+          "mechanistic_depth": 9.122222222222222,
+          "constraint_fit": 8.488888888888889,
+          "usefulness": 8.966666666666667,
+          "evidence_calibration": 8.766666666666667,
+          "falsifiability": 9.488888888888889,
+          "prior_art_awareness": 8.777777777777779,
+          "simpler_substitute_discipline": 9.222222222222221,
+          "clarity": 8.855555555555556
+        },
+        "baseline": {
+          "mechanism_novelty": 3.7666666666666666,
+          "mechanistic_depth": 8.666666666666666,
+          "constraint_fit": 8.166666666666666,
+          "usefulness": 8.377777777777778,
+          "evidence_calibration": 8.255555555555555,
+          "falsifiability": 9.31111111111111,
+          "prior_art_awareness": 8.7,
+          "simpler_substitute_discipline": 8.411111111111111,
+          "clarity": 8.911111111111111
+        }
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.5666666666666668,
+        "mechanistic_depth": 0.4555555555555551,
+        "constraint_fit": 0.32222222222222224,
+        "usefulness": 0.588888888888889,
+        "evidence_calibration": 0.511111111111111,
+        "falsifiability": 0.17777777777777792,
+        "prior_art_awareness": 0.07777777777777789,
+        "simpler_substitute_discipline": 0.8111111111111109,
+        "clarity": -0.05555555555555536
+      },
+      "pair_majorities": {
+        "baseline": 1,
+        "candidate": 2
+      }
+    },
+    "hh-03-operations": {
+      "judgments": 9,
+      "preferences": {
+        "candidate": 2,
+        "baseline": 7,
+        "tie": 0
+      },
+      "tie_adjusted_candidate_win_rate": 0.2222222222222222,
+      "candidate_win_rate_excluding_ties": 0.2222222222222222,
+      "mean_scores": {
+        "candidate": {
+          "mechanism_novelty": 3.411111111111111,
+          "mechanistic_depth": 9.255555555555555,
+          "constraint_fit": 9.377777777777778,
+          "usefulness": 9.333333333333334,
+          "evidence_calibration": 8.822222222222223,
+          "falsifiability": 9.38888888888889,
+          "prior_art_awareness": 8.766666666666667,
+          "simpler_substitute_discipline": 9.5,
+          "clarity": 9.022222222222222
+        },
+        "baseline": {
+          "mechanism_novelty": 3.2,
+          "mechanistic_depth": 9.411111111111111,
+          "constraint_fit": 9.5,
+          "usefulness": 9.477777777777778,
+          "evidence_calibration": 8.988888888888889,
+          "falsifiability": 9.5,
+          "prior_art_awareness": 8.644444444444444,
+          "simpler_substitute_discipline": 9.844444444444443,
+          "clarity": 9.233333333333333
+        }
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": 0.21111111111111114,
+        "mechanistic_depth": -0.1555555555555554,
+        "constraint_fit": -0.12222222222222179,
+        "usefulness": -0.14444444444444432,
+        "evidence_calibration": -0.16666666666666666,
+        "falsifiability": -0.11111111111111151,
+        "prior_art_awareness": 0.12222222222222238,
+        "simpler_substitute_discipline": -0.3444444444444446,
+        "clarity": -0.21111111111111056
+      },
+      "pair_majorities": {
+        "candidate": 1,
+        "baseline": 2
+      }
+    },
+    "hh-04-scientific-method": {
+      "judgments": 9,
+      "preferences": {
+        "candidate": 3,
+        "baseline": 6,
+        "tie": 0
+      },
+      "tie_adjusted_candidate_win_rate": 0.3333333333333333,
+      "candidate_win_rate_excluding_ties": 0.3333333333333333,
+      "mean_scores": {
+        "candidate": {
+          "mechanism_novelty": 6.1,
+          "mechanistic_depth": 9.344444444444443,
+          "constraint_fit": 9.38888888888889,
+          "usefulness": 9.344444444444443,
+          "evidence_calibration": 9.344444444444445,
+          "falsifiability": 9.444444444444445,
+          "prior_art_awareness": 9.277777777777779,
+          "simpler_substitute_discipline": 8.71111111111111,
+          "clarity": 9.022222222222222
+        },
+        "baseline": {
+          "mechanism_novelty": 5.988888888888889,
+          "mechanistic_depth": 9.5,
+          "constraint_fit": 9.5,
+          "usefulness": 9.555555555555555,
+          "evidence_calibration": 9.666666666666666,
+          "falsifiability": 9.488888888888889,
+          "prior_art_awareness": 9.366666666666667,
+          "simpler_substitute_discipline": 9.144444444444444,
+          "clarity": 9.411111111111111
+        }
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": 0.11111111111111122,
+        "mechanistic_depth": -0.15555555555555559,
+        "constraint_fit": -0.11111111111111131,
+        "usefulness": -0.21111111111111075,
+        "evidence_calibration": -0.32222222222222185,
+        "falsifiability": -0.04444444444444429,
+        "prior_art_awareness": -0.08888888888888896,
+        "simpler_substitute_discipline": -0.43333333333333346,
+        "clarity": -0.3888888888888889
+      },
+      "pair_majorities": {
+        "candidate": 1,
+        "baseline": 2
+      }
+    },
+    "hh-05-economic-system": {
+      "judgments": 9,
+      "preferences": {
+        "candidate": 3,
+        "baseline": 6,
+        "tie": 0
+      },
+      "tie_adjusted_candidate_win_rate": 0.3333333333333333,
+      "candidate_win_rate_excluding_ties": 0.3333333333333333,
+      "mean_scores": {
+        "candidate": {
+          "mechanism_novelty": 6.4,
+          "mechanistic_depth": 9.344444444444443,
+          "constraint_fit": 9.544444444444444,
+          "usefulness": 9.3,
+          "evidence_calibration": 9.077777777777778,
+          "falsifiability": 9.577777777777778,
+          "prior_art_awareness": 8.88888888888889,
+          "simpler_substitute_discipline": 9.588888888888889,
+          "clarity": 8.944444444444445
+        },
+        "baseline": {
+          "mechanism_novelty": 6.411111111111111,
+          "mechanistic_depth": 9.422222222222222,
+          "constraint_fit": 9.600000000000001,
+          "usefulness": 9.466666666666667,
+          "evidence_calibration": 8.977777777777778,
+          "falsifiability": 9.644444444444444,
+          "prior_art_awareness": 8.011111111111111,
+          "simpler_substitute_discipline": 9.61111111111111,
+          "clarity": 9.322222222222223
+        }
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.01111111111111127,
+        "mechanistic_depth": -0.0777777777777781,
+        "constraint_fit": -0.05555555555555595,
+        "usefulness": -0.16666666666666646,
+        "evidence_calibration": 0.10000000000000003,
+        "falsifiability": -0.06666666666666643,
+        "prior_art_awareness": 0.8777777777777778,
+        "simpler_substitute_discipline": -0.02222222222222254,
+        "clarity": -0.3777777777777772
+      },
+      "pair_majorities": {
+        "baseline": 3
+      }
+    },
+    "hh-06-product-strategy": {
+      "judgments": 9,
+      "preferences": {
+        "candidate": 6,
+        "baseline": 3,
+        "tie": 0
+      },
+      "tie_adjusted_candidate_win_rate": 0.6666666666666666,
+      "candidate_win_rate_excluding_ties": 0.6666666666666666,
+      "mean_scores": {
+        "candidate": {
+          "mechanism_novelty": 4.633333333333334,
+          "mechanistic_depth": 9.011111111111111,
+          "constraint_fit": 8.444444444444445,
+          "usefulness": 9.11111111111111,
+          "evidence_calibration": 9.044444444444444,
+          "falsifiability": 9.277777777777779,
+          "prior_art_awareness": 6.577777777777778,
+          "simpler_substitute_discipline": 9.333333333333334,
+          "clarity": 9.11111111111111
+        },
+        "baseline": {
+          "mechanism_novelty": 4.522222222222222,
+          "mechanistic_depth": 8.644444444444444,
+          "constraint_fit": 8.177777777777777,
+          "usefulness": 8.877777777777778,
+          "evidence_calibration": 8.8,
+          "falsifiability": 8.755555555555555,
+          "prior_art_awareness": 8.866666666666667,
+          "simpler_substitute_discipline": 8.899999999999999,
+          "clarity": 8.7
+        }
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": 0.1111111111111111,
+        "mechanistic_depth": 0.3666666666666669,
+        "constraint_fit": 0.2666666666666665,
+        "usefulness": 0.23333333333333328,
+        "evidence_calibration": 0.24444444444444458,
+        "falsifiability": 0.5222222222222224,
+        "prior_art_awareness": -2.2888888888888888,
+        "simpler_substitute_discipline": 0.4333333333333333,
+        "clarity": 0.4111111111111112
+      },
+      "pair_majorities": {
+        "candidate": 2,
+        "baseline": 1
+      }
+    },
+    "hh-07-public-service": {
+      "judgments": 9,
+      "preferences": {
+        "candidate": 3,
+        "baseline": 6,
+        "tie": 0
+      },
+      "tie_adjusted_candidate_win_rate": 0.3333333333333333,
+      "candidate_win_rate_excluding_ties": 0.3333333333333333,
+      "mean_scores": {
+        "candidate": {
+          "mechanism_novelty": 4.433333333333334,
+          "mechanistic_depth": 9.077777777777778,
+          "constraint_fit": 9.122222222222222,
+          "usefulness": 9.233333333333333,
+          "evidence_calibration": 9.100000000000001,
+          "falsifiability": 9.3,
+          "prior_art_awareness": 7.966666666666667,
+          "simpler_substitute_discipline": 9.644444444444444,
+          "clarity": 9.211111111111112
+        },
+        "baseline": {
+          "mechanism_novelty": 4.677777777777778,
+          "mechanistic_depth": 9.466666666666667,
+          "constraint_fit": 9.166666666666666,
+          "usefulness": 9.377777777777778,
+          "evidence_calibration": 9.18888888888889,
+          "falsifiability": 9.588888888888889,
+          "prior_art_awareness": 7.155555555555556,
+          "simpler_substitute_discipline": 9.422222222222222,
+          "clarity": 9.0
+        }
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.24444444444444435,
+        "mechanistic_depth": -0.3888888888888885,
+        "constraint_fit": -0.04444444444444409,
+        "usefulness": -0.14444444444444432,
+        "evidence_calibration": -0.08888888888888857,
+        "falsifiability": -0.2888888888888885,
+        "prior_art_awareness": 0.8111111111111113,
+        "simpler_substitute_discipline": 0.22222222222222174,
+        "clarity": 0.21111111111111094
+      },
+      "pair_majorities": {
+        "baseline": 3
+      }
+    }
+  },
+  "by_trial": {
+    "1": {
+      "judgments": 21,
+      "preferences": {
+        "candidate": 10,
+        "baseline": 11,
+        "tie": 0
+      },
+      "tie_adjusted_candidate_win_rate": 0.47619047619047616,
+      "candidate_win_rate_excluding_ties": 0.47619047619047616,
+      "mean_scores": {
+        "candidate": {
+          "mechanism_novelty": 4.852380952380953,
+          "mechanistic_depth": 9.19047619047619,
+          "constraint_fit": 9.195238095238095,
+          "usefulness": 9.242857142857142,
+          "evidence_calibration": 9.023809523809524,
+          "falsifiability": 9.442857142857143,
+          "prior_art_awareness": 8.27142857142857,
+          "simpler_substitute_discipline": 9.352380952380953,
+          "clarity": 8.995238095238095
+        },
+        "baseline": {
+          "mechanism_novelty": 4.8238095238095235,
+          "mechanistic_depth": 9.223809523809523,
+          "constraint_fit": 9.161904761904761,
+          "usefulness": 9.295238095238094,
+          "evidence_calibration": 9.09047619047619,
+          "falsifiability": 9.433333333333334,
+          "prior_art_awareness": 8.571428571428571,
+          "simpler_substitute_discipline": 9.5,
+          "clarity": 9.19047619047619
+        }
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": 0.028571428571428553,
+        "mechanistic_depth": -0.033333333333333215,
+        "constraint_fit": 0.0333333333333333,
+        "usefulness": -0.05238095238095245,
+        "evidence_calibration": -0.0666666666666666,
+        "falsifiability": 0.009523809523809743,
+        "prior_art_awareness": -0.29999999999999993,
+        "simpler_substitute_discipline": -0.14761904761904768,
+        "clarity": -0.19523809523809513
+      }
+    },
+    "2": {
+      "judgments": 21,
+      "preferences": {
+        "candidate": 7,
+        "baseline": 14,
+        "tie": 0
+      },
+      "tie_adjusted_candidate_win_rate": 0.3333333333333333,
+      "candidate_win_rate_excluding_ties": 0.3333333333333333,
+      "mean_scores": {
+        "candidate": {
+          "mechanism_novelty": 4.690476190476191,
+          "mechanistic_depth": 9.119047619047619,
+          "constraint_fit": 8.976190476190476,
+          "usefulness": 9.104761904761904,
+          "evidence_calibration": 8.947619047619048,
+          "falsifiability": 9.404761904761905,
+          "prior_art_awareness": 8.514285714285714,
+          "simpler_substitute_discipline": 9.252380952380951,
+          "clarity": 8.952380952380953
+        },
+        "baseline": {
+          "mechanism_novelty": 4.771428571428571,
+          "mechanistic_depth": 9.257142857142858,
+          "constraint_fit": 9.076190476190476,
+          "usefulness": 9.261904761904763,
+          "evidence_calibration": 8.857142857142858,
+          "falsifiability": 9.40952380952381,
+          "prior_art_awareness": 8.523809523809524,
+          "simpler_substitute_discipline": 9.276190476190477,
+          "clarity": 8.914285714285715
+        }
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.08095238095238098,
+        "mechanistic_depth": -0.1380952380952381,
+        "constraint_fit": -0.09999999999999998,
+        "usefulness": -0.15714285714285683,
+        "evidence_calibration": 0.09047619047619083,
+        "falsifiability": -0.004761904761904576,
+        "prior_art_awareness": -0.009523809523809405,
+        "simpler_substitute_discipline": -0.023809523809524065,
+        "clarity": 0.03809523809523838
+      }
+    },
+    "3": {
+      "judgments": 21,
+      "preferences": {
+        "candidate": 8,
+        "baseline": 13,
+        "tie": 0
+      },
+      "tie_adjusted_candidate_win_rate": 0.38095238095238093,
+      "candidate_win_rate_excluding_ties": 0.38095238095238093,
+      "mean_scores": {
+        "candidate": {
+          "mechanism_novelty": 5.080952380952381,
+          "mechanistic_depth": 9.219047619047618,
+          "constraint_fit": 9.119047619047619,
+          "usefulness": 9.238095238095237,
+          "evidence_calibration": 9.038095238095238,
+          "falsifiability": 9.390476190476189,
+          "prior_art_awareness": 8.528571428571428,
+          "simpler_substitute_discipline": 9.452380952380953,
+          "clarity": 9.061904761904762
+        },
+        "baseline": {
+          "mechanism_novelty": 5.228571428571429,
+          "mechanistic_depth": 9.109523809523811,
+          "constraint_fit": 8.995238095238095,
+          "usefulness": 9.038095238095238,
+          "evidence_calibration": 9.042857142857143,
+          "falsifiability": 9.352380952380953,
+          "prior_art_awareness": 8.571428571428571,
+          "simpler_substitute_discipline": 9.023809523809524,
+          "clarity": 9.085714285714285
+        }
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.14761904761904762,
+        "mechanistic_depth": 0.10952380952380938,
+        "constraint_fit": 0.12380952380952397,
+        "usefulness": 0.20000000000000018,
+        "evidence_calibration": -0.0047619047619047875,
+        "falsifiability": 0.038095238095238126,
+        "prior_art_awareness": -0.04285714285714291,
+        "simpler_substitute_discipline": 0.4285714285714284,
+        "clarity": -0.023809523809523555
+      }
+    }
+  },
+  "by_role": {
+    "hostile_regression": {
+      "judgments": 21,
+      "preferences": {
+        "candidate": 9,
+        "baseline": 12,
+        "tie": 0
+      },
+      "tie_adjusted_candidate_win_rate": 0.42857142857142855,
+      "candidate_win_rate_excluding_ties": 0.42857142857142855,
+      "mean_scores": {
+        "candidate": {
+          "mechanism_novelty": 4.485714285714286,
+          "mechanistic_depth": 9.085714285714285,
+          "constraint_fit": 8.91904761904762,
+          "usefulness": 9.038095238095238,
+          "evidence_calibration": 8.823809523809524,
+          "falsifiability": 9.319047619047618,
+          "prior_art_awareness": 8.142857142857142,
+          "simpler_substitute_discipline": 9.295238095238094,
+          "clarity": 8.952380952380953
+        },
+        "baseline": {
+          "mechanism_novelty": 4.495238095238095,
+          "mechanistic_depth": 9.038095238095238,
+          "constraint_fit": 8.91904761904762,
+          "usefulness": 9.038095238095238,
+          "evidence_calibration": 8.742857142857142,
+          "falsifiability": 9.238095238095237,
+          "prior_art_awareness": 8.266666666666666,
+          "simpler_substitute_discipline": 9.223809523809523,
+          "clarity": 8.976190476190476
+        }
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.00952380952380949,
+        "mechanistic_depth": 0.04761904761904719,
+        "constraint_fit": 1.691768418476429e-16,
+        "usefulness": 0.0,
+        "evidence_calibration": 0.08095238095238087,
+        "falsifiability": 0.08095238095238126,
+        "prior_art_awareness": -0.12380952380952388,
+        "simpler_substitute_discipline": 0.0714285714285713,
+        "clarity": -0.023809523809523978
+      }
+    },
+    "simplicity": {
+      "judgments": 21,
+      "preferences": {
+        "candidate": 9,
+        "baseline": 12,
+        "tie": 0
+      },
+      "tie_adjusted_candidate_win_rate": 0.42857142857142855,
+      "candidate_win_rate_excluding_ties": 0.42857142857142855,
+      "mean_scores": {
+        "candidate": {
+          "mechanism_novelty": 4.857142857142857,
+          "mechanistic_depth": 9.138095238095238,
+          "constraint_fit": 9.133333333333335,
+          "usefulness": 9.2,
+          "evidence_calibration": 9.019047619047619,
+          "falsifiability": 9.4,
+          "prior_art_awareness": 8.50952380952381,
+          "simpler_substitute_discipline": 9.219047619047618,
+          "clarity": 8.885714285714286
+        },
+        "baseline": {
+          "mechanism_novelty": 4.947619047619048,
+          "mechanistic_depth": 9.195238095238095,
+          "constraint_fit": 9.047619047619047,
+          "usefulness": 9.157142857142858,
+          "evidence_calibration": 9.061904761904762,
+          "falsifiability": 9.4,
+          "prior_art_awareness": 8.561904761904762,
+          "simpler_substitute_discipline": 9.1,
+          "clarity": 8.966666666666667
+        }
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.09047619047619045,
+        "mechanistic_depth": -0.05714285714285686,
+        "constraint_fit": 0.08571428571428574,
+        "usefulness": 0.042857142857143087,
+        "evidence_calibration": -0.04285714285714262,
+        "falsifiability": 0.0,
+        "prior_art_awareness": -0.05238095238095236,
+        "simpler_substitute_discipline": 0.11904761904761883,
+        "clarity": -0.08095238095238066
+      }
+    },
+    "domain_or_generalist": {
+      "judgments": 21,
+      "preferences": {
+        "candidate": 7,
+        "baseline": 14,
+        "tie": 0
+      },
+      "tie_adjusted_candidate_win_rate": 0.3333333333333333,
+      "candidate_win_rate_excluding_ties": 0.3333333333333333,
+      "mean_scores": {
+        "candidate": {
+          "mechanism_novelty": 5.280952380952381,
+          "mechanistic_depth": 9.304761904761905,
+          "constraint_fit": 9.238095238095237,
+          "usefulness": 9.347619047619048,
+          "evidence_calibration": 9.166666666666666,
+          "falsifiability": 9.519047619047619,
+          "prior_art_awareness": 8.661904761904761,
+          "simpler_substitute_discipline": 9.542857142857143,
+          "clarity": 9.171428571428573
+        },
+        "baseline": {
+          "mechanism_novelty": 5.380952380952381,
+          "mechanistic_depth": 9.357142857142858,
+          "constraint_fit": 9.266666666666666,
+          "usefulness": 9.4,
+          "evidence_calibration": 9.185714285714287,
+          "falsifiability": 9.557142857142857,
+          "prior_art_awareness": 8.838095238095239,
+          "simpler_substitute_discipline": 9.476190476190476,
+          "clarity": 9.247619047619047
+        }
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.10000000000000012,
+        "mechanistic_depth": -0.05238095238095228,
+        "constraint_fit": -0.02857142857142864,
+        "usefulness": -0.052380952380952195,
+        "evidence_calibration": -0.01904761904761881,
+        "falsifiability": -0.03809523809523796,
+        "prior_art_awareness": -0.17619047619047604,
+        "simpler_substitute_discipline": 0.06666666666666651,
+        "clarity": -0.07619047619047567
+      }
+    }
+  },
+  "by_prompt_status": {},
+  "inter_judge_disagreement": {
+    "fleiss_kappa_preference_three_categories": 0.4694736842105264,
+    "unanimous_preference_pairs": 13,
+    "split_preference_pairs": 8
+  },
+  "regressions": {
+    "negative_mean_delta_dimensions": [
+      "mechanism_novelty",
+      "mechanistic_depth",
+      "usefulness",
+      "prior_art_awareness",
+      "clarity"
+    ],
+    "baseline_majority_pairs": [
+      "hh-01-software-t1",
+      "hh-01-software-t3",
+      "hh-02-physical-system-t1",
+      "hh-03-operations-t2",
+      "hh-03-operations-t3",
+      "hh-04-scientific-method-t2",
+      "hh-04-scientific-method-t3",
+      "hh-05-economic-system-t1",
+      "hh-05-economic-system-t2",
+      "hh-05-economic-system-t3",
+      "hh-06-product-strategy-t2",
+      "hh-07-public-service-t1",
+      "hh-07-public-service-t2",
+      "hh-07-public-service-t3"
+    ]
+  },
+  "critical_flags": [
+    {
+      "pair_id": "hh-01-software-t1",
+      "role": "hostile_regression",
+      "items": [
+        "Both novelty claims remain unverified against patents and the wider commercial product landscape.",
+        "B's good-plus-set and bad-minus-set tests are context-bound evidence, not universal proofs of necessity or sufficiency.",
+        "Both proposals depend critically on faithful historical capsules and reliable incident oracles."
+      ]
+    },
+    {
+      "pair_id": "hh-01-software-t2",
+      "role": "hostile_regression",
+      "items": [
+        "Both outputs correctly disclaim algorithmic novelty, but the claimed certificate differentiation remains an unvalidated composition of known replay, reduction, controls, provenance, and abstention mechanisms.",
+        "Neither prior-art review is exhaustive in patents, causal debugging, or healthcare billing vendors; both acknowledge this, so no defensible novelty claim is yet available.",
+        "Both evaluations depend on adjudicated causal sets whose label uncertainty and potential hindsight leakage could materially distort recall and false-attribution estimates."
+      ]
+    },
+    {
+      "pair_id": "hh-01-software-t3",
+      "role": "hostile_regression",
+      "items": [
+        "B_UNSUPPORTED_META_CLAIMS",
+        "B_OPTIMISTIC_INTEGRATION_ESTIMATE",
+        "B_DIFFERENTIATION_REMAINS_KNOWN_TECHNIQUE_COMPOSITION"
+      ]
+    },
+    {
+      "pair_id": "hh-02-physical-system-t1",
+      "role": "hostile_regression",
+      "items": [
+        "A_cost_range_reaches_EUR_980_above_the_hard_cap",
+        "A_feasible_kit_targets_only_60_percent_free_opening_and_70_percent_wind_speed_ratio",
+        "both_outputs_offer_incremental_geometry_tuned_mitigation_not_a_novel_insert"
+      ]
+    },
+    {
+      "pair_id": "hh-02-physical-system-t1",
+      "role": "simplicity",
+      "items": [
+        "A's proposed opening target of at least 60% is a materially larger ventilation concession than B's 85%-of-baseline criterion.",
+        "A's EUR 640-980 estimate straddles the hard EUR 900 ceiling, while B gives a rollout estimate below it and explicitly stops one-off work that exceeds it."
+      ]
+    },
+    {
+      "pair_id": "hh-02-physical-system-t1",
+      "role": "domain_or_generalist",
+      "items": [
+        "Output A's proposed partial screen targets only 60% net free opening and 70% wind-speed ratio, a relatively weak fit to preserving airflow even after the universal claim is abandoned.",
+        "Output A's EUR 640-980 estimate crosses the hard EUR 900 cap, although it appropriately makes that overrun a stop condition."
+      ]
+    },
+    {
+      "pair_id": "hh-02-physical-system-t2",
+      "role": "hostile_regression",
+      "items": [
+        "A's 15-25 dB room-level benefit and low-frequency secondary-glazing gains are optimistic planning ranges without enough configuration-specific support.",
+        "A's acoustic-vent option introduces certification, pressure-drop, installation, and budget dependencies that weaken its constraint fit.",
+        "Both outputs depend on local egress approval and somewhat blur standard diffuse-field element testing with explicit incidence-angle testing.",
+        "B's direct-open-area bound is only a heuristic and its cryogenic absorption example is tangential to transmission loss, but both limitations are substantially caveated."
+      ]
+    },
+    {
+      "pair_id": "hh-02-physical-system-t2",
+      "role": "simplicity",
+      "items": [
+        "Output A retains a passive acoustic vent and optional balcony screen despite tight cost, egress, and no-structural-change constraints.",
+        "Output A's 15-25 dB room-level reduction range is comparatively optimistic and less tightly supported than Output B's conservative, measurement-gated envelope."
+      ]
+    },
+    {
+      "pair_id": "hh-02-physical-system-t2",
+      "role": "domain_or_generalist",
+      "items": [
+        "Output A's upper retrofit performance ranges are optimistic relative to its cited support and apartment-specific uncertainty.",
+        "Output A's optional acoustic-vent path adds cost and compliance uncertainty that Output B more cleanly avoids."
+      ]
+    },
+    {
+      "pair_id": "hh-02-physical-system-t3",
+      "role": "hostile_regression",
+      "items": [
+        "B_RECOMMENDATION_DEPENDS_ON_UNVERIFIED_INCIDENCE_CONE_AND_BALCONY_PATH_DOMINANCE",
+        "B_EXTERNAL_EDGE_PANEL_HAS_SITE_SPECIFIC_WIND_LOAD_ATTACHMENT_AND_AUTHORITY_FAILURE_MODES",
+        "A_COST_EGRESS_AND_CONDENSATION_FEASIBILITY_REMAINS_SITE_DEPENDENT"
+      ]
+    },
+    {
+      "pair_id": "hh-02-physical-system-t3",
+      "role": "simplicity",
+      "items": [
+        "Output B's exterior edge kit depends on favorable sight-line geometry and a safe wind-load path through reversible balustrade clamps, so its claimed feasibility is materially more conditional than the conventional receiver-side substitute.",
+        "Output A's quiet-mode pane does not preserve simultaneous airflow, but it states that tradeoff explicitly and uses temporal separation rather than obscuring the incompatibility."
+      ]
+    },
+    {
+      "pair_id": "hh-02-physical-system-t3",
+      "role": "domain_or_generalist",
+      "items": [
+        "A requires jurisdiction-specific verification that the movable pane preserves egress and stays within the installed-cost cap",
+        "B depends strongly on a narrow source-incidence cone and on a safe wind-load path through reversible balustrade clamps"
+      ]
+    },
+    {
+      "pair_id": "hh-03-operations-t1",
+      "role": "hostile_regression",
+      "items": [
+        "both_outputs_set ambitious effect and operational thresholds without a power calculation or cost-derived justification",
+        "Output B's route crossover is exposed to training, workflow carryover, and time-period confounding",
+        "the historical 0.7% search rate is not demonstrated to use either output's proposed prospective search definition"
+      ]
+    },
+    {
+      "pair_id": "hh-03-operations-t1",
+      "role": "domain_or_generalist",
+      "items": [
+        "A's quantitative rollout criteria are not accompanied by an explicit power calculation.",
+        "B's two-route crossover may be vulnerable to period, learning, and carryover effects, and its event-count sufficiency is unspecified."
+      ]
+    },
+    {
+      "pair_id": "hh-03-operations-t2",
+      "role": "hostile_regression",
+      "items": [
+        "Both designs can regress into ritualized scanning: a timely paired scan proves a recorded handoff, not that the tray manifest was physically correct; blinded physical audits and tray-open controls remain essential.",
+        "Neither output supplies a sample-size or power calculation, so fixed percentage success thresholds could overinterpret a four-week pilot with a relatively low event rate.",
+        "Output B's live comparison against current practice is a weaker simpler-substitute test than Output A's explicit standardized-label, designated-shelf, ordinary-barcode baseline.",
+        "Output B's two-person downtime verification at every transfer could become a throughput-heavy failure mode during a prolonged outage; Output A's signed ticket fallback is less burdensome but still needs prospective stress testing."
+      ]
+    },
+    {
+      "pair_id": "hh-03-operations-t2",
+      "role": "simplicity",
+      "items": [
+        "B tests against current practice rather than A's stronger simple-custody baseline, so it less cleanly isolates the value of atomic paired handoffs."
+      ]
+    },
+    {
+      "pair_id": "hh-03-operations-t3",
+      "role": "hostile_regression",
+      "items": [
+        "Both outputs are substantially longer than needed for the operational decision.",
+        "Citations support general custody practice but not the claimed local effect sizes."
+      ]
+    },
+    {
+      "pair_id": "hh-04-scientific-method-t1",
+      "role": "hostile_regression",
+      "items": [
+        "Output A fixes an early clinical-benefit objective at week 12 without first conditioning that claim on whether the disease phenotype can change measurably in that interval; Output B explicitly falls back to safety, feasibility, and biological activity if it cannot.",
+        "Output A's advance rule stacks a confidence interval excluding zero with posterior probability above the MCID of at least 0.95 without specifying joint operating characteristics, a potentially over-demanding compound gate in a 24-patient trial.",
+        "Neither output offers a novel scientific mechanism; both are strong applications of established delayed-start, external-control, estimand, sensitivity-analysis, and long-term-surveillance methods."
+      ]
+    },
+    {
+      "pair_id": "hh-04-scientific-method-t1",
+      "role": "domain_or_generalist",
+      "items": [
+        "Output A's preferred 2:1 randomization sacrifices precision relative to 1:1 allocation in an already tiny trial without giving a compelling statistical reason for that tradeoff.",
+        "Both outputs are plans rather than genuinely novel scientific mechanisms; novelty scores therefore remain moderate despite excellent execution."
+      ]
+    },
+    {
+      "pair_id": "hh-04-scientific-method-t2",
+      "role": "hostile_regression",
+      "items": [
+        "Output B exposes unsupported process artifacts (a diversity audit, robust/expected/upside scores, and evolution moves) that do not inform the scientific question and read as framework leakage.",
+        "Output B's illustrative Bayesian probability cutoffs are more precise than the unspecified disease, endpoint reliability, operating characteristics, and regulator agreement justify, despite its caveat that they may be replaced.",
+        "Neither output offers mechanism novelty; both primarily assemble established rare-disease trial, external-control, hierarchical-modeling, and long-term-surveillance practices."
+      ]
+    },
+    {
+      "pair_id": "hh-04-scientific-method-t2",
+      "role": "simplicity",
+      "items": [
+        "B includes an unexplained diversity audit and numerical robust/expected/upside scores that are irrelevant to the requested scientific reframe and are not evidentially grounded in the response.",
+        "B adds covariate-adaptive minimization, commensurate-prior borrowing, pseudo-index negative controls, and multiple posterior gates where a simpler prespecified randomized analysis would answer the primary question with fewer modeling dependencies.",
+        "B's illustrative posterior cutoffs create avoidable false precision despite acknowledging that disease-specific margins are unavailable."
+      ]
+    },
+    {
+      "pair_id": "hh-04-scientific-method-t2",
+      "role": "domain_or_generalist",
+      "items": [
+        "B includes an unsupported diversity-audit/scoring digression unrelated to the requested scientific reframe.",
+        "B overstates post-crossover within-child change as replication despite period, maturation, and trajectory confounding."
+      ]
+    },
+    {
+      "pair_id": "hh-04-scientific-method-t3",
+      "role": "hostile_regression",
+      "items": [
+        "A makes a week-12 clinical comparison the decisive near-term test despite offering no disease-specific basis that a meaningful clinical effect is observable by then; its numerical Bayesian advance cutoffs are not linked to simulated operating characteristics.",
+        "B's preferred 12-month staggered start leaves only eight concurrent controls and could be unethical in a rapidly progressive pediatric disease; feasibility therefore depends heavily on the stated fallback and regulator-facing simulation.",
+        "Both proposals are unusually comprehensive but lengthy, and many product-specific endpoints and safety triggers remain necessarily generic because the vector, editing mechanism, and disorder are unspecified."
+      ]
+    },
+    {
+      "pair_id": "hh-04-scientific-method-t3",
+      "role": "simplicity",
+      "items": [
+        "B's preferred 12-month untreated delay may be ethically infeasible in a rapidly progressive pediatric disease; its own concurrent external-control fallback is therefore essential.",
+        "Both outputs add optional secondary analyses beyond the minimum decision design, and B's hybrid robust-mixture borrowing is the clearest avoidable complication."
+      ]
+    },
+    {
+      "pair_id": "hh-05-economic-system-t1",
+      "role": "hostile_regression",
+      "items": [
+        "A_VENDOR_RANKING_ESTIMAND_UNCLEAR: A compares a frozen vendor ranking with rules and lottery but does not explicitly distinguish predicted-outcome risk from treatment-effect uplift, so a positive targeting contrast is less diagnostic of the model mechanism claimed.",
+        "A_PAYMENT_PLAN_ABLATION_INCOMPLETE: A randomizes payment-plan or assistance messaging but does not cleanly randomize the proactive plan offer or plan terms as a policy lever, despite the task explicitly requiring separation of payment-plan offers.",
+        "A_DEPLOYMENT_GATE_SOFTENS_DUAL_OBJECTIVE: A permits meeting only one substantive outcome threshold while merely remaining noninferior on the other, which is weaker than the stated goal of reducing both arrears and peak demand.",
+        "B_DESIGN_COMPLEXITY_AND_POWER_RISK: B's four targeting policies, multi-level fractional factorial, separate bundle-policy cell, feeder-day saturation design, intersections, and safety gates could become underpowered or operationally fragile unless cell allocation and multiplicity are tightly pre-sized.",
+        "B_EQUAL_RESOURCE_CONTROL_NOT_FULLY_REALIZED: B specifies equal expected dollars and selection fractions, but is less explicit than A about realized parity in credit distributions, contact counts, and scarce navigator minutes after nonresponse.",
+        "B_LEGAL_AND_FAIRNESS_DETAILS_REQUIRE_JURISDICTIONALIZATION: B appropriately conditions action cards on legal review, but several due-process and similarly-situated-treatment rules remain principles rather than executable state-specific audit tests."
+      ]
+    },
+    {
+      "pair_id": "hh-05-economic-system-t1",
+      "role": "simplicity",
+      "items": [
+        "B's four-policy targeting comparison, separate bundle-policy cell, component factorial, and feeder-day saturation design may exceed the complexity needed to answer the regulator's first-order AI materiality question."
+      ]
+    },
+    {
+      "pair_id": "hh-05-economic-system-t2",
+      "role": "hostile_regression",
+      "items": [
+        "A permits prespecified treatment-effect models to be built from five years of historical program-contact data but does not state an identification strategy for confounded observational treatments; a time-ordered holdout validates prediction, not causal lift.",
+        "A's allocation-policy stage and its later independent randomization of zero/low/high credit, no-message/content, support, and plan outreach leave the exact channel through which a selector prioritizes households less cleanly specified than B's explicit selector-then-package separation.",
+        "B's deployment gate is not fully pinned down: its proposed materiality criterion allows either net-system-benefit improvement or peak reduction per dollar, while the arrears/peak superiority-versus-noninferiority hierarchy and margins are deferred to preregistration.",
+        "B adds jargon and several peripheral sections (candidate signatures, evolution lineage, self-scored ranges), reducing operational clarity without improving the core trial design."
+      ]
+    },
+    {
+      "pair_id": "hh-05-economic-system-t2",
+      "role": "simplicity",
+      "items": [
+        "Both outputs are substantially longer and more elaborate than a regulator would need for an initial design decision.",
+        "Output B adds a two-stage exploration-confirmation program, matched microblocks, saturation randomization, coined framework terms, candidate portfolios, and evolution-lineage material whose incremental value does not consistently justify the added complexity.",
+        "Output A's illustrative numerical deployment thresholds still require local power, legal, and baseline-rate calibration before use."
+      ]
+    },
+    {
+      "pair_id": "hh-05-economic-system-t2",
+      "role": "domain_or_generalist",
+      "items": [
+        "Output B's Stage-2 selector is blind to package assignment, so it cleanly identifies predictive targeting but does not directly confirm AI selection of credit size, content, timing, plan, or human support.",
+        "Output A's AI-selected-content arm needs a more explicit randomization and propensity specification to avoid weakening the otherwise clean module ablation."
+      ]
+    },
+    {
+      "pair_id": "hh-05-economic-system-t3",
+      "role": "hostile_regression",
+      "items": [
+        "B's cumulative arms do not explicitly freeze the recipient target set as personalization modules are added, so contrasts 4-3 through 7-6 can mix module effects with changed selection.",
+        "Both designs require unusually large samples for many arms, interactions, safety endpoints, and subgroup noninferiority gates; neither supplies a numerical power demonstration.",
+        "A's originality claim is appropriately modest, but its cited prior art supports constituent methods more than the novelty of the combined capability-escrow architecture.",
+        "B explicitly states that no external prior-art search was performed, materially limiting prior-art awareness despite otherwise strong calibration."
+      ]
+    },
+    {
+      "pair_id": "hh-06-product-strategy-t1",
+      "role": "hostile_regression",
+      "items": [
+        "A's decisive G-F contrast bundles ordered sequencing, timers, and in-step evidence, so it cannot attribute the effect among those guidance submechanisms.",
+        "A's 120-event gate is still thin for five modes, six site-level effects, onboarding and management interactions, and production-free site-days can unbalance event counts despite the Latin-square day schedule.",
+        "B's minimum of 60 events across five modes and six sites is incompatible with its demand for reliable within-site contrasts and same-direction effects in five of six sites; roughly two events per site-mode cannot support that decision rule.",
+        "B's intensive-onboarding test is only a three-site-versus-three-site comparison after switching all sites to G, making it highly confounded by site heterogeneity and time and therefore not a credible causal ablation.",
+        "Both designs face operator learning and cross-mode carryover that can contaminate paper and static-form controls after exposure to guided modes."
+      ]
+    },
+    {
+      "pair_id": "hh-06-product-strategy-t1",
+      "role": "simplicity",
+      "items": [
+        "A's G-versus-F guidance contrast also changes in-step evidence capture, so it does not fully isolate sequencing and timers from evidence prompting.",
+        "B's concierge comparison uses only three sites per arm after the main randomized period, making the intensive-onboarding inference fragile.",
+        "B's minimum of 60 events and eight observations per mode is thin for five-mode, site-level heterogeneity claims."
+      ]
+    },
+    {
+      "pair_id": "hh-06-product-strategy-t1",
+      "role": "domain_or_generalist",
+      "items": [
+        "Output A explicitly declines a prior-art search, so its novelty and competitive framing remain thin despite appropriately modest claims.",
+        "Output B's intensive-onboarding ablation is a three-site-versus-three-site comparison performed only after the main trial, and its delayed performance-digest design leaves management-attention carryover and time effects weakly identified.",
+        "Output B's broader minimum build and five-arm trial are ambitious for two engineers and as few as 60 events; Output A's higher volume gate is more credible but may itself make recruitment infeasible."
+      ]
+    },
+    {
+      "pair_id": "hh-06-product-strategy-t2",
+      "role": "hostile_regression",
+      "items": [
+        "A's minimum of eight eligible changeovers per site is too sparse for stable four-arm, onboarding-stratified causal conclusions, especially when natural critical omissions may be rare.",
+        "B crosses guidance, reminders, and management attention and then stratifies onboarding, creating an overambitious effective design for six sites and eight weeks; its 120-event fallback still leaves weak clustered inference.",
+        "B's seeded non-production deviations improve detectability but may not transport to real production behavior, while A lacks an equivalent controlled stress test.",
+        "Neither output can establish compliance or safety efficacy from this pilot, although both mostly constrain their claims accordingly."
+      ]
+    },
+    {
+      "pair_id": "hh-06-product-strategy-t2",
+      "role": "simplicity",
+      "items": [
+        "A's minimum of eight eligible changeovers per site is still thin for four within-site arms plus onboarding strata.",
+        "B's 2x2x2 mechanism design plus persistent onboarding split creates too many cells for six sites and eight weeks, and its suggestion to extend recruitment weakens fit to the fixed pilot constraint."
+      ]
+    },
+    {
+      "pair_id": "hh-06-product-strategy-t2",
+      "role": "domain_or_generalist",
+      "items": [
+        "Both designs are likely underpowered for their many contrasts and clustered six-site sample, so threshold decisions must be treated as directional rather than definitive.",
+        "Process-documentation outcomes and photos cannot establish allergen removal or regulatory compliance; both outputs appropriately retain the approved SOP and human release authority."
+      ]
+    },
+    {
+      "pair_id": "hh-06-product-strategy-t3",
+      "role": "hostile_regression",
+      "items": [
+        "B has no unguided management-attention arm: GA-G estimates alerts added to guidance, not guidance versus management attention, leaving an explicitly required causal alternative unresolved.",
+        "B's stated minimum volume is internally thin for five modes across six sites and its event-level switching risks guidance carryover; balancing and period adjustment cannot fully restore the learned-control counterfactual.",
+        "A's paper comparison is historical/prospective baseline rather than part of the randomized crossover, so D-P and G-P remain exposed to time effects even though its decisive G-M and G-R contrasts are cleaner."
+      ]
+    },
+    {
+      "pair_id": "hh-06-product-strategy-t3",
+      "role": "simplicity",
+      "items": [
+        "both_designs_are_ambitious_for_six_sites_and_eight_weeks",
+        "B_does_not_isolate_management_attention_without_guidance"
+      ]
+    },
+    {
+      "pair_id": "hh-06-product-strategy-t3",
+      "role": "domain_or_generalist",
+      "items": [
+        "Output B lacks a management-attention-only arm: GA-G tests adding delivered alerts to guidance, not whether management attention alone substitutes for guidance.",
+        "Both proposals are necessarily decision experiments rather than generalizable efficacy studies because six sites and sparse events leave substantial cluster, order, and spillover uncertainty."
+      ]
+    },
+    {
+      "pair_id": "hh-07-public-service-t1",
+      "role": "hostile_regression",
+      "items": [
+        "A's 4-week setup, 4-week baseline, 8-week treatment period, 2-week washout, and 8-week crossover total 26 weeks, leaving no contingency and pushing the vendor-versus-rules randomized ablation beyond the funded pilot.",
+        "A uses severe overflow in advancement and stop gates without giving a frozen severe-overflow definition.",
+        "B's failure rule (including any interval that excludes a 25% effect) does not cleanly align with its claim that all results between failure and success are ambiguous, and can label a precise moderate benefit a failure.",
+        "B's sensor purchase gate asks for a 10% relative improvement, whereas a percentage-point incremental threshold would be harder to satisfy and less sensitive to the successful rule arm's baseline effect size."
+      ]
+    },
+    {
+      "pair_id": "hh-07-public-service-t1",
+      "role": "simplicity",
+      "items": [
+        "Output A adds a fairly elaborate sampling and modeling stack, although most of it is justified by the clustered, event-driven failure pattern and it keeps sensing optional and non-imaging.",
+        "Output B introduces standardized photography, a sensor shadow study, and a possible second sensor-randomization phase inside the same short pilot, creating more scope and privacy burden than the core roster-and-flex test needs.",
+        "Output B's failure rule can classify an estimate below 25% as failure even when its interval still permits a useful 10-24% effect, which sits awkwardly beside its separate ambiguous category."
+      ]
+    },
+    {
+      "pair_id": "hh-07-public-service-t2",
+      "role": "hostile_regression",
+      "items": [
+        "A's threshold for the simple intervention relies on a pre/post comparison with pre-pilot operations rather than a concurrently randomized usual-service arm, leaving seasonal confounding.",
+        "A's minimum panel size and numerical cost ranges are planning assumptions not derived from the limited local evidence, although it explicitly requires power re-estimation and local quotes.",
+        "B does not test the vendor treatment or any vendor component during the funded six-month experiment, so its success cannot itself support or reject the proposed purchase on incremental performance.",
+        "B's rotating spot-audit prevalence can miss short overflow episodes and yields weaker duration measurement than A's validated 15-minute observation design."
+      ]
+    },
+    {
+      "pair_id": "hh-07-public-service-t2",
+      "role": "simplicity",
+      "items": [
+        "A combines a large monitoring panel, sensors or time-lapse, human audits, two shadow systems, a vendor comparison, an embedded predictor ablation, and a transfer phase in one six-month pilot, creating avoidable implementation burden.",
+        "B defers the vendor's incremental ablation rather than estimating vendor-versus-simple value within the initial pilot, so a second experiment would be needed before purchase consideration."
+      ]
+    },
+    {
+      "pair_id": "hh-07-public-service-t2",
+      "role": "domain_or_generalist",
+      "items": [
+        "A estimates the simple intervention against a pre-pilot baseline rather than a concurrent usual-service arm, leaving that effect more exposed to seasonality.",
+        "A's stated cost ranges are planning assumptions without local evidentiary support.",
+        "B does not directly test the vendor or any vendor component during the funded pilot, postponing the incremental purchase question.",
+        "B's sparse rotating-audit design is less direct for estimating exposure-hours and episode duration than A's interval measurement panel."
+      ]
+    },
+    {
+      "pair_id": "hh-07-public-service-t3",
+      "role": "hostile_regression",
+      "items": [
+        "A: Sparse repeated observations may make overflow-duration estimates and the 15-minute persistence rule fragile unless interval-censoring assumptions and visit frequency are specified more tightly.",
+        "A: The gated C arm primarily ablates vendor routing, so it does not directly test whether vendor vision adds useful signal beyond the validated non-imaging input.",
+        "B: The final vendor shadow-then-reveal phase is under-specified, potentially only four to six weeks long, and does not clearly preserve the matched crossover comparison or power calculation.",
+        "B: The two-percentage-point absolute adoption threshold is not tied to observed baseline burden and could conflict with the relative threshold in low-prevalence strata."
+      ]
+    },
+    {
+      "pair_id": "hh-07-public-service-t3",
+      "role": "simplicity",
+      "items": [
+        "B's joint 30% relative and 2-point absolute adoption threshold could be infeasible when baseline overflow is low.",
+        "Both proposals remain operationally dense for a simplicity-first pilot."
+      ]
+    }
+  ],
+  "pairs_detail": {
+    "hh-01-software-t1": {
+      "case_id": "hh-01-software",
+      "trial": 1,
+      "majority_winner": "baseline",
+      "preference_votes": {
+        "candidate": 0,
+        "baseline": 3,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": 0.33333333333333304,
+        "mechanistic_depth": 0.2333333333333337,
+        "constraint_fit": -0.16666666666666666,
+        "usefulness": -0.36666666666666714,
+        "evidence_calibration": -0.2333333333333331,
+        "falsifiability": -0.06666666666666643,
+        "prior_art_awareness": -0.8999999999999998,
+        "simpler_substitute_discipline": -0.29999999999999954,
+        "clarity": -0.5999999999999996
+      },
+      "unanimous_preference": true
+    },
+    "hh-01-software-t2": {
+      "case_id": "hh-01-software",
+      "trial": 2,
+      "majority_winner": "candidate",
+      "preference_votes": {
+        "candidate": 2,
+        "baseline": 1,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.2666666666666666,
+        "mechanistic_depth": -0.43333333333333357,
+        "constraint_fit": -0.06666666666666643,
+        "usefulness": 0.16666666666666727,
+        "evidence_calibration": 0.06666666666666703,
+        "falsifiability": -0.13333333333333286,
+        "prior_art_awareness": 0.033333333333333215,
+        "simpler_substitute_discipline": 0.3333333333333333,
+        "clarity": 0.7666666666666669
+      },
+      "unanimous_preference": false
+    },
+    "hh-01-software-t3": {
+      "case_id": "hh-01-software",
+      "trial": 3,
+      "majority_winner": "baseline",
+      "preference_votes": {
+        "candidate": 0,
+        "baseline": 3,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.3000000000000001,
+        "mechanistic_depth": -0.36666666666666714,
+        "constraint_fit": -0.13333333333333286,
+        "usefulness": -0.3333333333333333,
+        "evidence_calibration": -0.5333333333333332,
+        "falsifiability": -0.06666666666666643,
+        "prior_art_awareness": -0.13333333333333405,
+        "simpler_substitute_discipline": -0.2333333333333331,
+        "clarity": -0.19999999999999987
+      },
+      "unanimous_preference": true
+    },
+    "hh-02-physical-system-t1": {
+      "case_id": "hh-02-physical-system",
+      "trial": 1,
+      "majority_winner": "baseline",
+      "preference_votes": {
+        "candidate": 0,
+        "baseline": 3,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": 0.2666666666666666,
+        "mechanistic_depth": 0.36666666666666653,
+        "constraint_fit": -1.1333333333333335,
+        "usefulness": -0.4666666666666668,
+        "evidence_calibration": -0.5333333333333338,
+        "falsifiability": -0.06666666666666643,
+        "prior_art_awareness": -0.4666666666666662,
+        "simpler_substitute_discipline": -0.8333333333333334,
+        "clarity": -1.0333333333333332
+      },
+      "unanimous_preference": true
+    },
+    "hh-02-physical-system-t2": {
+      "case_id": "hh-02-physical-system",
+      "trial": 2,
+      "majority_winner": "candidate",
+      "preference_votes": {
+        "candidate": 3,
+        "baseline": 0,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.7333333333333334,
+        "mechanistic_depth": 0.5333333333333332,
+        "constraint_fit": 1.1666666666666667,
+        "usefulness": 0.6333333333333334,
+        "evidence_calibration": 1.3999999999999997,
+        "falsifiability": 0.3000000000000001,
+        "prior_art_awareness": 0.566666666666667,
+        "simpler_substitute_discipline": 1.5333333333333332,
+        "clarity": 0.6333333333333334
+      },
+      "unanimous_preference": true
+    },
+    "hh-02-physical-system-t3": {
+      "case_id": "hh-02-physical-system",
+      "trial": 3,
+      "majority_winner": "candidate",
+      "preference_votes": {
+        "candidate": 3,
+        "baseline": 0,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -1.2333333333333334,
+        "mechanistic_depth": 0.4666666666666656,
+        "constraint_fit": 0.9333333333333336,
+        "usefulness": 1.6000000000000005,
+        "evidence_calibration": 0.666666666666667,
+        "falsifiability": 0.3000000000000001,
+        "prior_art_awareness": 0.13333333333333286,
+        "simpler_substitute_discipline": 1.7333333333333327,
+        "clarity": 0.2333333333333337
+      },
+      "unanimous_preference": true
+    },
+    "hh-03-operations-t1": {
+      "case_id": "hh-03-operations",
+      "trial": 1,
+      "majority_winner": "candidate",
+      "preference_votes": {
+        "candidate": 2,
+        "baseline": 1,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": 0.6333333333333334,
+        "mechanistic_depth": 0.10000000000000024,
+        "constraint_fit": 0.06666666666666643,
+        "usefulness": 0.06666666666666643,
+        "evidence_calibration": -0.16666666666666666,
+        "falsifiability": 0.13333333333333344,
+        "prior_art_awareness": 0.13333333333333344,
+        "simpler_substitute_discipline": -0.3000000000000001,
+        "clarity": -0.43333333333333296
+      },
+      "unanimous_preference": false
+    },
+    "hh-03-operations-t2": {
+      "case_id": "hh-03-operations",
+      "trial": 2,
+      "majority_winner": "baseline",
+      "preference_votes": {
+        "candidate": 0,
+        "baseline": 3,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.10000000000000009,
+        "mechanistic_depth": -0.26666666666666633,
+        "constraint_fit": -0.1999999999999993,
+        "usefulness": -0.2333333333333331,
+        "evidence_calibration": -0.3000000000000001,
+        "falsifiability": -0.2666666666666675,
+        "prior_art_awareness": -0.033333333333333215,
+        "simpler_substitute_discipline": -0.5000000000000006,
+        "clarity": 0.06666666666666703
+      },
+      "unanimous_preference": true
+    },
+    "hh-03-operations-t3": {
+      "case_id": "hh-03-operations",
+      "trial": 3,
+      "majority_winner": "baseline",
+      "preference_votes": {
+        "candidate": 0,
+        "baseline": 3,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": 0.10000000000000009,
+        "mechanistic_depth": -0.3000000000000001,
+        "constraint_fit": -0.2333333333333325,
+        "usefulness": -0.26666666666666633,
+        "evidence_calibration": -0.033333333333333215,
+        "falsifiability": -0.20000000000000048,
+        "prior_art_awareness": 0.2666666666666669,
+        "simpler_substitute_discipline": -0.2333333333333331,
+        "clarity": -0.2666666666666657
+      },
+      "unanimous_preference": true
+    },
+    "hh-04-scientific-method-t1": {
+      "case_id": "hh-04-scientific-method",
+      "trial": 1,
+      "majority_winner": "candidate",
+      "preference_votes": {
+        "candidate": 3,
+        "baseline": 0,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": 0.2333333333333334,
+        "mechanistic_depth": -0.033333333333333805,
+        "constraint_fit": 0.2666666666666669,
+        "usefulness": 0.13333333333333344,
+        "evidence_calibration": 0.16666666666666727,
+        "falsifiability": 0.10000000000000024,
+        "prior_art_awareness": 0.09999999999999964,
+        "simpler_substitute_discipline": 0.39999999999999974,
+        "clarity": 0.3000000000000001
+      },
+      "unanimous_preference": true
+    },
+    "hh-04-scientific-method-t2": {
+      "case_id": "hh-04-scientific-method",
+      "trial": 2,
+      "majority_winner": "baseline",
+      "preference_votes": {
+        "candidate": 0,
+        "baseline": 3,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": 0.4000000000000001,
+        "mechanistic_depth": -0.2333333333333337,
+        "constraint_fit": -0.5333333333333338,
+        "usefulness": -0.5666666666666664,
+        "evidence_calibration": -0.9333333333333323,
+        "falsifiability": 0.16666666666666727,
+        "prior_art_awareness": -0.20000000000000048,
+        "simpler_substitute_discipline": -1.5000000000000002,
+        "clarity": -1.2000000000000004
+      },
+      "unanimous_preference": true
+    },
+    "hh-04-scientific-method-t3": {
+      "case_id": "hh-04-scientific-method",
+      "trial": 3,
+      "majority_winner": "baseline",
+      "preference_votes": {
+        "candidate": 0,
+        "baseline": 3,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.2999999999999998,
+        "mechanistic_depth": -0.1999999999999993,
+        "constraint_fit": -0.06666666666666703,
+        "usefulness": -0.1999999999999993,
+        "evidence_calibration": -0.20000000000000048,
+        "falsifiability": -0.40000000000000036,
+        "prior_art_awareness": -0.16666666666666607,
+        "simpler_substitute_discipline": -0.19999999999999987,
+        "clarity": -0.26666666666666633
+      },
+      "unanimous_preference": true
+    },
+    "hh-05-economic-system-t1": {
+      "case_id": "hh-05-economic-system",
+      "trial": 1,
+      "majority_winner": "baseline",
+      "preference_votes": {
+        "candidate": 1,
+        "baseline": 2,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.5000000000000003,
+        "mechanistic_depth": -0.36666666666666714,
+        "constraint_fit": -0.033333333333333805,
+        "usefulness": -0.06666666666666703,
+        "evidence_calibration": -0.13333333333333286,
+        "falsifiability": -0.2333333333333331,
+        "prior_art_awareness": -0.2666666666666669,
+        "simpler_substitute_discipline": 0.3333333333333333,
+        "clarity": -0.06666666666666643
+      },
+      "unanimous_preference": false
+    },
+    "hh-05-economic-system-t2": {
+      "case_id": "hh-05-economic-system",
+      "trial": 2,
+      "majority_winner": "baseline",
+      "preference_votes": {
+        "candidate": 1,
+        "baseline": 2,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": 0.4666666666666665,
+        "mechanistic_depth": 0.16666666666666607,
+        "constraint_fit": -0.16666666666666727,
+        "usefulness": -0.366666666666666,
+        "evidence_calibration": 0.40000000000000036,
+        "falsifiability": 0.16666666666666727,
+        "prior_art_awareness": 1.166666666666667,
+        "simpler_substitute_discipline": -0.40000000000000036,
+        "clarity": -0.7333333333333325
+      },
+      "unanimous_preference": false
+    },
+    "hh-05-economic-system-t3": {
+      "case_id": "hh-05-economic-system",
+      "trial": 3,
+      "majority_winner": "baseline",
+      "preference_votes": {
+        "candidate": 1,
+        "baseline": 2,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": 0.0,
+        "mechanistic_depth": -0.033333333333333215,
+        "constraint_fit": 0.033333333333333215,
+        "usefulness": -0.06666666666666643,
+        "evidence_calibration": 0.033333333333332625,
+        "falsifiability": -0.13333333333333344,
+        "prior_art_awareness": 1.7333333333333332,
+        "simpler_substitute_discipline": -5.921189464667501e-16,
+        "clarity": -0.33333333333333276
+      },
+      "unanimous_preference": false
+    },
+    "hh-06-product-strategy-t1": {
+      "case_id": "hh-06-product-strategy",
+      "trial": 1,
+      "majority_winner": "candidate",
+      "preference_votes": {
+        "candidate": 3,
+        "baseline": 0,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.2333333333333334,
+        "mechanistic_depth": -0.2666666666666657,
+        "constraint_fit": 0.8999999999999998,
+        "usefulness": 0.36666666666666653,
+        "evidence_calibration": 0.5666666666666664,
+        "falsifiability": 0.43333333333333357,
+        "prior_art_awareness": -3.1666666666666665,
+        "simpler_substitute_discipline": -0.13333333333333344,
+        "clarity": 0.4666666666666668
+      },
+      "unanimous_preference": true
+    },
+    "hh-06-product-strategy-t2": {
+      "case_id": "hh-06-product-strategy",
+      "trial": 2,
+      "majority_winner": "baseline",
+      "preference_votes": {
+        "candidate": 0,
+        "baseline": 3,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.16666666666666666,
+        "mechanistic_depth": -0.06666666666666643,
+        "constraint_fit": -0.7333333333333337,
+        "usefulness": -0.43333333333333296,
+        "evidence_calibration": -0.09999999999999964,
+        "falsifiability": 0.06666666666666643,
+        "prior_art_awareness": -1.5666666666666664,
+        "simpler_substitute_discipline": -0.3000000000000001,
+        "clarity": 0.40000000000000036
+      },
+      "unanimous_preference": true
+    },
+    "hh-06-product-strategy-t3": {
+      "case_id": "hh-06-product-strategy",
+      "trial": 3,
+      "majority_winner": "candidate",
+      "preference_votes": {
+        "candidate": 3,
+        "baseline": 0,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": 0.7333333333333334,
+        "mechanistic_depth": 1.433333333333333,
+        "constraint_fit": 0.6333333333333334,
+        "usefulness": 0.7666666666666663,
+        "evidence_calibration": 0.2666666666666669,
+        "falsifiability": 1.066666666666667,
+        "prior_art_awareness": -2.1333333333333333,
+        "simpler_substitute_discipline": 1.7333333333333334,
+        "clarity": 0.36666666666666653
+      },
+      "unanimous_preference": true
+    },
+    "hh-07-public-service-t1": {
+      "case_id": "hh-07-public-service",
+      "trial": 1,
+      "majority_winner": "baseline",
+      "preference_votes": {
+        "candidate": 1,
+        "baseline": 2,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.5333333333333329,
+        "mechanistic_depth": -0.26666666666666633,
+        "constraint_fit": 0.3333333333333339,
+        "usefulness": -0.033333333333332625,
+        "evidence_calibration": -0.13333333333333344,
+        "falsifiability": -0.2333333333333331,
+        "prior_art_awareness": 2.4666666666666663,
+        "simpler_substitute_discipline": -0.20000000000000048,
+        "clarity": -5.921189464667501e-16
+      },
+      "unanimous_preference": false
+    },
+    "hh-07-public-service-t2": {
+      "case_id": "hh-07-public-service",
+      "trial": 2,
+      "majority_winner": "baseline",
+      "preference_votes": {
+        "candidate": 1,
+        "baseline": 2,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.16666666666666666,
+        "mechanistic_depth": -0.6666666666666661,
+        "constraint_fit": -0.16666666666666607,
+        "usefulness": -0.3000000000000001,
+        "evidence_calibration": 0.10000000000000082,
+        "falsifiability": -0.33333333333333276,
+        "prior_art_awareness": -0.03333333333333292,
+        "simpler_substitute_discipline": 0.6666666666666664,
+        "clarity": 0.3333333333333339
+      },
+      "unanimous_preference": false
+    },
+    "hh-07-public-service-t3": {
+      "case_id": "hh-07-public-service",
+      "trial": 3,
+      "majority_winner": "baseline",
+      "preference_votes": {
+        "candidate": 1,
+        "baseline": 2,
+        "tie": 0
+      },
+      "mean_candidate_minus_baseline": {
+        "mechanism_novelty": -0.03333333333333351,
+        "mechanistic_depth": -0.2333333333333331,
+        "constraint_fit": -0.3000000000000001,
+        "usefulness": -0.10000000000000024,
+        "evidence_calibration": -0.2333333333333331,
+        "falsifiability": -0.29999999999999954,
+        "prior_art_awareness": 2.9605947323337506e-16,
+        "simpler_substitute_discipline": 0.1999999999999993,
+        "clarity": 0.29999999999999954
+      },
+      "unanimous_preference": false
+    }
+  }
+}

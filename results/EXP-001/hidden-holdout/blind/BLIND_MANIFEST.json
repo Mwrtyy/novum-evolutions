@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "status": "21_PAIRS_BLINDED_MAPPING_NOT_PERSISTED",
+  "pair_count": 21,
+  "public_bundle_sha256": "0633945304f979983d7c872b54e936097ac13272c08dcce3b7016c02573b1671",
+  "pair_ids_sha256": "6a46e9a5edddd9a1da1da8366a981c9665cddd781d4f4e7143a6ee709d6c6de5",
+  "pair_metadata_sha256": "7582164a827a923ac14cb950a8106bb36d275df6875d75e99cd5079335c9d298",
+  "orientation_method": "SHA-256(private_random_salt|pair_id), low bit; salt retained outside evaluator-accessible filesystem until judgment lock"
+}

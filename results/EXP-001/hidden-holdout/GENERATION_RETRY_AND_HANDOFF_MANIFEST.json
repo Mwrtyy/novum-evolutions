@@ -1,0 +1,325 @@
+{
+  "schema_version": 1,
+  "experiment_id": "EXP-001",
+  "phase": "hidden_generation_partial_handoff",
+  "status": "PARTIAL_12_OF_42_VALID_OUTPUTS",
+  "created_utc": "2026-08-09T15:27:05.917Z",
+  "authoritative_inputs": {
+    "holdout_tasks_sha256": "819f17cb4a62200aab6252047b03f74e84fb757bf01758f0b4d97db51f2107e7",
+    "holdout_freeze_manifest_sha256": "6e3d48a88f8db3cdc76c1455f48475bde71e6076e4a98559c28b4f827ae99e2c",
+    "execution_config_sha256": "4ad5f533b0560d066d11ac099755835836514c82eaa0eb563fea5f8b63b04720"
+  },
+  "coverage": {
+    "accepted_run_count": 12,
+    "accepted_pair_count": 6,
+    "cases_completed": [
+      "hh-01-software",
+      "hh-02-physical-system"
+    ],
+    "trials_per_case": 3,
+    "arms": [
+      "baseline",
+      "candidate"
+    ],
+    "unique_generation_context_count": 12
+  },
+  "retry_log": [
+    {
+      "case_id": "hh-01-software",
+      "trial": 3,
+      "discarded_attempt": 1,
+      "reason": "baseline child returned malformed result: placeholder output under 100 words and non-string search query entries; candidate mate interrupted and both arms discarded",
+      "accepted_attempt": 2
+    },
+    {
+      "case_id": "hh-02-physical-system",
+      "trial": 3,
+      "discarded_attempt": 1,
+      "reason": "baseline child used wrong timestamp field names; candidate mate interrupted and both arms discarded",
+      "accepted_attempt": 2
+    }
+  ],
+  "invalid_pair_count": 2,
+  "retried_pair_count": 2,
+  "failures": [],
+  "independence": "fresh_context_same_model_per_run",
+  "independence_limitation": "Each arm used a fresh collaboration-agent context under the same model family and inherited configuration. This is not external replication; OS-level exclusion of globally installed skills is unavailable and isolation relies on explicit sole-runtime-source instructions; tool-call metadata is self-reported.",
+  "runs": [
+    {
+      "filename": "hh-01-software-t1-baseline.json",
+      "sha256": "885aeb9f459252de99a2212c141d3d197cdaecd16c856a24738b5e9d4e4af5e9",
+      "word_count": 1986,
+      "case_id": "hh-01-software",
+      "trial": 1,
+      "arm": "baseline",
+      "skill_sha256": "1d6dea7cdb5343aad114ad48fa9f010ea88bd8bf1ccb6c45059f88e1bfa4c4a6",
+      "prompt_sha256": "be4d6e973add62e667e4175b6b96dee8f30a84967e9d4a942007a641a26b78fa",
+      "generation_context_id": "/root/hidden_generation_coordinator/hh01_t1_baseline_a1",
+      "model_identity": "gpt-5.6-sol (fresh collaboration-agent context, inherited current configuration)",
+      "model_configuration": "same inherited reasoning configuration for both arms; hidden internal reasoning budget uncontrolled",
+      "tool_access": "same_codex_tools_web_available_max4_queries",
+      "tool_call_count": 7,
+      "search_queries": [
+        "site:git-scm.com/docs git bisect documentation first bad commit",
+        "delta debugging isolating failure-inducing changes Andreas Zeller paper PDF",
+        "site:nist.gov combinatorial testing interaction faults ACTS configuration",
+        "causal debugging configuration changes counterfactual incident attribution research paper"
+      ],
+      "run_started_utc": "2026-08-09T14:38:53Z",
+      "run_finished_utc": "2026-08-09T14:40:20Z"
+    },
+    {
+      "filename": "hh-01-software-t1-candidate.json",
+      "sha256": "fa6ff0c497441c74ebec9effea360e2e4f535be29ad3c3f7e92a39f3ca5f7f29",
+      "word_count": 2002,
+      "case_id": "hh-01-software",
+      "trial": 1,
+      "arm": "candidate",
+      "skill_sha256": "ad61ff084f482d9e06b3398970be565bdd5d7d29c132b1a3dfd0c45bd88a4688",
+      "prompt_sha256": "be4d6e973add62e667e4175b6b96dee8f30a84967e9d4a942007a641a26b78fa",
+      "generation_context_id": "/root/hidden_generation_coordinator/hh01_t1_candidate_a1",
+      "model_identity": "gpt-5.6-sol (fresh collaboration-agent context, inherited current configuration)",
+      "model_configuration": "same inherited reasoning configuration for both arms; hidden internal reasoning budget uncontrolled",
+      "tool_access": "same_codex_tools_web_available_max4_queries",
+      "tool_call_count": 10,
+      "search_queries": [
+        "site:git-scm.com/docs git bisect first bad commit official documentation",
+        "delta debugging minimal failure-inducing input configuration changes original paper Zeller Hildebrandt",
+        "official documentation configuration change history rollback audit feature flags LaunchDarkly AWS AppConfig",
+        "site:hhs.gov HIPAA Security Rule access control audit controls electronic protected health information"
+      ],
+      "run_started_utc": "2026-08-09T14:39:03Z",
+      "run_finished_utc": "2026-08-09T14:41:07Z"
+    },
+    {
+      "filename": "hh-01-software-t2-baseline.json",
+      "sha256": "f21c79bed00163771c399b7c445fb6319b93bedae0fcb1e38112a724bfbb767c",
+      "word_count": 2065,
+      "case_id": "hh-01-software",
+      "trial": 2,
+      "arm": "baseline",
+      "skill_sha256": "1d6dea7cdb5343aad114ad48fa9f010ea88bd8bf1ccb6c45059f88e1bfa4c4a6",
+      "prompt_sha256": "be4d6e973add62e667e4175b6b96dee8f30a84967e9d4a942007a641a26b78fa",
+      "generation_context_id": "/root/hidden_generation_coordinator/hh01_t2_baseline_a1",
+      "model_identity": "gpt-5.6-sol (fresh collaboration-agent context, inherited current configuration)",
+      "model_configuration": "same inherited reasoning configuration for both arms; hidden internal reasoning budget uncontrolled",
+      "tool_access": "same_codex_tools_web_available_max4_queries",
+      "tool_call_count": 8,
+      "search_queries": [
+        "site:martinfowler.com/eaaDev Event Sourcing complete rebuild temporal query event replay",
+        "site:git-scm.com/docs git bisect first bad commit binary search official",
+        "delta debugging failure inducing changes Zeller paper PDF",
+        "official feature flag audit log change history rollback configuration documentation LaunchDarkly"
+      ],
+      "run_started_utc": "2026-08-09T14:45:51Z",
+      "run_finished_utc": "2026-08-09T14:48:15Z"
+    },
+    {
+      "filename": "hh-01-software-t2-candidate.json",
+      "sha256": "024493f066947ca03df5e599b2cb829c4e52b266e5927dbf91eeb952a0cb3759",
+      "word_count": 1723,
+      "case_id": "hh-01-software",
+      "trial": 2,
+      "arm": "candidate",
+      "skill_sha256": "ad61ff084f482d9e06b3398970be565bdd5d7d29c132b1a3dfd0c45bd88a4688",
+      "prompt_sha256": "be4d6e973add62e667e4175b6b96dee8f30a84967e9d4a942007a641a26b78fa",
+      "generation_context_id": "/root/hidden_generation_coordinator/hh01_t2_candidate_a1",
+      "model_identity": "gpt-5.6-sol (fresh collaboration-agent context, inherited current configuration)",
+      "model_configuration": "same inherited reasoning configuration for both arms; hidden internal reasoning budget uncontrolled",
+      "tool_access": "same_codex_tools_web_available_max4_queries",
+      "tool_call_count": 9,
+      "search_queries": [
+        "site:git-scm.com/docs git bisect first bad commit official",
+        "delta debugging failure inducing changes original paper Zeller official PDF",
+        "official configuration management audit log rollback replay feature flags LaunchDarkly AWS AppConfig",
+        "site:hhs.gov HIPAA technical safeguards access control audit controls official"
+      ],
+      "run_started_utc": "2026-08-09T14:45:53Z",
+      "run_finished_utc": "2026-08-09T14:47:25Z"
+    },
+    {
+      "filename": "hh-01-software-t3-baseline.json",
+      "sha256": "515b32a623874f6e7b9d11a88b4612584526228ab8789fc82e72c731e1b3fe8f",
+      "word_count": 1513,
+      "case_id": "hh-01-software",
+      "trial": 3,
+      "arm": "baseline",
+      "skill_sha256": "1d6dea7cdb5343aad114ad48fa9f010ea88bd8bf1ccb6c45059f88e1bfa4c4a6",
+      "prompt_sha256": "be4d6e973add62e667e4175b6b96dee8f30a84967e9d4a942007a641a26b78fa",
+      "generation_context_id": "/root/hidden_generation_coordinator/hh01_t3_baseline_a2",
+      "model_identity": "gpt-5.6-sol (fresh collaboration-agent context, inherited current configuration)",
+      "model_configuration": "same inherited reasoning configuration for both arms; hidden internal reasoning budget uncontrolled",
+      "tool_access": "same_codex_tools_web_available_max4_queries",
+      "tool_call_count": 7,
+      "search_queries": [
+        "site:git-scm.com/docs git bisect first bad commit automated test",
+        "site:ddmin.readthedocs.io delta debugging minimizing failure-inducing input Zeller",
+        "site:docs.launchdarkly.com change history rollback configuration audit log",
+        "site:hhs.gov HIPAA Security Rule audit controls minimum necessary access"
+      ],
+      "run_started_utc": "2026-08-09T14:55:30Z",
+      "run_finished_utc": "2026-08-09T15:04:30Z"
+    },
+    {
+      "filename": "hh-01-software-t3-candidate.json",
+      "sha256": "283c4aedd51c50b86746fada7e95745bb7039504755edd38527c3932211ff1c9",
+      "word_count": 2090,
+      "case_id": "hh-01-software",
+      "trial": 3,
+      "arm": "candidate",
+      "skill_sha256": "ad61ff084f482d9e06b3398970be565bdd5d7d29c132b1a3dfd0c45bd88a4688",
+      "prompt_sha256": "be4d6e973add62e667e4175b6b96dee8f30a84967e9d4a942007a641a26b78fa",
+      "generation_context_id": "/root/hidden_generation_coordinator/hh01_t3_candidate_a2",
+      "model_identity": "gpt-5.6-sol (fresh collaboration-agent context, inherited current configuration)",
+      "model_configuration": "same inherited reasoning configuration for both arms; hidden internal reasoning budget uncontrolled",
+      "tool_access": "same_codex_tools_web_available_max4_queries",
+      "tool_call_count": 8,
+      "search_queries": [
+        "site:git-scm.com/docs git bisect official documentation first bad commit",
+        "delta debugging failure-inducing input changes Zeller paper PDF",
+        "site:martinfowler.com event sourcing rebuild past state temporal query",
+        "site:hhs.gov HIPAA Security Rule access control audit controls minimum necessary official"
+      ],
+      "run_started_utc": "2026-08-09T14:54:00Z",
+      "run_finished_utc": "2026-08-09T14:58:57Z"
+    },
+    {
+      "filename": "hh-02-physical-system-t1-baseline.json",
+      "sha256": "07c330fb06d0d61ed48ed6cd39a71c42a22262ac60ad6b9671bbee48bc51da42",
+      "word_count": 1584,
+      "case_id": "hh-02-physical-system",
+      "trial": 1,
+      "arm": "baseline",
+      "skill_sha256": "1d6dea7cdb5343aad114ad48fa9f010ea88bd8bf1ccb6c45059f88e1bfa4c4a6",
+      "prompt_sha256": "28d84a39168d5b6aa6b80cd4d3cde6c5a1ef929b5e89aac7adf07cc60a76807a",
+      "generation_context_id": "/root/hidden_generation_coordinator/hh02_t1_baseline_a1",
+      "model_identity": "gpt-5.6-sol (fresh collaboration-agent context, inherited current configuration)",
+      "model_configuration": "same inherited reasoning configuration for both arms; hidden internal reasoning budget uncontrolled",
+      "tool_access": "same_codex_tools_web_available_max4_queries",
+      "tool_call_count": 8,
+      "search_queries": [
+        "passive transparent ventilated acoustic barrier balcony railway 25 dB 50 Hz 5 kHz all incidence angles paper",
+        "acoustic metasurface ventilated sound insulation broadband low frequency subwavelength thickness paper",
+        "natural ventilation window traffic noise reduction plenum window field measurement paper dB",
+        "railway facade balcony acoustic screening sound reduction open window study"
+      ],
+      "run_started_utc": "2026-08-09T15:02:55Z",
+      "run_finished_utc": "2026-08-09T15:04:05Z"
+    },
+    {
+      "filename": "hh-02-physical-system-t1-candidate.json",
+      "sha256": "c394e4a608f7f17c9ed2cea7c3bb0d61cde70076437bd601266d590d915c5192",
+      "word_count": 1757,
+      "case_id": "hh-02-physical-system",
+      "trial": 1,
+      "arm": "candidate",
+      "skill_sha256": "ad61ff084f482d9e06b3398970be565bdd5d7d29c132b1a3dfd0c45bd88a4688",
+      "prompt_sha256": "28d84a39168d5b6aa6b80cd4d3cde6c5a1ef929b5e89aac7adf07cc60a76807a",
+      "generation_context_id": "/root/hidden_generation_coordinator/hh02_t1_candidate_a1",
+      "model_identity": "gpt-5.6-sol (fresh collaboration-agent context, inherited current configuration)",
+      "model_configuration": "same inherited reasoning configuration for both arms; hidden internal reasoning budget uncontrolled",
+      "tool_access": "same_codex_tools_web_available_max4_queries",
+      "tool_call_count": 13,
+      "search_queries": [
+        "passive ventilated acoustic metamaterial window broadband sound attenuation airflow transparent 50 Hz 5 kHz paper",
+        "acoustic metamaterial ventilated window sound insulation transparent airflow primary research",
+        "WHO environmental noise guidelines railway noise balcony facade primary official",
+        "building emergency egress balcony glazing opening requirements Europe official acoustic facade railway"
+      ],
+      "run_started_utc": "2026-08-09T15:03:08Z",
+      "run_finished_utc": "2026-08-09T15:05:46Z"
+    },
+    {
+      "filename": "hh-02-physical-system-t2-baseline.json",
+      "sha256": "730ff3124ee9e95c39e09929409315bd83b403e52f95ee1326a53f30980b3fe1",
+      "word_count": 1589,
+      "case_id": "hh-02-physical-system",
+      "trial": 2,
+      "arm": "baseline",
+      "skill_sha256": "1d6dea7cdb5343aad114ad48fa9f010ea88bd8bf1ccb6c45059f88e1bfa4c4a6",
+      "prompt_sha256": "28d84a39168d5b6aa6b80cd4d3cde6c5a1ef929b5e89aac7adf07cc60a76807a",
+      "generation_context_id": "/root/hidden_generation_coordinator/hh02_t2_baseline_a1",
+      "model_identity": "gpt-5.6-sol (fresh collaboration-agent context, inherited current configuration)",
+      "model_configuration": "same inherited reasoning configuration for both arms; hidden internal reasoning budget uncontrolled",
+      "tool_access": "same_codex_tools_web_available_max4_queries",
+      "tool_call_count": 8,
+      "search_queries": [
+        "site:nature.com ventilated acoustic metamaterial window broadband noise transparent airflow sound reduction",
+        "site:sciencedirect.com acoustic metamaterial ventilated window railway traffic noise low frequency 50 Hz",
+        "site:iso.org ISO 10140 sound insulation building elements laboratory airborne sound official",
+        "site:gov.uk railway noise facade sound insulation ventilation windows official guidance"
+      ],
+      "run_started_utc": "2026-08-09T15:09:22Z",
+      "run_finished_utc": "2026-08-09T15:10:10Z"
+    },
+    {
+      "filename": "hh-02-physical-system-t2-candidate.json",
+      "sha256": "29282a3409c28fd2844d8d59e823005aaa59297dfe34f4548ee64d9637a41f41",
+      "word_count": 1736,
+      "case_id": "hh-02-physical-system",
+      "trial": 2,
+      "arm": "candidate",
+      "skill_sha256": "ad61ff084f482d9e06b3398970be565bdd5d7d29c132b1a3dfd0c45bd88a4688",
+      "prompt_sha256": "28d84a39168d5b6aa6b80cd4d3cde6c5a1ef929b5e89aac7adf07cc60a76807a",
+      "generation_context_id": "/root/hidden_generation_coordinator/hh02_t2_candidate_a1",
+      "model_identity": "gpt-5.6-sol (fresh collaboration-agent context, inherited current configuration)",
+      "model_configuration": "same inherited reasoning configuration for both arms; hidden internal reasoning budget uncontrolled",
+      "tool_access": "same_codex_tools_web_available_max4_queries",
+      "tool_call_count": 10,
+      "search_queries": [
+        "site:sciencedirect.com plenum window natural ventilation sound insulation railway noise dB peer reviewed",
+        "site:nature.com transparent acoustic metasurface broadband ventilated sound insulation low frequency",
+        "site:iso.org ISO 10140 airborne sound insulation laboratory building elements ISO 16283 facade field measurements",
+        "site:eur-lex.europa.eu construction products regulation windows wind load emergency escape facade"
+      ],
+      "run_started_utc": "2026-08-09T15:09:33Z",
+      "run_finished_utc": "2026-08-09T15:11:38Z"
+    },
+    {
+      "filename": "hh-02-physical-system-t3-baseline.json",
+      "sha256": "c55a250d2d6cc1c06a9c02e7ce503ba25cf9b088950e534bfc68375d3ba884d2",
+      "word_count": 1971,
+      "case_id": "hh-02-physical-system",
+      "trial": 3,
+      "arm": "baseline",
+      "skill_sha256": "1d6dea7cdb5343aad114ad48fa9f010ea88bd8bf1ccb6c45059f88e1bfa4c4a6",
+      "prompt_sha256": "28d84a39168d5b6aa6b80cd4d3cde6c5a1ef929b5e89aac7adf07cc60a76807a",
+      "generation_context_id": "/root/hidden_generation_coordinator/hh02_t3_baseline_a2",
+      "model_identity": "gpt-5.6-sol (fresh collaboration-agent context, inherited current configuration)",
+      "model_configuration": "same inherited reasoning configuration for both arms; hidden internal reasoning budget uncontrolled",
+      "tool_access": "same_codex_tools_web_available_max4_queries",
+      "tool_call_count": 10,
+      "search_queries": [
+        "site:asa.scitation.org acoustically transparent ventilation window sound transmission loss low frequency paper",
+        "site:nature.com acoustic metamaterial ventilated window sound insulation transparent airflow paper",
+        "site:sciencedirect.com balcony railway noise barrier reduction field study dB",
+        "site:patents.google.com ventilated acoustic window transparent sound attenuation patent"
+      ],
+      "run_started_utc": "2026-08-09T15:20:00Z",
+      "run_finished_utc": "2026-08-09T15:23:00Z"
+    },
+    {
+      "filename": "hh-02-physical-system-t3-candidate.json",
+      "sha256": "b0424f35375648bf771f0dd6446b9fe3d61625e8c4950a7ddc55b25ebe2d4d70",
+      "word_count": 2027,
+      "case_id": "hh-02-physical-system",
+      "trial": 3,
+      "arm": "candidate",
+      "skill_sha256": "ad61ff084f482d9e06b3398970be565bdd5d7d29c132b1a3dfd0c45bd88a4688",
+      "prompt_sha256": "28d84a39168d5b6aa6b80cd4d3cde6c5a1ef929b5e89aac7adf07cc60a76807a",
+      "generation_context_id": "/root/hidden_generation_coordinator/hh02_t3_candidate_a2",
+      "model_identity": "gpt-5.6-sol (fresh collaboration-agent context, inherited current configuration)",
+      "model_configuration": "same inherited reasoning configuration for both arms; hidden internal reasoning budget uncontrolled",
+      "tool_access": "same_codex_tools_web_available_max4_queries",
+      "tool_call_count": 10,
+      "search_queries": [
+        "site:sciencedirect.com transparent ventilated acoustic metamaterial window broadband low frequency sound transmission loss open airflow",
+        "site:nature.com acoustic metamaterial window ventilation sound reduction transparent open window",
+        "site:mdpi.com balcony noise reduction railway transparent acoustic screen ventilation study",
+        "site:eur-lex.europa.eu EN 13501 balcony emergency egress facade fire safety opening regulations"
+      ],
+      "run_started_utc": "2026-08-09T15:19:41Z",
+      "run_finished_utc": "2026-08-09T15:21:07Z"
+    }
+  ]
+}

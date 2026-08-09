@@ -24,7 +24,12 @@ Adding process is not progress. Structural compliance is not capability. Visible
 - Candidate.1: rejected at structural gate.
 - Candidate.2: not promoted; +0.91% weighted point estimate, 95% relative interval −0.67% to +2.34%, novelty regression −0.246 points.
 - Candidate.3: three targeted causal-collision differentials passed; full frozen behavioral campaign was not run; independent replication not demonstrated.
-- Current frontier: H1 portfolio compression, pre-registered in `experiments/EXP-001-portfolio-compression.md`.
+- EXP-001 visible generation: **48/48**, with exact frozen prompts for `vr-01`–`vr-04` and the declared post-hoc near-equivalent-prompt amendment for `vr-05`–`vr-08`.
+- EXP-001 original visible judging is retained as history but superseded: its three persistent evaluator contexts produced 15–6–3.
+- Corrected visible rerun: **72/72 fresh per-assignment contexts**, 11–11–2 pair majorities and 34–34–4 votes.
+- Strict hidden holdout: **42/42 outputs and 63/63 fresh-context judgments**, with baseline winning 14–7 by pair majority and 38–25 by vote.
+- EXP-001 status: `EXP_001_COMPLETE`; verdict: `REJECT`. The accepted 2.0.0 skill remains unchanged.
+- Current frontier: test task-conditional breadth only through the unapproved EXP-002 adaptive-expansion draft; no production mutation is authorized.
 
 See `HISTORICAL_AUDIT.md` for the evidence map.
 
