@@ -39,9 +39,9 @@ Authoritative progress record for visible execution. EXP-001 Protocol Amendment 
 - baseline and candidate used identical wording within every affected case
 - no behavioral scoring was performed during adoption
 
-## Next phase
+## Completed judgment history
 
-Visible generation and frozen blind judging are complete:
+The original visible judging is retained for audit:
 
 - judgments locked: **72/72**
 - pairs: **24/24**
@@ -50,8 +50,16 @@ Visible generation and frozen blind judging are complete:
 - detailed analysis: `results/EXP-001/visible/analysis/VISIBLE_JUDGING_ANALYSIS.md`
 - protocol audit: `results/EXP-001/PROTOCOL_AUDIT_VISIBLE.md`
 
-Proceed to the strict post-freeze hidden holdout before any promotion decision.
+A corrected rerun then used one fresh context per pair-role assignment:
+
+- judgments: **72/72**
+- contexts: **72**
+- pair majorities: candidate 11, baseline 11, tie 2
+- votes: candidate 34, baseline 34, tie 4
+- corrected analysis: `results/EXP-001/visible/analysis/VISIBLE_INDEPENDENCE_RERUN_ANALYSIS.md`
+
+The strict hidden holdout is complete and the final EXP-001 verdict is `REJECT`.
 
 ## Scientific status
 
-48/48 visible generations and 72/72 blind judgments completed with the declared protocol deviation. Do not describe this campaign as exact-string preregistration compliant, external replication, or sufficient promotion evidence.
+48/48 visible generations are preserved with the declared prompt deviation. The original 72 judgments are historical; the 72-context rerun is authoritative for visible interpretation. Neither same-family rerun is external replication.

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "experiment_id": "EXP-001",
+  "state": "EXP_001_COMPLETE",
+  "verdict": "REJECT",
+  "accepted_skill_action": "UNCHANGED",
+  "candidate_action": "RETAIN_EXPERIMENTAL_ARTIFACT_DO_NOT_PROMOTE",
+  "production_mutation": false,
+  "visible_corrected": {
+    "pairs": 24,
+    "judgments": 72,
+    "pair_majorities": {"candidate": 11, "baseline": 11, "tie": 2},
+    "preferences": {"candidate": 34, "baseline": 34, "tie": 4},
+    "analysis_sha256": "6ab3645a894a2171190e8e755dc4a7b1b119039bef04f37a1ed8a851a2aa3290"
+  },
+  "hidden_holdout": {
+    "pairs": 21,
+    "judgments": 63,
+    "pair_majorities": {"candidate": 7, "baseline": 14, "tie": 0},
+    "preferences": {"candidate": 25, "baseline": 38, "tie": 0},
+    "candidate_win_rate": 0.3968253968253968,
+    "candidate_win_rate_cluster_bootstrap_95ci": [0.23809523809523808, 0.5714285714285714],
+    "analysis_sha256": "b8464d45028dab04cb02279e9991429b0b4a0e0923be7d5396710c594439454d"
+  },
+  "next_experiment": "EXP-002_DRAFT_ONLY"
+}

@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "experiment_id": "EXP-001",
+  "selector_independence": "fresh_context_no_visible_results_same_model_family",
+  "seed_string": "EXP-001-HIDDEN-HOLDOUT-V1|ad61ff084f482d9e06b3398970be565bdd5d7d29c132b1a3dfd0c45bd88a4688",
+  "cell_selection_procedure": "For each domain and each non-domain dimension, compute SHA-256 of `SEED_STRING|domain|dimension`; interpret the full hex digest as an integer; take modulo the number of options in the listed order. The resulting cell is mandatory.",
+  "cases": [
+    {
+      "id": "hh-01-software",
+      "domain": "software",
+      "selected_cell": {
+        "baseline_maturity": "moderate",
+        "evidence_availability": "rich",
+        "regulatory_burden": "medium",
+        "resource_constraint": "loose",
+        "deception_mode": "hidden_prior_art",
+        "primary_reasoning_need": "prior_art",
+        "novelty_feasibility_tension": "low"
+      },
+      "prompt": "A hospital billing SaaS product has 18 months of configuration histories, audit events, incident tickets, and reproducible test environments. Configuration errors cause delayed claims because several individually valid rule changes interact only after deployment. The company proposes a 'configuration time machine' that records every change, reconstructs prior states in a sandbox, and searches the change sequence for the first state that reproduces an error. It wants a defensible product intervention, not a renamed standard technique. Assess the proposal against the strongest practical prior art, identify any mechanism that would remain genuinely distinct, and specify a feasible implementation and evaluation. If no meaningful invention remains, recommend the best established approach and state that conclusion plainly. Account for patient-data access controls, auditability, integration effort, and false attribution of incidents.",
+      "why_discriminating": "The attractive proposal closely resembles established configuration versioning, replay, provenance, and change-bisection techniques. A strong response must recognize prior art, resist novelty theater, and either isolate a modest defensible delta or select the mature baseline.",
+      "visible_overlap_audit": {
+        "closest_visible_case": "vr-01",
+        "overlap_type": "surface-only",
+        "why_not_rewording": "Both concern software that retains historical information, but this task is about causal reconstruction of interacting configuration changes in regulated billing systems, not personal AI memory or user-controlled retrieval."
+      },
+      "expected_decision_pressure": [
+        "Distinguish a branded combination from an irreducible mechanism delta.",
+        "Compare against configuration-as-code, event replay, provenance graphs, and automated change bisection.",
+        "Prefer a low-risk established implementation if the claimed novelty disappears."
+      ]
+    },
+    {
+      "id": "hh-02-physical-system",
+      "domain": "physical_system",
+      "selected_cell": {
+        "baseline_maturity": "moderate",
+        "evidence_availability": "rich",
+        "regulatory_burden": "medium",
+        "resource_constraint": "tight",
+        "deception_mode": "impossible_premise",
+        "primary_reasoning_need": "prior_art",
+        "novelty_feasibility_tension": "high"
+      },
+      "prompt": "A retrofit supplier has laboratory spectra, facade measurements, wind-load data, and resident noise surveys for apartments beside an elevated railway. It claims a passive, transparent balcony insert under 30 mm thick can reduce incoming sound by at least 25 dB from 50 Hz to 5 kHz for every incidence angle while preserving essentially unrestricted airflow, daylight, view, and emergency egress. The installed cost must stay below EUR 900 per apartment, with no powered components or structural facade changes. Determine which requirements are physically incompatible, compare the concept with the strongest relevant prior art, and propose the most valuable feasible intervention within the cost and safety constraints. Quantify the expected performance envelope, tradeoffs, validation tests, and conditions under which the project should be stopped.",
+      "why_discriminating": "The prompt combines mutually hostile acoustic, ventilation, optical, geometric, and cost requirements. Quality depends on exposing the impossible premise, knowing relevant passive-control precedents, and replacing it with an honest performance envelope rather than optimizing fiction.",
+      "visible_overlap_audit": {
+        "closest_visible_case": "vr-02",
+        "overlap_type": "surface-only",
+        "why_not_rewording": "Both involve constrained physical infrastructure, but this case concerns broadband facade acoustics, airflow, transparency, and egress rather than water use in computing cooling."
+      },
+      "expected_decision_pressure": [
+        "Reject angle-independent broadband attenuation claims that conflict with aperture and thickness limits.",
+        "Use prior art such as laminated glazing, acoustic louvers, resonant absorbers, and partial balcony enclosures appropriately.",
+        "Choose which requirements to relax under a tight per-dwelling budget."
+      ]
+    },
+    {
+      "id": "hh-03-operations",
+      "domain": "operations",
+      "selected_cell": {
+        "baseline_maturity": "weak",
+        "evidence_availability": "mixed",
+        "regulatory_burden": "medium",
+        "resource_constraint": "loose",
+        "deception_mode": "obvious_simpler_substitute",
+        "primary_reasoning_need": "control",
+        "novelty_feasibility_tension": "high"
+      },
+      "prompt": "A regional pathology laboratory processes 4,000 biopsy slides per day. Its handoff records are inconsistent, and about 0.7% of slides require a search because trays are moved among cutting, staining, scanning, review, and archive stations without reliable location updates. Management can fund major equipment and proposes autonomous mobile robots with computer vision to track every slide continuously. Available evidence includes six months of search incidents, partial timestamps from instruments, staff observations, and incomplete tray logs. Design the operational intervention you would deploy first. Specify the control points, identifiers, exception states, reconciliation process, human fallback, success measures, and staged test. Explain whether any robotic or vision component creates a necessary mechanism beyond simpler custody controls, while preserving throughput, specimen integrity, and traceability obligations.",
+      "why_discriminating": "Abundant funding and an impressive automation concept tempt overengineering. The central challenge is designing a closed-loop custody-control system and recognizing when standardized identifiers, scans, station ownership, and exception reconciliation solve the bottleneck more directly.",
+      "visible_overlap_audit": {
+        "closest_visible_case": "vr-05",
+        "overlap_type": "surface-only",
+        "why_not_rewording": "Both may reward simplification, but this task concerns physical specimen custody, station-level controls, and regulated traceability rather than duplicated school reporting."
+      },
+      "expected_decision_pressure": [
+        "Select control-loop completeness over continuous-tracking spectacle.",
+        "Handle missed scans, split batches, rework, damaged labels, and urgent overrides explicitly.",
+        "Require evidence that robotics adds value after basic custody discipline is established."
+      ]
+    },
+    {
+      "id": "hh-04-scientific-method",
+      "domain": "scientific_method",
+      "selected_cell": {
+        "baseline_maturity": "moderate",
+        "evidence_availability": "mixed",
+        "regulatory_burden": "high",
+        "resource_constraint": "moderate",
+        "deception_mode": "impossible_premise",
+        "primary_reasoning_need": "problem_reframe",
+        "novelty_feasibility_tension": "medium"
+      },
+      "prompt": "Researchers developing a gene therapy for an ultra-rare pediatric disorder can recruit about 24 patients across four countries. Natural-history records are incomplete, disease progression varies by genotype, and regulators require credible evidence of durability and serious delayed harms. The sponsor asks for a 12-week, single-arm study that will prove the therapy causes lifelong clinical benefit for every treated child and has no long-term safety risk. Reframe the scientific question into claims the available program could validly address. Propose a study and evidence plan covering comparators, endpoints, follow-up, heterogeneity, missing data, causal assumptions, safety surveillance, and decision thresholds. State which requested conclusions remain impossible and what additional evidence would be required before stronger claims are justified.",
+      "why_discriminating": "The requested universal lifetime guarantees cannot follow from a small short study. A good response must replace an impossible proof demand with decision-relevant estimands and a staged evidence program suitable for a rare, heterogeneous, highly regulated setting.",
+      "visible_overlap_audit": {
+        "closest_visible_case": "none",
+        "overlap_type": "none",
+        "why_not_rewording": "No visible task addresses rare-disease causal inference, longitudinal safety, surrogate endpoints, external controls, or regulatory evidence design."
+      },
+      "expected_decision_pressure": [
+        "Refuse universal efficacy and zero-risk conclusions.",
+        "Reframe around estimable effects, uncertainty, durability signals, and surveillance commitments.",
+        "Balance external controls and natural-history evidence against confounding and small-sample limits."
+      ]
+    },
+    {
+      "id": "hh-05-economic-system",
+      "domain": "economic_system",
+      "selected_cell": {
+        "baseline_maturity": "moderate",
+        "evidence_availability": "rich",
+        "regulatory_burden": "high",
+        "resource_constraint": "loose",
+        "deception_mode": "fake_ai_opportunity",
+        "primary_reasoning_need": "causal_ablation",
+        "novelty_feasibility_tension": "high"
+      },
+      "prompt": "A state electricity regulator wants to reduce both household arrears and evening peak demand. It has five years of interval-meter data, billing and disconnection histories, weather, tariff assignments, program contacts, and census-linked vulnerability indicators. A vendor proposes an AI system that personalizes bill credits, conservation messages, and payment-plan offers for each household, claiming the model itself will produce most of the benefit. Funding supports a large field trial, but tariff fairness, explainability, nondiscrimination, and due-process requirements are strict. Design the policy intervention and causal evaluation. Include ablations that separate predictive targeting from credit size, message content, timing, and human support; define welfare, equity, peak-load, arrears, and adverse-outcome measures; and specify assignment, guardrails, audit rules, and deployment criteria. Recommend a simpler policy if the AI-specific contribution is not material.",
+      "why_discriminating": "Rich data can make prediction look like causation. The task tests whether the response can isolate the incremental value of adaptive modeling from money, communications, timing, and support while respecting regulated distributional consequences.",
+      "visible_overlap_audit": {
+        "closest_visible_case": "vr-03",
+        "overlap_type": "surface-only",
+        "why_not_rewording": "AI is present in both, but this is a regulated tariff-and-welfare experiment with causal ablations, not a tutoring marketplace or a false claim based on matching and payments."
+      },
+      "expected_decision_pressure": [
+        "Separate treatment-effect improvement from ordinary risk prediction.",
+        "Measure transfers, rebound effects, exclusion errors, and distributional harms alongside aggregate outcomes.",
+        "Adopt transparent rules if complex personalization lacks incremental causal value."
+      ]
+    },
+    {
+      "id": "hh-06-product-strategy",
+      "domain": "product_strategy",
+      "selected_cell": {
+        "baseline_maturity": "moderate",
+        "evidence_availability": "sparse",
+        "regulatory_burden": "medium",
+        "resource_constraint": "tight",
+        "deception_mode": "none",
+        "primary_reasoning_need": "causal_ablation",
+        "novelty_feasibility_tension": "low"
+      },
+      "prompt": "A startup has eight weeks, two engineers, and six pilot sites to test a product for small food manufacturers that struggle to document allergen-cleaning changeovers. Current practice combines paper checklists, supervisor sign-off, and occasional photos; only nine customer interviews and two anonymized audit reports are available. The proposed product guides operators through timed steps, captures photo evidence, alerts a supervisor to deviations, and exports an audit packet. Define the narrowest product and go-to-market experiment that can establish whether the workflow creates enough value to continue. Specify the target user and buyer, riskiest assumptions, minimum implementation, pricing signal, adoption and compliance outcomes, and causal ablations that distinguish guided workflow from reminders, digitized forms, intensive onboarding, and management attention. Include stop, iterate, and scale criteria.",
+      "why_discriminating": "With sparse evidence and little runway, a polished bundle could produce misleading pilot enthusiasm. The response must focus the product, isolate which feature changes behavior, and use concrete continuation thresholds without manufacturing novelty.",
+      "visible_overlap_audit": {
+        "closest_visible_case": "none",
+        "overlap_type": "none",
+        "why_not_rewording": "No visible prompt concerns allergen changeover evidence, compliance workflow adoption, buyer validation, or feature-level product experimentation."
+      },
+      "expected_decision_pressure": [
+        "Trade feature breadth against learnings achievable in eight weeks.",
+        "Separate software effects from onboarding and observer attention.",
+        "Use behavioral, compliance, willingness-to-pay, and retention signals rather than stated enthusiasm."
+      ]
+    },
+    {
+      "id": "hh-07-public-service",
+      "domain": "public_service",
+      "selected_cell": {
+        "baseline_maturity": "strong",
+        "evidence_availability": "sparse",
+        "regulatory_burden": "low",
+        "resource_constraint": "moderate",
+        "deception_mode": "buzzword_bundling",
+        "primary_reasoning_need": "measurement",
+        "novelty_feasibility_tension": "high"
+      },
+      "prompt": "A city sanitation department already completes 96% of scheduled litter-bin collections on time, but overflow complaints spike unpredictably around markets, festivals, and nightlife districts. Local evidence is limited to complaint records, route completion logs, and a two-week manual count from 40 bins. A vendor proposes a 'civic intelligence platform' combining AI vision, a city digital twin, blockchain-verified collections, drone inspection, and dynamic routing. The city can fund a six-month pilot in two districts. Define the measurement system and intervention test that should precede any broad purchase. Specify the outcome definitions, sampling design, ground truth, comparison strategy, operational baselines, decision thresholds, costs, gaming risks, and resident impacts. Identify which proposed components, if any, are necessary to improve the service and what lower-complexity alternative should be tested.",
+      "why_discriminating": "A strong existing service and sparse local measurements make a technology bundle easy to credit for regression to the mean or better attention. The task requires reliable overflow measurement, a credible comparison, and component necessity tests before procurement.",
+      "visible_overlap_audit": {
+        "closest_visible_case": "vr-08",
+        "overlap_type": "surface-only",
+        "why_not_rewording": "Both concern constrained public-facing service operations, but this case evaluates urban waste measurement and technology procurement rather than rural clinical scheduling under power and staffing constraints."
+      },
+      "expected_decision_pressure": [
+        "Define ground truth before optimizing routes or buying sensors.",
+        "Compare demand-aware scheduling and targeted manual checks with the full technology bundle.",
+        "Account for complaint bias, displaced overflow, missed collections, worker burden, and procurement lock-in."
+      ]
+    }
+  ],
+  "global_overlap_audit": "The seven holdout tasks use distinct central problems and mechanisms: configuration provenance, balcony acoustics, pathology specimen custody, rare-disease evidence design, regulated electricity incentives, allergen-changeover product validation, and municipal litter measurement. None lightly rewords a visible regression case. Surface similarities are limited to broad categories such as software history, physical infrastructure, simplification, AI, or public-service constraints; the actors, bottlenecks, mechanisms, evidence structures, and required decisions differ materially.",
+  "selection_limitations": [
+    "semantic wording authored by one same-model-family selector; deterministic procedure fixes cells but not prose"
+  ]
+}

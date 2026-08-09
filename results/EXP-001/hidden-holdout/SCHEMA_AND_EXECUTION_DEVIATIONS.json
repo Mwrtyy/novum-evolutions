@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "experiment_id": "EXP-001",
+  "phase": "hidden_holdout",
+  "status": "DISCLOSED_BEFORE_FINAL_INTERPRETATION",
+  "items": [
+    {"id": "prompt-materialization-trailing-lf", "count": 42, "change": "Each materialized prompt file contained the exact frozen JSON prompt string plus one trailing LF. Run records preserve the materialized-file SHA; the output manifest records both hashes.", "classification": "harmless"},
+    {"id": "discarded-generation-pair-retries", "count": 2, "change": "hh-01 trial 3 and hh-02 trial 3 first attempts were discarded before blinding because one mate was malformed or used invalid metadata; both arms were rerun in fresh contexts.", "classification": "limitation", "source": "GENERATION_EXECUTION_PARTIAL_MANIFEST-hh01-hh02.json"},
+    {"id": "generation-record-schema-repair", "count": 3, "change": "Three accepted run records used synonymous metadata keys. The original answer text was not regenerated or edited; keys were normalized and then the complete 42-run validator was rerun.", "classification": "harmless"},
+    {"id": "judgment-independence-key-normalization", "count": 13, "change": "Before the judgment lock and before mapping reveal, independence_level was mechanically renamed to the required independence key. Scores, preferences, flags, rationales, and evaluator IDs were unchanged.", "classification": "harmless"},
+    {"id": "conservative-independence-labels", "count": 3, "change": "Three fresh per-packet evaluator contexts self-reported separate_context_same_model rather than the more specific extension separate_context_same_model_per_packet. The lower claim is preserved in the lock.", "classification": "harmless"},
+    {"id": "global-skill-os-isolation", "count": 42, "change": "Agents were explicitly limited to the frozen local skill, but the globally installed candidate could not be excluded by an OS-level model sandbox.", "classification": "limitation"},
+    {"id": "same-model-family", "count": 105, "change": "All 42 generators and 63 judges used fresh contexts in the same model family and inherited configuration; this is not external replication.", "classification": "limitation"}
+  ],
+  "invalidating_hidden_holdout_deviations": []
+}

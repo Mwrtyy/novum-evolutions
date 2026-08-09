@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "experiment_id": "EXP-001",
+  "phase": "visible_blind_judging_per_packet_rerun",
+  "status": "JUDGMENTS_LOCKED_MAPPING_NOT_USED",
+  "pair_count": 24,
+  "judgment_count": 72,
+  "roles": [
+    "hostile_regression",
+    "simplicity",
+    "domain_or_generalist"
+  ],
+  "dimensions": [
+    "mechanism_novelty",
+    "mechanistic_depth",
+    "constraint_fit",
+    "usefulness",
+    "evidence_calibration",
+    "falsifiability",
+    "prior_art_awareness",
+    "simpler_substitute_discipline",
+    "clarity"
+  ],
+  "judgment_set_sha256": "353bd6562048e9d911398a528e21b7def7386a7541a541f33d76eb6d9a36aca7",
+  "pair_ids_sha256": "5a32abdeb98f392f2477ed11be77b011c1984965ea89e819b18a45cdc5283417",
+  "mapping_used_during_validation_or_lock": false,
+  "independence_counts": {
+    "separate_context_same_model_per_packet": 72
+  }
+}

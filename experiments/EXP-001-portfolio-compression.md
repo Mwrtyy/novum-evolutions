@@ -1,6 +1,6 @@
 # EXP-001 — Portfolio compression
 
-Status: `MUTATION_FROZEN_READY_FOR_VISIBLE_EXECUTION`
+Status: `COMPLETE_REJECTED`
 
 ## Exact uncertainty
 
@@ -91,4 +91,12 @@ Secondary:
 - hidden holdout: `NOT_GENERATED_NOT_SELECTED_NOT_EXPOSED`
 - behavioral evidence: `NOT_RUN`
 
-No result exists yet. Do not treat this file as evidence for H1a.
+## Final result
+
+The original visible result was superseded by a 72-fresh-context rerun: candidate 11, baseline 11, tie 2 by pair majority.
+
+The strict hidden holdout used 21 pairs and 63 fresh-context judgments. Baseline won 14–7 by pair majority and 38–25 by individual preference. Mean candidate-minus-baseline deltas were -0.067 for mechanism novelty and -0.021 for mechanistic depth. All dimension intervals included zero.
+
+H1a is not supported. Verdict: `REJECT`. The accepted NOVUM 2.0.0 skill remains unchanged; the frozen candidate is retained only as an experimental artifact.
+
+See `results/EXP-001/FINAL_REPORT.md` and `results/EXP-001/PROTOCOL_AUDIT_FINAL.md`.

@@ -1,0 +1,149 @@
+{
+  "hh-01-software-t1": {
+    "A": "candidate",
+    "B": "baseline",
+    "pair_id": "hh-01-software-t1",
+    "case_id": "hh-01-software",
+    "trial": 1
+  },
+  "hh-01-software-t2": {
+    "A": "baseline",
+    "B": "candidate",
+    "pair_id": "hh-01-software-t2",
+    "case_id": "hh-01-software",
+    "trial": 2
+  },
+  "hh-01-software-t3": {
+    "A": "baseline",
+    "B": "candidate",
+    "pair_id": "hh-01-software-t3",
+    "case_id": "hh-01-software",
+    "trial": 3
+  },
+  "hh-02-physical-system-t1": {
+    "A": "candidate",
+    "B": "baseline",
+    "pair_id": "hh-02-physical-system-t1",
+    "case_id": "hh-02-physical-system",
+    "trial": 1
+  },
+  "hh-02-physical-system-t2": {
+    "A": "baseline",
+    "B": "candidate",
+    "pair_id": "hh-02-physical-system-t2",
+    "case_id": "hh-02-physical-system",
+    "trial": 2
+  },
+  "hh-02-physical-system-t3": {
+    "A": "candidate",
+    "B": "baseline",
+    "pair_id": "hh-02-physical-system-t3",
+    "case_id": "hh-02-physical-system",
+    "trial": 3
+  },
+  "hh-03-operations-t1": {
+    "A": "candidate",
+    "B": "baseline",
+    "pair_id": "hh-03-operations-t1",
+    "case_id": "hh-03-operations",
+    "trial": 1
+  },
+  "hh-03-operations-t2": {
+    "A": "baseline",
+    "B": "candidate",
+    "pair_id": "hh-03-operations-t2",
+    "case_id": "hh-03-operations",
+    "trial": 2
+  },
+  "hh-03-operations-t3": {
+    "A": "baseline",
+    "B": "candidate",
+    "pair_id": "hh-03-operations-t3",
+    "case_id": "hh-03-operations",
+    "trial": 3
+  },
+  "hh-04-scientific-method-t1": {
+    "A": "baseline",
+    "B": "candidate",
+    "pair_id": "hh-04-scientific-method-t1",
+    "case_id": "hh-04-scientific-method",
+    "trial": 1
+  },
+  "hh-04-scientific-method-t2": {
+    "A": "baseline",
+    "B": "candidate",
+    "pair_id": "hh-04-scientific-method-t2",
+    "case_id": "hh-04-scientific-method",
+    "trial": 2
+  },
+  "hh-04-scientific-method-t3": {
+    "A": "candidate",
+    "B": "baseline",
+    "pair_id": "hh-04-scientific-method-t3",
+    "case_id": "hh-04-scientific-method",
+    "trial": 3
+  },
+  "hh-05-economic-system-t1": {
+    "A": "candidate",
+    "B": "baseline",
+    "pair_id": "hh-05-economic-system-t1",
+    "case_id": "hh-05-economic-system",
+    "trial": 1
+  },
+  "hh-05-economic-system-t2": {
+    "A": "baseline",
+    "B": "candidate",
+    "pair_id": "hh-05-economic-system-t2",
+    "case_id": "hh-05-economic-system",
+    "trial": 2
+  },
+  "hh-05-economic-system-t3": {
+    "A": "candidate",
+    "B": "baseline",
+    "pair_id": "hh-05-economic-system-t3",
+    "case_id": "hh-05-economic-system",
+    "trial": 3
+  },
+  "hh-06-product-strategy-t1": {
+    "A": "candidate",
+    "B": "baseline",
+    "pair_id": "hh-06-product-strategy-t1",
+    "case_id": "hh-06-product-strategy",
+    "trial": 1
+  },
+  "hh-06-product-strategy-t2": {
+    "A": "baseline",
+    "B": "candidate",
+    "pair_id": "hh-06-product-strategy-t2",
+    "case_id": "hh-06-product-strategy",
+    "trial": 2
+  },
+  "hh-06-product-strategy-t3": {
+    "A": "candidate",
+    "B": "baseline",
+    "pair_id": "hh-06-product-strategy-t3",
+    "case_id": "hh-06-product-strategy",
+    "trial": 3
+  },
+  "hh-07-public-service-t1": {
+    "A": "baseline",
+    "B": "candidate",
+    "pair_id": "hh-07-public-service-t1",
+    "case_id": "hh-07-public-service",
+    "trial": 1
+  },
+  "hh-07-public-service-t2": {
+    "A": "baseline",
+    "B": "candidate",
+    "pair_id": "hh-07-public-service-t2",
+    "case_id": "hh-07-public-service",
+    "trial": 2
+  },
+  "hh-07-public-service-t3": {
+    "A": "baseline",
+    "B": "candidate",
+    "pair_id": "hh-07-public-service-t3",
+    "case_id": "hh-07-public-service",
+    "trial": 3
+  }
+}

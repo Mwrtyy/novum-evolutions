@@ -9,35 +9,37 @@ Behaviorally superior invention performance on unseen tasks with acceptable comp
 - NOVUM 2.0.0 remains the immutable accepted baseline.
 - Candidate.1 is rejected.
 - Candidate.2 is not promoted; its measured gain is too small/uncertain and novelty regressed.
-- Candidate.3 is a research artifact only; targeted collision repairs do not establish behavioral superiority.
-- Visible frozen tasks are regression material, not final unseen evidence.
-- Structural compliance is not a promotion criterion by itself.
+- Candidate.3 is a research artifact only.
+- EXP-001's fixed four-candidate mutation is rejected.
+- Structural compliance and visible regressions are not promotion criteria by themselves.
 
-## Current evidence and unresolved frontier
+## EXP-001 completed evidence
 
-EXP-001 visible execution and blind judging are complete:
+The historical visible result (15–6–3) used only three persistent evaluator contexts and is superseded for confirmatory interpretation.
 
-- 48/48 visible outputs;
-- 72/72 judgments locked before reveal;
-- pair-majority result: candidate 15, baseline 6, tie 3;
-- judge preferences: candidate 43, baseline 22, tie 7;
-- all mean dimension deltas are non-negative, but effects are small and uncertainty intervals usually include zero;
-- visible regressions remain on private-memory and simplify-not-invent cases;
-- `vr-05`–`vr-08` retain the declared post-hoc near-equivalent-prompt deviation;
-- evaluators were fresh contexts from the same model family, not external replication.
+The corrected visible rerun used 72 fresh per-assignment contexts:
 
-The unresolved frontier is now:
+- pair majorities: candidate 11, baseline 11, tie 2;
+- votes: candidate 34, baseline 34, tie 4;
+- intended novelty/depth improvements were not established.
 
-**Does the weak-to-moderate visible signal survive a strict post-freeze hidden holdout with exact paired prompts?**
+The strict hidden holdout used 42 fresh generation contexts and 63 fresh evaluator contexts:
 
-No EXP-001 promotion or rejection decision is authorized until that holdout and a protocol audit are complete.
+- pair majorities: candidate 7, baseline 14;
+- votes: candidate 25, baseline 38;
+- candidate judgment win rate: 0.397, pair-cluster bootstrap 95% interval [0.238, 0.571];
+- mechanism novelty delta: -0.067;
+- mechanistic depth delta: -0.021;
+- all dimension intervals included zero.
 
-## Next hypotheses after EXP-001, only if still relevant
+Visible and hidden results are reported separately. The accepted NOVUM 2.0.0 skill is unchanged.
 
-- H2 independent generation contexts reduce anchoring.
-- H3 late scoring reduces false precision.
-- H4 stronger simpler-substitute elimination reduces overengineering.
-- H5 causal ablation improves depth/falsifiability.
-- H6 search-budget reallocation improves defensible novelty.
+## Current frontier
 
-Do not pre-implement H2–H6. EXP-001 may change which question is highest value.
+The fixed global breadth reduction failed. The remaining high-value uncertainty is task conditionality:
+
+**Can a pre-frozen adaptive expansion gate start with four candidates, expand only when mechanism diversity or collision evidence is insufficient, and beat the accepted baseline without adding material cost or post-hoc flexibility?**
+
+`experiments/EXP-002-adaptive-portfolio-breadth.md` is a draft only. Before execution it requires frozen thresholds, analysis, task stratification, and preferably a human or separate-model-family replication layer.
+
+Do not pre-implement the gate or mutate production from EXP-001's heterogeneous case results.
