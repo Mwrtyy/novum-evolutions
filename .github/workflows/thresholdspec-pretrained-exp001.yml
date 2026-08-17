@@ -1,10 +1,6 @@
 name: ThresholdSpec pretrained EXP-001
 
 on:
-  pull_request:
-    paths:
-      - 'research/thresholdspec/**'
-      - '.github/workflows/thresholdspec-pretrained-exp001.yml'
   workflow_dispatch:
 
 permissions:
