@@ -1,11 +1,6 @@
 name: ArgmaxSpec greedy EXP-003
 
 on:
-  pull_request:
-    paths:
-      - 'research/thresholdspec/EXP-TS-003-greedy-argmax.md'
-      - 'research/thresholdspec/greedy_argmax_benchmark.py'
-      - '.github/workflows/thresholdspec-greedy-exp003.yml'
   workflow_dispatch:
 
 permissions:
