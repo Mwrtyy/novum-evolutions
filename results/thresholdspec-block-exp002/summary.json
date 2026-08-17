@@ -1,0 +1,28 @@
+{
+  "batch_size": 8,
+  "blocks": 256,
+  "bound_status": "EMPIRICAL_ONLY_NOT_FORMAL_CERTIFICATE",
+  "calibration_blocks": 128,
+  "context_tokens": 32,
+  "draft_model": "HuggingFaceTB/SmolLM2-135M",
+  "elapsed_seconds": 185.43145108222961,
+  "group_size": 64,
+  "int8_cal_max_logp_error": 0.2230668067932129,
+  "int8_test_max_logp_error": 0.3151683807373047,
+  "kmax": 8,
+  "per_k": {
+    "1": {"all_accept_rate": 0.734375, "empirical_all_positions_cert_rate": 0.8984375, "empirical_can_skip_full_rate": 0.6640625, "empirical_full_fallback_rate": 0.3359375, "empirical_ideal_bit_cost": 13.375, "mean_first_rejection_position_or_Kplus1": 1.734375, "oracle_full_fallback_rate": 0.265625, "oracle_ideal_bit_cost": 12.25},
+    "2": {"all_accept_rate": 0.4296875, "empirical_all_positions_cert_rate": 0.7421875, "empirical_can_skip_full_rate": 0.3515625, "empirical_full_fallback_rate": 0.6484375, "empirical_ideal_bit_cost": 18.375, "mean_first_rejection_position_or_Kplus1": 2.1640625, "oracle_full_fallback_rate": 0.5703125, "oracle_ideal_bit_cost": 17.125},
+    "4": {"all_accept_rate": 0.203125, "empirical_all_positions_cert_rate": 0.5078125, "empirical_can_skip_full_rate": 0.109375, "empirical_full_fallback_rate": 0.890625, "empirical_ideal_bit_cost": 22.25, "mean_first_rejection_position_or_Kplus1": 2.640625, "oracle_full_fallback_rate": 0.796875, "oracle_ideal_bit_cost": 20.75},
+    "6": {"all_accept_rate": 0.125, "empirical_all_positions_cert_rate": 0.34375, "empirical_can_skip_full_rate": 0.0625, "empirical_full_fallback_rate": 0.9375, "empirical_ideal_bit_cost": 23.0, "mean_first_rejection_position_or_Kplus1": 2.9296875, "oracle_full_fallback_rate": 0.875, "oracle_ideal_bit_cost": 22.0},
+    "8": {"all_accept_rate": 0.0859375, "empirical_all_positions_cert_rate": 0.2265625, "empirical_can_skip_full_rate": 0.046875, "empirical_full_fallback_rate": 0.953125, "empirical_ideal_bit_cost": 23.25, "mean_first_rejection_position_or_Kplus1": 3.1171875, "oracle_full_fallback_rate": 0.9140625, "oracle_ideal_bit_cost": 22.625}
+  },
+  "preregistered_decision": "STOP_STOCHASTIC",
+  "seed": 20260817,
+  "status": "COMPLETE",
+  "target_model": "HuggingFaceTB/SmolLM2-360M",
+  "test_blocks": 128,
+  "actions_run_id": 32021994656,
+  "actions_artifact_id": 9285789717,
+  "actions_artifact_sha256": "df6332b3e61452b7e7475c4288ed34ddf7f1905ad010d9720c39aafb7787bb5f"
+}
