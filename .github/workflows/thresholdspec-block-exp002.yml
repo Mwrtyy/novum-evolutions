@@ -1,11 +1,6 @@
 name: ThresholdSpec stochastic block EXP-002
 
 on:
-  pull_request:
-    paths:
-      - 'research/thresholdspec/EXP-TS-002-block-economics.md'
-      - 'research/thresholdspec/block_benchmark.py'
-      - '.github/workflows/thresholdspec-block-exp002.yml'
   workflow_dispatch:
 
 permissions:
